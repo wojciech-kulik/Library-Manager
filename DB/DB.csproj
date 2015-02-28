@@ -74,6 +74,11 @@
     <Compile Include="LentBook.cs">
       <DependentUpon>LibraryManager.tt</DependentUpon>
     </Compile>
+    <Compile Include="LibraryManager.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryManager.tt</DependentUpon>
+    </Compile>
     <Compile Include="Person.cs">
       <DependentUpon>LibraryManager.tt</DependentUpon>
     </Compile>
@@ -118,6 +123,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LibraryManager.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

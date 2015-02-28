@@ -26,6 +26,7 @@ namespace ClientApplication.Views
         public MainWindowView()
         {
             InitializeComponent();
+            //App.SelectCulture("pl-PL");
         }
 
         private void Hyperlink_PreviewMouseDown(object sender, MouseButtonEventArgs e)

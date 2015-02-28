@@ -1,5 +1,4 @@
 ﻿using Caliburn.Micro;
-using ClientApplication.DBService;
 using Common;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace ClientApplication.ViewModels
 {
     public class BookDetailsViewModel : BaseViewModel        
     {
-        public BookDetailsViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<DatabaseServiceClient> dbServiceManager)
+        public BookDetailsViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<IDatabaseService> dbServiceManager)
             : base(navigationService, windowManager, dbServiceManager)
         {
             Book = new BookDTO() { BookCategories = new ObservableCollection<BookCategoryDTO>(), Authors = new ObservableCollection<AuthorDTO>() };

@@ -8,7 +8,6 @@ using System.Windows;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
-using ClientApplication.DBService;
 using System.ComponentModel.Composition.Hosting;
 using AutoMapper;
 using Common;
@@ -21,7 +20,7 @@ namespace ClientApplication.ViewModels
     {
         ISettingsService _settingsService;
 
-        public MainWindowViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<DatabaseServiceClient> dbServiceManager, ISettingsService settingsService)
+        public MainWindowViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<IDatabaseService> dbServiceManager, ISettingsService settingsService)
             : base(navigationService, windowManager, dbServiceManager)
         { 
             //RefreshClients();

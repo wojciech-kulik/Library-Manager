@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using System.Globalization;
-using ClientApplication.DBService;
+using Common;
 
 namespace ClientApplication.Converters
 {

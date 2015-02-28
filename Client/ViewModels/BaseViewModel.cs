@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Caliburn.Micro;
 using System.ComponentModel.Composition;
-using ClientApplication.DBService;
 using Common;
 
 namespace ClientApplication.ViewModels
@@ -12,10 +11,10 @@ namespace ClientApplication.ViewModels
     public class BaseViewModel : Screen
     {
         protected IWindowManager _windowManager;
-        protected IDBServiceManager<DatabaseServiceClient> _dbServiceManager;
+        protected IDBServiceManager<IDatabaseService> _dbServiceManager;
         protected INavigationService _navigationService;
 
-        public BaseViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<DatabaseServiceClient> dbServiceManager)
+        public BaseViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<IDatabaseService> dbServiceManager)
         {           
             _windowManager = windowManager;
             _dbServiceManager = dbServiceManager;

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Caliburn.Micro;
-using ClientApplication.DBService;
 using Common;
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace ClientApplication.ViewModels
     {
         ISettingsService _settingsService;
 
-        public UsersListViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<DatabaseServiceClient> dbServiceManager, ISettingsService settingsService)
+        public UsersListViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<IDatabaseService> dbServiceManager, ISettingsService settingsService)
             : base(navigationService, windowManager, dbServiceManager)
         {
             RefreshUsers();

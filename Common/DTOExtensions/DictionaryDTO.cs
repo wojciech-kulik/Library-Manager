@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Common;
 
-namespace ClientApplication.DBService
+namespace Common
 {
     public partial class BookDTO
     {

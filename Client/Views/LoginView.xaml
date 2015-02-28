@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:myCtrls="clr-namespace:ClientApplication.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="Biblioteka 1.0 [beta]" Height="292.517" Width="389.923" MinWidth="350" MinHeight="250"
+        Height="292.517" Width="389.923" MinWidth="350" MinHeight="250"
         WindowStartupLocation="CenterOwner" Background="#FF3E3E3E" 
         ShowInTaskbar="False" KeyDown="OnKeyDown" Foreground="White" WindowStyle="ToolWindow" ResizeMode="NoResize">
     <Grid>

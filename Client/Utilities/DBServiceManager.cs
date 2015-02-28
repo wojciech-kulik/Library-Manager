@@ -1,14 +1,14 @@
 ﻿using Common;
-using ClientApplication.DBService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBService;
 
 namespace ClientApplication.Utilities
 {
-    public class DBServiceManager : IDBServiceManager<DatabaseServiceClient>
+    public class DBServiceManager : IDBServiceManager<IDatabaseService>
     { 
         private ISettingsService _settingsService;
 
@@ -17,11 +17,9 @@ namespace ClientApplication.Utilities
             _settingsService = settingsService;
         }
 
-        public DatabaseServiceClient GetService()
+        public IDatabaseService GetService()
         {
-            var service = new DatabaseServiceClient();
-            service.ClientCredentials.UserName.UserName = _settingsService.Username;
-            service.ClientCredentials.UserName.Password = _settingsService.Password;
+            var service = new DatabaseService();
 
             return service;
         }

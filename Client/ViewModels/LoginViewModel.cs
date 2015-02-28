@@ -1,5 +1,4 @@
 ﻿using Caliburn.Micro;
-using ClientApplication.DBService;
 using Common;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace ClientApplication.ViewModels
     {
         private ISettingsService _settingsService;
 
-        public LoginViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<DatabaseServiceClient> dbServiceManager, ISettingsService settingsService)
+        public LoginViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<IDatabaseService> dbServiceManager, ISettingsService settingsService)
             : base(navigationService, windowManager, dbServiceManager)
         {
             _settingsService = settingsService;
@@ -80,28 +79,15 @@ namespace ClientApplication.ViewModels
             _settingsService.Username = Username;
             _settingsService.Password = Password;
 
-            var dbService = _dbServiceManager.GetService();
+            var dbService = _dbServiceManager.GetService();              
             try
-            {                
-                try
-                {
-                    dbService.TestAuthorization();
-                    TryClose(true);
-                }
-                catch (System.ServiceModel.Security.MessageSecurityException)
-                {
-                    MessageBox.Show("Podany użytkownik nie został znaleziony lub hasło jest nieprawidłowe.", "Nieprawidłowe dane", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
-            } 
-            finally
             {
-                try
-                {
-                    dbService.Close();
-                }
-                catch
-                {
-                }
+                dbService.TestAuthorization();
+                TryClose(true);
+            }
+            catch (System.ServiceModel.Security.MessageSecurityException)
+            {
+                MessageBox.Show("Podany użytkownik nie został znaleziony lub hasło jest nieprawidłowe.", "Nieprawidłowe dane", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

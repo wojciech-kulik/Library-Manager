@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientApplication.DBService
+namespace Common
 {
     public partial class PersonDTO
     {

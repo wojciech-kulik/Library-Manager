@@ -59,13 +59,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
-      <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
     <Reference Include="Caliburn.Micro">
       <HintPath>..\packages\Caliburn.Micro.1.5.1\lib\net45\Caliburn.Micro.dll</HintPath>
-    </Reference>
-    <Reference Include="ExceptionReporter.WinForms">
-      <HintPath>..\packages\ExceptionReporter.2.1.1\lib\ExceptionReporter.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -118,16 +118,7 @@
     <Compile Include="Converters\NullToEnabledConverter.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
-    <Compile Include="DTOExtensions\DictionaryDTO.cs" />
-    <Compile Include="DTOExtensions\EmployeeDTO.cs" />
-    <Compile Include="DTOExtensions\LentBookDTO.cs" />
-    <Compile Include="DTOExtensions\PersonDTO.cs" />
     <Compile Include="Caliburn.Micro\MyWindowManager.cs" />
-    <Compile Include="Service References\DBService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\NavigationService.cs" />
     <Compile Include="Utilities\SettingsService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -265,40 +256,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\DBService\ClientApplication.DBService.AuthorDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DBService\ClientApplication.DBService.BookCategoryDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DBService\ClientApplication.DBService.BookDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DBService\ClientApplication.DBService.ClientDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DBService\ClientApplication.DBService.EmployeeDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DBService\ClientApplication.DBService.LendingDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DBService\ClientApplication.DBService.LentBookDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DBService\ClientApplication.DBService.PublisherDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DBService\DatabaseService.wsdl" />
-    <None Include="Service References\DBService\DatabaseService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\DBService\DatabaseService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\DBService\DatabaseService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -386,17 +343,6 @@
     <Resource Include="Views\Images\users.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <None Include="Service References\DBService\DatabaseService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\DBService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\DBService\configuration.svcinfo" />
-    <None Include="Service References\DBService\configuration91.svcinfo" />
-    <None Include="Service References\DBService\DatabaseService.disco" />
-    <Resource Include="ExceptionReporter.WinForms.xml" />
     <Content Include="Images\accept.png" />
     <Content Include="Images\add_book.png" />
     <Content Include="Images\cancel.ico" />
@@ -426,14 +372,13 @@
       <Project>{e9018dff-0f7a-4dc6-a330-5edcb75acbfa}</Project>
       <Name>Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\DBService\" />
+    <ProjectReference Include="..\DatabaseService\DatabaseService.csproj">
+      <Project>{ac770801-24d7-499f-86fa-e0dfcb350c76}</Project>
+      <Name>DatabaseService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

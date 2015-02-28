@@ -1,5 +1,4 @@
 ﻿using Caliburn.Micro;
-using ClientApplication.DBService;
 using ClientApplication.ViewModels;
 using Common;
 using System;

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Caliburn.Micro;
-using ClientApplication.DBService;
 using Common;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace ClientApplication.ViewModels
 {
     public class BooksListViewModel : BaseViewModel
     {
-        public BooksListViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<DatabaseServiceClient> dbServiceManager)
+        public BooksListViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<IDatabaseService> dbServiceManager)
             : base(navigationService, windowManager, dbServiceManager)
         {
             RefreshAllBooks();

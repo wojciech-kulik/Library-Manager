@@ -7,7 +7,6 @@ using System.Linq;
 using ClientApplication.ViewModels;
 using Caliburn.Micro;
 using System.Reflection;
-using ClientApplication.DBService;
 using Common;
 using ClientApplication.Utilities;
 using AutoMapper;
@@ -42,7 +41,7 @@ namespace ClientApplication
         
             //Services            
             container.PerRequest<IWindowManager, MyWindowManager>();
-            container.PerRequest<IDBServiceManager<DatabaseServiceClient>, DBServiceManager>();
+            container.PerRequest<IDBServiceManager<IDatabaseService>, DBServiceManager>();
             container.PerRequest<ISettingsService, SettingsService>();
             container.Singleton<INavigationService, NavigationService>();
 
