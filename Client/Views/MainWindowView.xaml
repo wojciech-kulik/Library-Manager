@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:myCtrls="clr-namespace:ClientApplication.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="Biblioteka 1.0 [beta]" Height="750" Width="990" MinWidth="920" MinHeight="650"
+        Title="Library Manager 1.0" Height="750" Width="990" MinWidth="920" MinHeight="650"
         WindowStartupLocation="CenterScreen" Background="#FF3E3E3E" Foreground="White">
     
     <Grid>
@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <myCtrls:Header Text="Biblioteka 1.0" TextBlock.FontSize="35" />
+        <myCtrls:Header Text="Library Manager 1.0" TextBlock.FontSize="35" />
 
         <Border Grid.Row="1" Margin="10,10,10,0" CornerRadius="5">
             <Border.Background>
@@ -28,17 +28,17 @@
                     </Style>
                 </Grid.Resources>
                 <StackPanel Orientation="Horizontal" Height="80" Margin="10,10,10,10" HorizontalAlignment="Left">                    
-                    <myCtrls:MainButton Text="Dodaj klienta" ImageSource="Images/add_user.ico" Margin="0,0,15,0"  cal:Message.Attach="[Event Click] = [Action AddClient()]" />
-                    <myCtrls:MainButton Text="Edytuj klienta" IsEnabled="{Binding SelectedClient, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action EditClient()]" ImageSource="Images/edit_user.ico" Margin="0,0,15,0" />
-                    <myCtrls:MainButton Text="Usuń klienta" IsEnabled="{Binding SelectedClient, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action DeleteClient()]" ImageSource="Images/del_user.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="{DynamicResource AddClient}" ImageSource="Images/add_user.ico" Margin="0,0,15,0"  cal:Message.Attach="[Event Click] = [Action AddClient()]" />
+                    <myCtrls:MainButton Text="{DynamicResource EditClient}" IsEnabled="{Binding SelectedClient, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action EditClient()]" ImageSource="Images/edit_user.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="{DynamicResource RemoveClient}" IsEnabled="{Binding SelectedClient, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action DeleteClient()]" ImageSource="Images/del_user.ico" Margin="0,0,15,0" />
                 </StackPanel>
 
 
                 <StackPanel Orientation="Horizontal" Height="80" HorizontalAlignment="Right" Margin="10,10,10,10">
-                    <myCtrls:MainButton Text="Wypożyczenie" IsEnabled="{Binding SelectedClient, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action LendBooks]" ImageSource="Images/add_order.ico" Margin="0,0,15,0" />
-                    <myCtrls:MainButton Text="Zwrot" IsEnabled="{Binding SelectedLending, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action ReturnBooks()]" ImageSource="Images/return.ico" Margin="0,0,15,0" />
-                    <myCtrls:MainButton Text="Edytuj wypożyczenie" cal:Message.Attach="[Event Click] = [Action EditLending]" IsEnabled="{Binding SelectedLending, Converter={StaticResource NullToEnabledConverter}}" ImageSource="Images/edit_wypoz.ico" Margin="0,0,15,0" />
-                    <myCtrls:MainButton Text="Usuń wypożyczenie" IsEnabled="{Binding SelectedLending, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action DeleteLending()]" ImageSource="Images/del_order.ico" />
+                    <myCtrls:MainButton Text="{DynamicResource Lending}" IsEnabled="{Binding SelectedClient, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action LendBooks]" ImageSource="Images/add_order.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="{DynamicResource Return}" IsEnabled="{Binding SelectedLending, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action ReturnBooks()]" ImageSource="Images/return.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="{DynamicResource EditLending}" cal:Message.Attach="[Event Click] = [Action EditLending]" IsEnabled="{Binding SelectedLending, Converter={StaticResource NullToEnabledConverter}}" ImageSource="Images/edit_wypoz.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="{DynamicResource RemoveLending}" IsEnabled="{Binding SelectedLending, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action DeleteLending()]" ImageSource="Images/del_order.ico" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -74,11 +74,11 @@
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding FirstName}" Header="Imię" SortMemberPath="FirstName" Width="*" />
-                        <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko" SortMemberPath="LastName" Width="*" />
-                        <DataGridTextColumn Binding="{Binding CardNumber, TargetNullValue=(brak)}" Header="Nr klienta" SortMemberPath="CardNumber" />
-                        <DataGridTextColumn Binding="{Binding Phone, TargetNullValue=(brak)}" Header="Telefon" SortMemberPath="Phone" />
-                        <DataGridTemplateColumn Header="E-mail" SortMemberPath="Email">
+                        <DataGridTextColumn Binding="{Binding FirstName}" Header="{DynamicResource FirstName}" SortMemberPath="FirstName" Width="*" />
+                        <DataGridTextColumn Binding="{Binding LastName}" Header="{DynamicResource LastName}" SortMemberPath="LastName" Width="*" />
+                        <DataGridTextColumn Binding="{Binding CardNumber, TargetNullValue=(brak)}" Header="{DynamicResource ClientNumber}" SortMemberPath="CardNumber" />
+                        <DataGridTextColumn Binding="{Binding Phone, TargetNullValue=(brak)}" Header="{DynamicResource PhoneNumber}" SortMemberPath="Phone" />
+                        <DataGridTemplateColumn Header="{DynamicResource Email}" SortMemberPath="Email">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Padding="2,0,2,0">
@@ -92,7 +92,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
                     
-                <Expander Name="exDetails" Grid.Row="1" Grid.Column="2" Header="Szczegóły klienta" Foreground="White" Margin="0,10,0,0">
+                <Expander Name="exDetails" Grid.Row="1" Grid.Column="2" Header="{DynamicResource ClientDetails}" Foreground="White" Margin="0,10,0,0">
                     <Border CornerRadius="5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="Black" Background="#FF535353" Margin="0,20,0,0" SnapsToDevicePixels="True">
                         <Grid Margin="10,0,0,0" MinHeight="100">
                             <Grid.RowDefinitions>  
@@ -107,13 +107,13 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Numer dowodu:" Margin="0,10,10,5" TextDecorations="Underline" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource IdNumber}" Margin="0,10,10,5" TextDecorations="Underline" />
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SelectedClient.IdNumber, TargetNullValue=(brak)}" />
 
-                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Adres klienta:" Margin="0,10,10,5" TextDecorations="Underline" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{DynamicResource ClientAddress}" Margin="0,10,10,5" TextDecorations="Underline" />
                             <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding SelectedClient.Address, Converter={StaticResource AddressConverter}}" />
 
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Dodatkowe notatki:" Margin="0,10,10,5" TextDecorations="Underline" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource AdditionalInfo}" Margin="0,10,10,5" TextDecorations="Underline" />
                             <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding SelectedClient.AdditionalInfo, TargetNullValue='(brak)'}" Margin="0,0,0,10" />
                         </Grid>
                     </Border>
@@ -126,10 +126,10 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding LendingEmployee.FullName}" SortMemberPath="LendingEmployee.FullName" Header="Wydał" Width="*" />
-                        <DataGridTextColumn Binding="{Binding LendingDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="LendingDate" Header="Data wypożyczenia" ElementStyle="{StaticResource CenterColumn}" Width="*" />
-                        <DataGridTextColumn Binding="{Binding EndDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="EndDate" Header="Termin zwrotu" ElementStyle="{StaticResource CenterColumn}" Width="*"  />
-                        <DataGridTextColumn Binding="{Binding ReturnDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="ReturnDate" Header="Data zwrotu" ElementStyle="{StaticResource CenterColumn}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding LendingEmployee.FullName}" SortMemberPath="LendingEmployee.FullName" Header="{DynamicResource Employee}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding LendingDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="LendingDate" Header="{DynamicResource LendDate}" ElementStyle="{StaticResource CenterColumn}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding EndDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="EndDate" Header="{DynamicResource DueDate}" ElementStyle="{StaticResource CenterColumn}" Width="*"  />
+                        <DataGridTextColumn Binding="{Binding ReturnDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="ReturnDate" Header="{DynamicResource ReturnDate}" ElementStyle="{StaticResource CenterColumn}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -146,23 +146,28 @@
                         <Setter Property="Width" Value="90" />
                     </Style>
                 </Grid.Resources>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,10,10,10" HorizontalAlignment="Left">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Wyszukaj klienta: " VerticalAlignment="Center" Margin="0,0,13,0" />
-                        <TextBox Width="200" Height="22" VerticalContentAlignment="Center" Name="tbSearchClient" cal:Message.Attach="[Event KeyDown] = [Action SearchClient($executionContext, tbSearchClient.Text)]"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                        <TextBlock Text="Wyszukaj książkę: " VerticalAlignment="Center" Margin="0,0,10,0" />
-                        <TextBox Width="200" VerticalContentAlignment="Center" Height="22" cal:Message.Attach="[Event KeyDown] = [Action SearchBook($executionContext, $this.Text)]"/>
-                    </StackPanel>
-                </StackPanel>
+                <Grid VerticalAlignment="Center" Margin="10,10,10,10" HorizontalAlignment="Left">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Text="{DynamicResource SearchClient}" VerticalAlignment="Center" Margin="0,0,13,0" />
+                    <TextBox Grid.Column="1" Width="200" Height="22" VerticalContentAlignment="Center" Name="tbSearchClient" cal:Message.Attach="[Event KeyDown] = [Action SearchClient($executionContext, tbSearchClient.Text)]"/>
+                    <TextBlock Grid.Row="1" Text="{DynamicResource SearchBook}" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Width="200" VerticalContentAlignment="Center" Height="22" cal:Message.Attach="[Event KeyDown] = [Action SearchBook($executionContext, $this.Text)]"/>
+                </Grid>
 
 
                 <StackPanel Orientation="Horizontal" Height="70" HorizontalAlignment="Right" Margin="10,10,10,10">
-                    <myCtrls:MainButton Text="Odśwież bazę" cal:Message.Attach="[Event Click] = [Action RefreshClients]" ImageSource="Images/refresh.ico" Margin="0,0,15,0" />
-                    <myCtrls:MainButton Text="Baza książek" cal:Message.Attach="[Event Click] = [Action ShowBooksList]" ImageSource="Images/books.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="{DynamicResource Refresh}" cal:Message.Attach="[Event Click] = [Action RefreshClients]" ImageSource="Images/refresh.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="{DynamicResource Books}" cal:Message.Attach="[Event Click] = [Action ShowBooksList]" ImageSource="Images/books.ico" Margin="0,0,15,0" />
                     <myCtrls:MainButton Text="Spóźnienia" Visibility="Collapsed" ImageSource="Images/time.png" Margin="0,0,15,0" />
-                    <myCtrls:MainButton Text="Użytkownicy" Visibility="{Binding Role, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=1}" cal:Message.Attach="[Event Click] = [Action ShowUsersList]" ImageSource="Images/users.ico" Margin="0,0,0,0" />
+                    <myCtrls:MainButton Text="{DynamicResource Users}" Visibility="{Binding Role, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=1}" cal:Message.Attach="[Event Click] = [Action ShowUsersList]" ImageSource="Images/users.ico" Margin="0,0,0,0" />
                     <myCtrls:MainButton Text="Ustawienia" ImageSource="Images/settings.ico" Visibility="Collapsed" />
                 </StackPanel>
             </Grid>

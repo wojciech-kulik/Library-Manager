@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    <system:String x:Key="NotAvailable">(brak)</system:String>
+
+    <!-- MainWindowView.xaml -->
+    <system:String x:Key="AddClient">Dodaj klienta</system:String>
+    <system:String x:Key="EditClient">Edytuj klienta</system:String>
+    <system:String x:Key="RemoveClient">Usuń klienta</system:String>
+    <system:String x:Key="Lending">Wypożyczenie</system:String>
+    <system:String x:Key="Return">Zwrot</system:String>
+    <system:String x:Key="EditLending">Edytuj wypożyczenie</system:String>
+    <system:String x:Key="RemoveLending">Usuń wypożyczenie</system:String>
+
+    <system:String x:Key="FirstName">Imię</system:String>
+    <system:String x:Key="LastName">Nazwisko</system:String>
+    <system:String x:Key="ClientNumber">Nr klienta</system:String>
+    <system:String x:Key="PhoneNumber">Telefon</system:String>
+    <system:String x:Key="Email">E-mail</system:String>
+
+    <system:String x:Key="Employee">Pracownik</system:String>
+    <system:String x:Key="LendDate">Data wypożyczenia</system:String>
+    <system:String x:Key="ReturnDate">Data zwrotu</system:String>
+    <system:String x:Key="DueDate">Termin zwrotu</system:String>
+
+    <system:String x:Key="ClientDetails">Szczegóły klienta</system:String>
+    <system:String x:Key="IdNumber">Numer dowodu:</system:String>
+    <system:String x:Key="ClientAddress">Adres klienta:</system:String>
+    <system:String x:Key="AdditionalInfo">Dodatkowe informacje:</system:String>
+
+    <system:String x:Key="SearchClient">Wyszukaj klienta:</system:String>
+    <system:String x:Key="SearchBook">Wyszukaj książkę:</system:String>
+
+    <system:String x:Key="Refresh">Odswież bazę</system:String>
+    <system:String x:Key="Books">Książki</system:String>
+    <system:String x:Key="Users">Użytkownicy</system:String>
+</ResourceDictionary>

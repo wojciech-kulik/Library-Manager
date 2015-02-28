@@ -14,7 +14,7 @@ namespace Caliburn.Micro
         {
             if (settings == null)
                 settings = new Dictionary<string, object>();
-            settings.Add("Title", "Biblioteka 1.0 [beta]");
+            settings.Add("Title", "Library Manager 1.0");
             return base.CreateWindow(rootModel, isDialog, context, settings);
         }
     }

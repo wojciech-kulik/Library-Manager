@@ -60,5 +60,38 @@ namespace ClientApplication
 
             e.Handled = true;
         }
+
+        public static void SelectCulture(string culture)
+        {
+            // List all our resources      
+            List<ResourceDictionary> dictionaryList = new List<ResourceDictionary>();
+            foreach (ResourceDictionary dictionary in Application.Current.Resources.MergedDictionaries)
+            {
+                if (dictionary.Source != null && dictionary.Source.OriginalString.StartsWith("Strings"))
+                    dictionaryList.Add(dictionary);
+            }
+
+            // We want our specific culture      
+            string requestedCulture = string.Format("Strings\\{0}\\Resources.xaml", culture);
+            ResourceDictionary resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString == requestedCulture);
+            if (resourceDictionary == null)
+            {
+                // If not found, we select our default language            
+                requestedCulture = "Strings\\en-US\\Resources.xaml";
+                resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString == requestedCulture);
+            }
+
+            // If we have the requested resource, remove it from the list and place at the end.      
+            // Then this language will be our string table to use.      
+            if (resourceDictionary != null)
+            {
+                Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
+                Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+            }
+
+            // Inform the threads of the new culture      
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(culture);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
+        }
     }
 }
