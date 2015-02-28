@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/DBService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DBService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://localhost:3915/DatabaseService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfClientDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClientDTO" nillable="true" type="tns:ClientDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClientDTO" nillable="true" type="tns:ArrayOfClientDTO" />
+  <xs:complexType name="ClientDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PersonDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdditionalInfo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Lendings" nillable="true" type="tns:ArrayOfLendingDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ClientDTO" nillable="true" type="tns:ClientDTO" />
+  <xs:complexType name="PersonDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="tns:AddressDTO" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="PersonDTO" nillable="true" type="tns:PersonDTO" />
+  <xs:complexType name="AddressDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApartmentNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HouseNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Street" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="AddressDTO" nillable="true" type="tns:AddressDTO" />
+  <xs:complexType name="ArrayOfLendingDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LendingDTO" nillable="true" type="tns:LendingDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLendingDTO" nillable="true" type="tns:ArrayOfLendingDTO" />
+  <xs:complexType name="LendingDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Books" nillable="true" type="tns:ArrayOfLentBookDTO" />
+      <xs:element minOccurs="0" name="Client" nillable="true" type="tns:ClientDTO" />
+      <xs:element minOccurs="0" name="ClientId" type="xs:int" />
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LendingDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LendingEmployee" nillable="true" type="tns:EmployeeDTO" />
+      <xs:element minOccurs="0" name="LendingEmployeeId" type="xs:int" />
+      <xs:element minOccurs="0" name="ReturnDate" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="LendingDTO" nillable="true" type="tns:LendingDTO" />
+  <xs:complexType name="ArrayOfLentBookDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LentBookDTO" nillable="true" type="tns:LentBookDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLentBookDTO" nillable="true" type="tns:ArrayOfLentBookDTO" />
+  <xs:complexType name="LentBookDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Book" nillable="true" type="tns:BookDTO" />
+      <xs:element minOccurs="0" name="BookId" type="xs:int" />
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Lending" nillable="true" type="tns:LendingDTO" />
+      <xs:element minOccurs="0" name="LendingId" type="xs:int" />
+      <xs:element minOccurs="0" name="ReturnDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ReturnEmployee" nillable="true" type="tns:EmployeeDTO" />
+      <xs:element minOccurs="0" name="ReturnEmployeeId" nillable="true" type="xs:int" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="LentBookDTO" nillable="true" type="tns:LentBookDTO" />
+  <xs:complexType name="BookDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AdditionalInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Authors" nillable="true" type="tns:ArrayOfAuthorDTO" />
+      <xs:element minOccurs="0" name="Available" type="xs:boolean" />
+      <xs:element minOccurs="0" name="BookCategories" nillable="true" type="tns:ArrayOfBookCategoryDTO" />
+      <xs:element minOccurs="0" name="HardCover" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ISBN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Location" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PublishDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Publisher" nillable="true" type="tns:PublisherDTO" />
+      <xs:element minOccurs="0" name="PublisherId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Quantity" type="xs:short" />
+      <xs:element minOccurs="0" name="Removed" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="BookDTO" nillable="true" type="tns:BookDTO" />
+  <xs:complexType name="ArrayOfAuthorDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AuthorDTO" nillable="true" type="tns:AuthorDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAuthorDTO" nillable="true" type="tns:ArrayOfAuthorDTO" />
+  <xs:complexType name="AuthorDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DictionaryDTO">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AuthorDTO" nillable="true" type="tns:AuthorDTO" />
+  <xs:complexType name="DictionaryDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="DictionaryDTO" nillable="true" type="tns:DictionaryDTO" />
+  <xs:complexType name="ArrayOfBookCategoryDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BookCategoryDTO" nillable="true" type="tns:BookCategoryDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBookCategoryDTO" nillable="true" type="tns:ArrayOfBookCategoryDTO" />
+  <xs:complexType name="BookCategoryDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="BookCategoryDTO" nillable="true" type="tns:BookCategoryDTO" />
+  <xs:complexType name="PublisherDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DictionaryDTO">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PublisherDTO" nillable="true" type="tns:PublisherDTO" />
+  <xs:complexType name="EmployeeDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PersonDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Lendings" nillable="true" type="tns:ArrayOfLendingDTO" />
+          <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Removed" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Returns" nillable="true" type="tns:ArrayOfLentBookDTO" />
+          <xs:element minOccurs="0" name="Role" type="xs:unsignedByte" />
+          <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EmployeeDTO" nillable="true" type="tns:EmployeeDTO" />
+  <xs:complexType name="DBServiceFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ExceptionType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InnerMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StackTrace" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DBServiceFault" nillable="true" type="tns:DBServiceFault" />
+  <xs:complexType name="ArrayOfEmployeeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmployeeDTO" nillable="true" type="tns:EmployeeDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmployeeDTO" nillable="true" type="tns:ArrayOfEmployeeDTO" />
+  <xs:complexType name="ArrayOfBookDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BookDTO" nillable="true" type="tns:BookDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBookDTO" nillable="true" type="tns:ArrayOfBookDTO" />
+  <xs:complexType name="ArrayOfPublisherDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PublisherDTO" nillable="true" type="tns:PublisherDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPublisherDTO" nillable="true" type="tns:ArrayOfPublisherDTO" />
+</xs:schema>

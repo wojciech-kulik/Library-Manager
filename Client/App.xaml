@@ -1,0 +1,37 @@
+﻿<Application x:Class="ClientApplication.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ClientApplication"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:conv="clr-namespace:ClientApplication.Converters"
+             xmlns:myCtrls="clr-namespace:ClientApplication.Controls">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <local:ClientBootstrapper x:Key="bootstrapper" />
+                </ResourceDictionary>
+
+                <ResourceDictionary>
+                    <conv:StringFormatConverter x:Key="StringFormatConverter" />
+                    <conv:AddressConverter x:Key="AddressConverter" />
+                    <conv:DateTimeConverter x:Key="DateTimeConverter" />
+                    <conv:BookCategoriesConverter x:Key="BookCategoriesConverter" />
+                    <conv:NullToEnabledConverter x:Key="NullToEnabledConverter"  />
+                    <conv:IsNullToBool x:Key="IsNullToBool" />
+                    <conv:FullNameConverter x:Key="FullNameConverter" />
+                    <conv:BoolToStringConverter x:Key="BoolToStringConverter" />
+                    <conv:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter" />
+                </ResourceDictionary>
+
+                <ResourceDictionary Source="/Styles/DataGrid.xaml" />     
+                
+                <ResourceDictionary>
+                    <Style TargetType="myCtrls:ActionButton">
+                        <Setter Property="FontSize" Value="17" />   
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>            
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,171 @@
+﻿<Window x:Class="ClientApplication.Views.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:myCtrls="clr-namespace:ClientApplication.Controls"
+        xmlns:cal="http://www.caliburnproject.org"
+        Title="Biblioteka 1.0 [beta]" Height="750" Width="990" MinWidth="920" MinHeight="650"
+        WindowStartupLocation="CenterScreen" Background="#FF3E3E3E" Foreground="White">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"  />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <myCtrls:Header Text="Biblioteka 1.0" TextBlock.FontSize="35" />
+
+        <Border Grid.Row="1" Margin="10,10,10,0" CornerRadius="5">
+            <Border.Background>
+                <SolidColorBrush Color="#FF2E2E2E" Opacity="0.9"/>
+            </Border.Background>
+
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="myCtrls:MainButton">
+                        <Setter Property="Width" Value="110" />
+                    </Style>
+                </Grid.Resources>
+                <StackPanel Orientation="Horizontal" Height="80" Margin="10,10,10,10" HorizontalAlignment="Left">                    
+                    <myCtrls:MainButton Text="Dodaj klienta" ImageSource="Images/add_user.ico" Margin="0,0,15,0"  cal:Message.Attach="[Event Click] = [Action AddClient()]" />
+                    <myCtrls:MainButton Text="Edytuj klienta" IsEnabled="{Binding SelectedClient, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action EditClient()]" ImageSource="Images/edit_user.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="Usuń klienta" IsEnabled="{Binding SelectedClient, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action DeleteClient()]" ImageSource="Images/del_user.ico" Margin="0,0,15,0" />
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" Height="80" HorizontalAlignment="Right" Margin="10,10,10,10">
+                    <myCtrls:MainButton Text="Wypożyczenie" IsEnabled="{Binding SelectedClient, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action LendBooks]" ImageSource="Images/add_order.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="Zwrot" IsEnabled="{Binding SelectedLending, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action ReturnBooks()]" ImageSource="Images/return.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="Edytuj wypożyczenie" cal:Message.Attach="[Event Click] = [Action EditLending]" IsEnabled="{Binding SelectedLending, Converter={StaticResource NullToEnabledConverter}}" ImageSource="Images/edit_wypoz.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="Usuń wypożyczenie" IsEnabled="{Binding SelectedLending, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action DeleteLending()]" ImageSource="Images/del_order.ico" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" CornerRadius="5" Margin="10,10,10,0" Padding="14">
+            <Border.Background>
+                <SolidColorBrush Color="#FF2E2E2E" Opacity="0.9"/>
+            </Border.Background>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="300" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <DataGrid ItemsSource="{Binding Clients}" Name="dgClients" SelectedValue="{Binding SelectedClient, Mode=TwoWay}" SelectionMode="Single">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                            <Setter Property="cal:Message.Attach" Value="[Event MouseDoubleClick] = [Action EditClient]" />
+                        </Style>
+                        <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsExpanded, ElementName=exDetails}" Value="True">
+                                    <Setter Property="Grid.RowSpan" Value="2" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding FirstName}" Header="Imię" SortMemberPath="FirstName" Width="*" />
+                        <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko" SortMemberPath="LastName" Width="*" />
+                        <DataGridTextColumn Binding="{Binding CardNumber, TargetNullValue=(brak)}" Header="Nr klienta" SortMemberPath="CardNumber" />
+                        <DataGridTextColumn Binding="{Binding Phone, TargetNullValue=(brak)}" Header="Telefon" SortMemberPath="Phone" />
+                        <DataGridTemplateColumn Header="E-mail" SortMemberPath="Email">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="2,0,2,0">
+                                    <Hyperlink Style="{StaticResource HyperlinkStyle}" PreviewMouseDown="Hyperlink_PreviewMouseDown" NavigateUri="{Binding Email}" >                                        
+                                        <TextBlock Text="{Binding Email, TargetNullValue=(brak)}"/>
+                                    </Hyperlink>
+                                </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                    
+                <Expander Name="exDetails" Grid.Row="1" Grid.Column="2" Header="Szczegóły klienta" Foreground="White" Margin="0,10,0,0">
+                    <Border CornerRadius="5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="Black" Background="#FF535353" Margin="0,20,0,0" SnapsToDevicePixels="True">
+                        <Grid Margin="10,0,0,0" MinHeight="100">
+                            <Grid.RowDefinitions>  
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Numer dowodu:" Margin="0,10,10,5" TextDecorations="Underline" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SelectedClient.IdNumber, TargetNullValue=(brak)}" />
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Adres klienta:" Margin="0,10,10,5" TextDecorations="Underline" />
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding SelectedClient.Address, Converter={StaticResource AddressConverter}}" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Dodatkowe notatki:" Margin="0,10,10,5" TextDecorations="Underline" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding SelectedClient.AdditionalInfo, TargetNullValue='(brak)'}" Margin="0,0,0,10" />
+                        </Grid>
+                    </Border>
+                </Expander>
+
+                <DataGrid Grid.Column="2" ItemsSource="{Binding SelectedClient.Lendings}" SelectedValue="{Binding SelectedLending, Mode=TwoWay}" SelectionMode="Single">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                            <Setter Property="cal:Message.Attach" Value="[Event MouseDoubleClick] = [Action ReturnBooks]" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding LendingEmployee.FullName}" SortMemberPath="LendingEmployee.FullName" Header="Wydał" Width="*" />
+                        <DataGridTextColumn Binding="{Binding LendingDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="LendingDate" Header="Data wypożyczenia" ElementStyle="{StaticResource CenterColumn}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding EndDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="EndDate" Header="Termin zwrotu" ElementStyle="{StaticResource CenterColumn}" Width="*"  />
+                        <DataGridTextColumn Binding="{Binding ReturnDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="ReturnDate" Header="Data zwrotu" ElementStyle="{StaticResource CenterColumn}" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="3" Margin="10" CornerRadius="5">
+            <Border.Background>
+                <SolidColorBrush Color="#FF2E2E2E" Opacity="0.9"/>
+            </Border.Background>
+
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="myCtrls:MainButton">
+                        <Setter Property="Width" Value="90" />
+                    </Style>
+                </Grid.Resources>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,10,10,10" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Wyszukaj klienta: " VerticalAlignment="Center" Margin="0,0,13,0" />
+                        <TextBox Width="200" Height="22" VerticalContentAlignment="Center" Name="tbSearchClient" cal:Message.Attach="[Event KeyDown] = [Action SearchClient($executionContext, tbSearchClient.Text)]"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                        <TextBlock Text="Wyszukaj książkę: " VerticalAlignment="Center" Margin="0,0,10,0" />
+                        <TextBox Width="200" VerticalContentAlignment="Center" Height="22" cal:Message.Attach="[Event KeyDown] = [Action SearchBook($executionContext, $this.Text)]"/>
+                    </StackPanel>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" Height="70" HorizontalAlignment="Right" Margin="10,10,10,10">
+                    <myCtrls:MainButton Text="Odśwież bazę" cal:Message.Attach="[Event Click] = [Action RefreshClients]" ImageSource="Images/refresh.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="Baza książek" cal:Message.Attach="[Event Click] = [Action ShowBooksList]" ImageSource="Images/books.ico" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="Spóźnienia" Visibility="Collapsed" ImageSource="Images/time.png" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="Użytkownicy" Visibility="{Binding Role, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=1}" cal:Message.Attach="[Event Click] = [Action ShowUsersList]" ImageSource="Images/users.ico" Margin="0,0,0,0" />
+                    <myCtrls:MainButton Text="Ustawienia" ImageSource="Images/settings.ico" Visibility="Collapsed" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,149 @@
+﻿<Window x:Class="ClientApplication.Views.LendingDetailsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:myCtrls="clr-namespace:ClientApplication.Controls"
+        xmlns:cal="http://www.caliburnproject.org"
+        Title="Biblioteka 1.0 [beta]" Height="550" Width="771.167" MinWidth="600" MinHeight="530"
+        WindowStartupLocation="CenterOwner" Background="#FF3E3E3E" 
+        ShowInTaskbar="False" KeyDown="OnKeyDown" Foreground="White">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="FontFamily" Value="Calibri" />
+            <Setter Property="Margin" Value="0,4,0,0" />
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Width" Value="130" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="15,2,0,7" />
+            <Setter Property="FontFamily" Value="Calibri" />
+        </Style>
+
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="TextBlock"></Style>
+            </Grid.Resources>
+            <myCtrls:Header Text="Wypożyczenie" Height="75" TextBlock.FontSize="23" />
+        </Grid>
+              
+
+        <Border Grid.Row="1" CornerRadius="5" Margin="10,10,10,0">
+            <Border.Background>
+                <SolidColorBrush Color="#FF2E2E2E" Opacity="0.9"/>
+            </Border.Background>
+
+            <Grid Margin="20,10,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Data wypożyczenia:" />
+                <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding Lending.LendingDate, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Grid.Row="1" Text="Termin zwrotu:" />
+                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Lending.EndDate, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="DatePicker_SelectedDateChanged" />
+
+                <TextBlock Grid.Row="2"  Text="Data zwrotu:" />
+                <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Lending.ReturnDate, UpdateSourceTrigger=PropertyChanged}" />
+
+                <StackPanel Orientation="Horizontal" Grid.RowSpan="3" Grid.Column="2">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock"></Style>
+                    </StackPanel.Resources>
+                    <myCtrls:MainButton Width="100" Height="80" Text="Dodaj książkę" cal:Message.Attach="[Event Click] = [Action AddBook]" ImageSource="Images/add_order.ico" Margin="0,-5,15,5" />
+                    <myCtrls:MainButton Width="100" Height="80" Text="Usuń książkę" Margin="0,-5,0,5" IsEnabled="{Binding SelectedBook, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action DeleteBook]" ImageSource="Images/del_order.ico" />
+                </StackPanel>
+            </Grid>         
+        </Border>
+
+        <Border Grid.Row="2" CornerRadius="5" Margin="10" Padding="14">
+            <Border.Background>
+                <SolidColorBrush Color="#FF2E2E2E" Opacity="0.9"/>
+            </Border.Background>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <DataGrid Name="dgLentBooks" ItemsSource="{Binding Lending.Books}" SelectionMode="Single" SelectedValue="{Binding SelectedBook}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Book.Title}" SortMemberPath="Book.Title" Header="Tytuł" Width="*" />
+                        <DataGridTextColumn Binding="{Binding Book.Location, TargetNullValue=(brak)}" SortMemberPath="Book.Location" Header="Lokalizacja" ElementStyle="{StaticResource CenterColumn}" />
+                        <DataGridTextColumn Binding="{Binding EndDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="EndDate" ElementStyle="{StaticResource CenterColumn}" Header="Termin zwrotu" Width="*" />
+                        <DataGridTextColumn Binding="{Binding ReturnDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="ReturnDate" ElementStyle="{StaticResource CenterColumn}" Header="Data zwrotu" Width="*" />
+                        <DataGridTextColumn Binding="{Binding ReturnEmployee, Converter={StaticResource FullNameConverter}}" SortMemberPath="ReturnEmployee.FullName" ElementStyle="{StaticResource CenterColumn}" Header="Przyjął zwrot" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Grid Grid.Column="1" Margin="15,0,0,10">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="Margin" Value="0,10,0,0" />
+                            <Setter Property="FontSize" Value="14" />
+                        </Style>
+                        <Style TargetType="DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">
+                            <Setter Property="Margin" Value="0,-9,0,0" />
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"  />
+                        <RowDefinition Height="Auto"  />
+                        <RowDefinition Height="Auto"  />
+                        <RowDefinition Height="Auto"  />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Margin="0,0,0,10" TextDecorations="Underline" FontFamily="Calibri" FontSize="14" Text="Edycja zaznaczonej pozycji:" HorizontalAlignment="Center" />
+
+                    <TextBlock Margin="0" Grid.Row="1" Text="Termin zwrotu:" />
+                    <DatePicker Grid.Row="2"  Grid.Column="1" SelectedDate="{Binding SelectedBook.EndDate, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding SelectedBook, Converter={StaticResource NullToEnabledConverter}}" />
+
+                    <TextBlock Grid.Row="3"  Text="Data zwrotu:" />
+                    <DatePicker Grid.Row="4" Grid.Column="1" SelectedDate="{Binding SelectedBook.ReturnDate, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedBook, Converter={StaticResource NullToEnabledConverter}}" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock"></Style>
+            </StackPanel.Resources>
+            <myCtrls:ActionButton x:Name="btnCancel" Text="Anuluj" ImageSource="Images/cancel.ico" 
+                              Height="34" Margin="0,0,10,10" Width="100" 
+                              HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
+                              cal:Message.Attach="[Event Click] = [Action Cancel]" />
+
+            <myCtrls:ActionButton x:Name="btnSave" Text="Zapisz" ImageSource="Images/accept.png" 
+                              Height="34" Margin="0,0,10,10" Width="100" 
+                              HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
+                              cal:Message.Attach="[Event Click] = [Action Save]" />
+        </StackPanel>
+    </Grid>
+</Window>

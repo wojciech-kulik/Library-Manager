@@ -1,0 +1,693 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LibraryManager.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="LibraryManagerStoreContainer">
+    <EntitySet Name="Books" EntityType="LibraryManager.Store.Books" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Persons" EntityType="LibraryManager.Store.Persons" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Lendings" EntityType="LibraryManager.Store.Lendings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BookCategories" EntityType="LibraryManager.Store.BookCategories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LentBooks" EntityType="LibraryManager.Store.LentBooks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Publishers" EntityType="LibraryManager.Store.Publishers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Authors" EntityType="LibraryManager.Store.Authors" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Persons_Client" EntityType="LibraryManager.Store.Persons_Client" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Persons_Employee" EntityType="LibraryManager.Store.Persons_Employee" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BookBookCategory" EntityType="LibraryManager.Store.BookBookCategory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AuthorBook" EntityType="LibraryManager.Store.AuthorBook" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ClientLending" Association="LibraryManager.Store.ClientLending">
+      <End Role="Client" EntitySet="Persons_Client" />
+      <End Role="Lending" EntitySet="Lendings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BookBookCategory_Book" Association="LibraryManager.Store.FK_BookBookCategory_Book">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="BookBookCategory" EntitySet="BookBookCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BookBookCategory_BookCategory" Association="LibraryManager.Store.FK_BookBookCategory_BookCategory">
+      <End Role="BookCategory" EntitySet="BookCategories" />
+      <End Role="BookBookCategory" EntitySet="BookBookCategory" />
+    </AssociationSet>
+    <AssociationSet Name="LendingEmployee" Association="LibraryManager.Store.LendingEmployee">
+      <End Role="Lending" EntitySet="Lendings" />
+      <End Role="Employee" EntitySet="Persons_Employee" />
+    </AssociationSet>
+    <AssociationSet Name="LentBookBook" Association="LibraryManager.Store.LentBookBook">
+      <End Role="LentBook" EntitySet="LentBooks" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="LentBookLending" Association="LibraryManager.Store.LentBookLending">
+      <End Role="LentBook" EntitySet="LentBooks" />
+      <End Role="Lending" EntitySet="Lendings" />
+    </AssociationSet>
+    <AssociationSet Name="LentBookEmployee" Association="LibraryManager.Store.LentBookEmployee">
+      <End Role="LentBook" EntitySet="LentBooks" />
+      <End Role="Employee" EntitySet="Persons_Employee" />
+    </AssociationSet>
+    <AssociationSet Name="PublisherBook" Association="LibraryManager.Store.PublisherBook">
+      <End Role="Publisher" EntitySet="Publishers" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuthorBook_Author" Association="LibraryManager.Store.FK_AuthorBook_Author">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="AuthorBook" EntitySet="AuthorBook" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuthorBook_Book" Association="LibraryManager.Store.FK_AuthorBook_Book">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="AuthorBook" EntitySet="AuthorBook" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Client_inherits_Person" Association="LibraryManager.Store.FK_Client_inherits_Person">
+      <End Role="Person" EntitySet="Persons" />
+      <End Role="Client" EntitySet="Persons_Client" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_inherits_Person" Association="LibraryManager.Store.FK_Employee_inherits_Person">
+      <End Role="Person" EntitySet="Persons" />
+      <End Role="Employee" EntitySet="Persons_Employee" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" />
+    <Property Name="ISBN" Type="nvarchar" Nullable="true" />
+    <Property Name="HardCover" Type="bit" Nullable="false" />
+    <Property Name="PublishDate" Type="datetime" Nullable="true" />
+    <Property Name="Quantity" Type="smallint" Nullable="false" />
+    <Property Name="Location" Type="nvarchar" Nullable="true" />
+    <Property Name="PublisherId" Type="int" Nullable="true" />
+    <Property Name="AdditionalInfo" Type="nvarchar" Nullable="true" />
+    <Property Name="Removed" Type="bit" Nullable="false" DefaultValue="false" />
+  </EntityType>
+  <EntityType Name="Persons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" Nullable="true" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" />
+    <Property Name="IdNumber" Type="nvarchar" Nullable="true" />
+    <Property Name="Address_Street" Type="nvarchar" Nullable="true" />
+    <Property Name="Address_HouseNumber" Type="nvarchar" Nullable="true" />
+    <Property Name="Address_ApartmentNumber" Type="nvarchar" Nullable="true" />
+    <Property Name="Address_PostalCode" Type="nvarchar" Nullable="true" />
+    <Property Name="Address_City" Type="nvarchar" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Lendings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="LendingDate" Type="datetime" Nullable="false" />
+    <Property Name="ReturnDate" Type="datetime" Nullable="true" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="LendingEmployeeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BookCategories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LentBooks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReturnDate" Type="datetime" Nullable="true" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="BookId" Type="int" Nullable="false" />
+    <Property Name="LendingId" Type="int" Nullable="false" />
+    <Property Name="ReturnEmployeeId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Publishers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Authors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Persons_Client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CardNumber" Type="nvarchar" Nullable="true" />
+    <Property Name="AdditionalInfo" Type="nvarchar" Nullable="true" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Persons_Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Role" Type="tinyint" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" />
+    <Property Name="Removed" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BookBookCategory">
+    <Key>
+      <PropertyRef Name="BookBookCategory_BookCategory_Id" />
+      <PropertyRef Name="BookCategories_Id" />
+    </Key>
+    <Property Name="BookBookCategory_BookCategory_Id" Type="int" Nullable="false" />
+    <Property Name="BookCategories_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AuthorBook">
+    <Key>
+      <PropertyRef Name="Authors_Id" />
+      <PropertyRef Name="AuthorBook_Author_Id" />
+    </Key>
+    <Property Name="Authors_Id" Type="int" Nullable="false" />
+    <Property Name="AuthorBook_Author_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ClientLending">
+    <End Role="Client" Type="LibraryManager.Store.Persons_Client" Multiplicity="1" />
+    <End Role="Lending" Type="LibraryManager.Store.Lendings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lending">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LendingEmployee">
+    <End Role="Lending" Type="LibraryManager.Store.Lendings" Multiplicity="*" />
+    <End Role="Employee" Type="LibraryManager.Store.Persons_Employee" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lending">
+        <PropertyRef Name="LendingEmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LentBookBook">
+    <End Role="LentBook" Type="LibraryManager.Store.LentBooks" Multiplicity="*" />
+    <End Role="Book" Type="LibraryManager.Store.Books" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LentBook">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LentBookLending">
+    <End Role="LentBook" Type="LibraryManager.Store.LentBooks" Multiplicity="*" />
+    <End Role="Lending" Type="LibraryManager.Store.Lendings" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Lending">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LentBook">
+        <PropertyRef Name="LendingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LentBookEmployee">
+    <End Role="LentBook" Type="LibraryManager.Store.LentBooks" Multiplicity="*" />
+    <End Role="Employee" Type="LibraryManager.Store.Persons_Employee" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LentBook">
+        <PropertyRef Name="ReturnEmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PublisherBook">
+    <End Role="Publisher" Type="LibraryManager.Store.Publishers" Multiplicity="0..1" />
+    <End Role="Book" Type="LibraryManager.Store.Books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="PublisherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BookBookCategory_Book">
+    <End Role="Book" Type="LibraryManager.Store.Books" Multiplicity="1" />
+    <End Role="BookBookCategory" Type="LibraryManager.Store.BookBookCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookBookCategory">
+        <PropertyRef Name="BookBookCategory_BookCategory_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BookBookCategory_BookCategory">
+    <End Role="BookBookCategory" Type="LibraryManager.Store.BookBookCategory" Multiplicity="*" />
+    <End Role="BookCategory" Type="LibraryManager.Store.BookCategories" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="BookCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookBookCategory">
+        <PropertyRef Name="BookCategories_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuthorBook_Author">
+    <End Role="Author" Type="LibraryManager.Store.Authors" Multiplicity="1" />
+    <End Role="AuthorBook" Type="LibraryManager.Store.AuthorBook" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuthorBook">
+        <PropertyRef Name="Authors_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuthorBook_Book">
+    <End Role="AuthorBook" Type="LibraryManager.Store.AuthorBook" Multiplicity="*" />
+    <End Role="Book" Type="LibraryManager.Store.Books" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuthorBook">
+        <PropertyRef Name="AuthorBook_Author_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Client_inherits_Person">
+    <End Role="Person" Type="LibraryManager.Store.Persons" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Client" Type="LibraryManager.Store.Persons_Client" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_inherits_Person">
+    <End Role="Person" Type="LibraryManager.Store.Persons" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Employee" Type="LibraryManager.Store.Persons_Employee" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LibraryManager" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="LibraryDataContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="LibraryManager.Book" />
+          <EntitySet Name="Persons" EntityType="LibraryManager.Person" />
+          <EntitySet Name="Lendings" EntityType="LibraryManager.Lending" />
+          <AssociationSet Name="ClientLending" Association="LibraryManager.ClientLending">
+            <End Role="Client" EntitySet="Persons" />
+            <End Role="Lending" EntitySet="Lendings" />
+          </AssociationSet>
+          <EntitySet Name="BookCategories" EntityType="LibraryManager.BookCategory" />
+          <AssociationSet Name="BookBookCategory" Association="LibraryManager.BookBookCategory">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="BookCategory" EntitySet="BookCategories" />
+          </AssociationSet>
+          <AssociationSet Name="LendingEmployee" Association="LibraryManager.LendingEmployee">
+            <End Role="Lending" EntitySet="Lendings" />
+            <End Role="Employee" EntitySet="Persons" />
+          </AssociationSet>
+          <EntitySet Name="LentBooks" EntityType="LibraryManager.LentBook" />
+          <AssociationSet Name="LentBookBook" Association="LibraryManager.LentBookBook">
+            <End Role="LentBook" EntitySet="LentBooks" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="LentBookLending" Association="LibraryManager.LentBookLending">
+            <End Role="LentBook" EntitySet="LentBooks" />
+            <End Role="Lending" EntitySet="Lendings" />
+          </AssociationSet>
+          <AssociationSet Name="LentBookEmployee" Association="LibraryManager.LentBookEmployee">
+            <End Role="LentBook" EntitySet="LentBooks" />
+            <End Role="Employee" EntitySet="Persons" />
+          </AssociationSet>
+          <EntitySet Name="Publishers" EntityType="LibraryManager.Publisher" />
+          <AssociationSet Name="PublisherBook" Association="LibraryManager.PublisherBook">
+            <End Role="Publisher" EntitySet="Publishers" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <EntitySet Name="Authors" EntityType="LibraryManager.Author" />
+          <AssociationSet Name="AuthorBook" Association="LibraryManager.AuthorBook">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <NavigationProperty Name="BookCategories" Relationship="LibraryManager.BookBookCategory" FromRole="Book" ToRole="BookCategory" />
+          <Property Type="String" Name="ISBN" Nullable="true" />
+          <Property Type="Boolean" Name="HardCover" Nullable="false" />
+          <Property Type="DateTime" Name="PublishDate" Nullable="true" />
+          <Property Type="Int16" Name="Quantity" Nullable="false" />
+          <Property Type="String" Name="Location" Nullable="true" />
+          <NavigationProperty Name="Publisher" Relationship="LibraryManager.PublisherBook" FromRole="Book" ToRole="Publisher" />
+          <NavigationProperty Name="Authors" Relationship="LibraryManager.AuthorBook" FromRole="Book" ToRole="Author" />
+          <Property Type="Int32" Name="PublisherId" Nullable="true" />
+          <Property Type="String" Name="AdditionalInfo" Nullable="true" />
+          <Property Type="Boolean" Name="Removed" Nullable="false" DefaultValue="False" />
+        </EntityType>
+        <EntityType Name="Client" BaseType="LibraryManager.Person">
+          <Property Type="String" Name="CardNumber" Nullable="true" />
+          <Property Type="String" Name="AdditionalInfo" Nullable="true" />
+          <NavigationProperty Name="Lendings" Relationship="LibraryManager.ClientLending" FromRole="Client" ToRole="Lending" />
+        </EntityType>
+        <EntityType Name="Person" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" Nullable="false" />
+          <Property Type="String" Name="LastName" Nullable="false" />
+          <Property Type="String" Name="Phone" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" />
+          <Property Type="String" Name="IdNumber" Nullable="true" />
+          <Property Name="Address" Type="LibraryManager.Address" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="Address" >
+          <Property Type="String" Name="Street" Nullable="true" />
+          <Property Type="String" Name="HouseNumber" Nullable="true" />
+          <Property Type="String" Name="ApartmentNumber" Nullable="true" />
+          <Property Type="String" Name="PostalCode" Nullable="true" />
+          <Property Type="String" Name="City" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Employee" BaseType="LibraryManager.Person" >
+          <Property Type="Byte" Name="Role" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="false" />
+          <NavigationProperty Name="Lendings" Relationship="LibraryManager.LendingEmployee" FromRole="Employee" ToRole="Lending" />
+          <NavigationProperty Name="Returns" Relationship="LibraryManager.LentBookEmployee" FromRole="Employee" ToRole="LentBook" />
+          <Property Type="Boolean" Name="Removed" Nullable="false" DefaultValue="False" />
+        </EntityType>
+        <EntityType Name="Lending">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Client" Relationship="LibraryManager.ClientLending" FromRole="Lending" ToRole="Client" />
+          <NavigationProperty Name="Books" Relationship="LibraryManager.LentBookLending" FromRole="Lending" ToRole="LentBook" />
+          <NavigationProperty Name="LendingEmployee" Relationship="LibraryManager.LendingEmployee" FromRole="Lending" ToRole="Employee" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" />
+          <Property Type="DateTime" Name="LendingDate" Nullable="false" />
+          <Property Type="DateTime" Name="ReturnDate" Nullable="true" />
+          <Property Name="ClientId" Nullable="false" Type="Int32" />
+          <Property Type="Int32" Name="LendingEmployeeId" Nullable="false" />
+        </EntityType>
+        <Association Name="ClientLending">
+          <End Type="LibraryManager.Client" Role="Client" Multiplicity="1" />
+          <End Type="LibraryManager.Lending" Role="Lending" Multiplicity="*" >
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lending">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BookCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+        </EntityType>
+        <Association Name="BookBookCategory">
+          <End Type="LibraryManager.Book" Role="Book" Multiplicity="*" />
+          <End Type="LibraryManager.BookCategory" Role="BookCategory" Multiplicity="*" />
+        </Association>
+        <Association Name="LendingEmployee">
+          <End Type="LibraryManager.Lending" Role="Lending" Multiplicity="*" />
+          <End Type="LibraryManager.Employee" Role="Employee" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lending">
+              <PropertyRef Name="LendingEmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LentBook" >
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <NavigationProperty Name="Book" Relationship="LibraryManager.LentBookBook" FromRole="LentBook" ToRole="Book" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Type="DateTime" Name="ReturnDate" Nullable="true" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" />
+          <Property Type="Int32" Name="BookId" Nullable="false" />
+          <Property Type="Int32" Name="LendingId" Nullable="false" />
+          <NavigationProperty Name="ReturnEmployee" Relationship="LibraryManager.LentBookEmployee" FromRole="LentBook" ToRole="Employee" />
+          <Property Type="Int32" Name="ReturnEmployeeId" Nullable="true" />
+          <NavigationProperty Name="Lending" Relationship="LibraryManager.LentBookLending" FromRole="LentBook" ToRole="Lending" />
+        </EntityType>
+        <Association Name="LentBookBook">
+          <End Type="LibraryManager.LentBook" Role="LentBook" Multiplicity="*" >
+          </End>
+          <End Type="LibraryManager.Book" Role="Book" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LentBook">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LentBookLending">
+          <End Type="LibraryManager.LentBook" Role="LentBook" Multiplicity="*" />
+          <End Type="LibraryManager.Lending" Role="Lending" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Lending">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LentBook">
+              <PropertyRef Name="LendingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LentBookEmployee">
+          <End Type="LibraryManager.LentBook" Role="LentBook" Multiplicity="*" />
+          <End Type="LibraryManager.Employee" Role="Employee" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LentBook">
+              <PropertyRef Name="ReturnEmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Publisher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+        </EntityType>
+        <Association Name="PublisherBook">
+          <End Type="LibraryManager.Publisher" Role="Publisher" Multiplicity="0..1" />
+          <End Type="LibraryManager.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="PublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+        </EntityType>
+        <Association Name="AuthorBook">
+          <End Type="LibraryManager.Author" Role="Author" Multiplicity="*" />
+          <End Type="LibraryManager.Book" Role="Book" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LibraryManagerStoreContainer" CdmEntityContainer="LibraryDataContext">
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="IsTypeOf(LibraryManager.Book)">
+        <MappingFragment StoreEntitySet="Books">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="HardCover" ColumnName="HardCover" />
+          <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+          <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+          <ScalarProperty Name="Removed" ColumnName="Removed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Persons">
+      <EntityTypeMapping TypeName="IsTypeOf(LibraryManager.Person)">
+        <MappingFragment StoreEntitySet="Persons">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
+          <ComplexProperty Name="Address" TypeName="LibraryManager.Address">
+            <ScalarProperty Name="Street" ColumnName="Address_Street" />
+            <ScalarProperty Name="HouseNumber" ColumnName="Address_HouseNumber" />
+            <ScalarProperty Name="ApartmentNumber" ColumnName="Address_ApartmentNumber" />
+            <ScalarProperty Name="PostalCode" ColumnName="Address_PostalCode" />
+            <ScalarProperty Name="City" ColumnName="Address_City" />
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(LibraryManager.Client)">
+        <MappingFragment StoreEntitySet="Persons_Client">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+          <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(LibraryManager.Employee)">
+        <MappingFragment StoreEntitySet="Persons_Employee">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Removed" ColumnName="Removed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lendings">
+      <EntityTypeMapping TypeName="IsTypeOf(LibraryManager.Lending)">
+        <MappingFragment StoreEntitySet="Lendings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="LendingDate" ColumnName="LendingDate" />
+          <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="LendingEmployeeId" ColumnName="LendingEmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookCategories">
+      <EntityTypeMapping TypeName="IsTypeOf(LibraryManager.BookCategory)">
+        <MappingFragment StoreEntitySet="BookCategories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LentBooks">
+      <EntityTypeMapping TypeName="IsTypeOf(LibraryManager.LentBook)">
+        <MappingFragment StoreEntitySet="LentBooks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="BookId" ColumnName="BookId" />
+          <ScalarProperty Name="LendingId" ColumnName="LendingId" />
+          <ScalarProperty Name="ReturnEmployeeId" ColumnName="ReturnEmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Publishers">
+      <EntityTypeMapping TypeName="IsTypeOf(LibraryManager.Publisher)">
+        <MappingFragment StoreEntitySet="Publishers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Authors">
+      <EntityTypeMapping TypeName="IsTypeOf(LibraryManager.Author)">
+        <MappingFragment StoreEntitySet="Authors">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BookBookCategory" TypeName="LibraryManager.BookBookCategory" StoreEntitySet="BookBookCategory">
+      <EndProperty Name="Book">
+        <ScalarProperty Name="Id" ColumnName="BookBookCategory_BookCategory_Id" />
+      </EndProperty>
+      <EndProperty Name="BookCategory">
+        <ScalarProperty Name="Id" ColumnName="BookCategories_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AuthorBook" TypeName="LibraryManager.AuthorBook" StoreEntitySet="AuthorBook">
+      <EndProperty Name="Author">
+        <ScalarProperty Name="Id" ColumnName="Authors_Id" />
+      </EndProperty>
+      <EndProperty Name="Book">
+        <ScalarProperty Name="Id" ColumnName="AuthorBook_Author_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

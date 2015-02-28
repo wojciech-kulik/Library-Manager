@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5190f5ed564f47928916e96e00fac21b" Name="Diagram1" ZoomLevel="81" >
+        <EntityTypeShape EntityType="LibraryManager.Book" Width="1.5" PointX="13.5" PointY="10.625" />
+        <EntityTypeShape EntityType="LibraryManager.Client" Width="1.5" PointX="2" PointY="4.125" />
+        <EntityTypeShape EntityType="LibraryManager.Person" Width="1.5" PointX="6.25" PointY="0.5" />
+        <EntityTypeShape EntityType="LibraryManager.Employee" Width="1.5" PointX="10.625" PointY="4.125" />
+        <InheritanceConnector EntityType="LibraryManager.Employee" />
+        <InheritanceConnector EntityType="LibraryManager.Client" />
+        <EntityTypeShape EntityType="LibraryManager.Lending" Width="1.5" PointX="6.25" PointY="6.5" />
+        <AssociationConnector Association="LibraryManager.ClientLending" />
+        <EntityTypeShape EntityType="LibraryManager.BookCategory" Width="1.5" PointX="17.875" PointY="9.875" />
+        <AssociationConnector Association="LibraryManager.BookBookCategory" />
+        <AssociationConnector Association="LibraryManager.LendingEmployee" />
+        <EntityTypeShape EntityType="LibraryManager.LentBook" Width="1.5" PointX="6.25" PointY="10.125" />
+        <AssociationConnector Association="LibraryManager.LentBookBook" />
+        <AssociationConnector Association="LibraryManager.LentBookLending" />
+        <AssociationConnector Association="LibraryManager.LentBookEmployee" />
+        <EntityTypeShape EntityType="LibraryManager.Publisher" Width="1.5" PointX="17.875" PointY="12" />
+        <AssociationConnector Association="LibraryManager.PublisherBook" />
+        <EntityTypeShape EntityType="LibraryManager.Author" Width="1.5" PointX="17.875" PointY="14.125" />
+        <AssociationConnector Association="LibraryManager.AuthorBook" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,402 @@
+
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server Compact Edition
+-- --------------------------------------------------
+-- Date Created: 06/12/2013 22:26:30
+-- Generated from EDMX file: C:\Users\Wojciech\Desktop\LibraryManager\DB\LibraryManager.edmx
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- NOTE: if the constraint does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    ALTER TABLE [Lendings] DROP CONSTRAINT [FK_ClientLending];
+GO
+    ALTER TABLE [BookBookCategory] DROP CONSTRAINT [FK_BookBookCategory_Book];
+GO
+    ALTER TABLE [BookBookCategory] DROP CONSTRAINT [FK_BookBookCategory_BookCategory];
+GO
+    ALTER TABLE [Lendings] DROP CONSTRAINT [FK_LendingEmployee];
+GO
+    ALTER TABLE [LentBooks] DROP CONSTRAINT [FK_LentBookBook];
+GO
+    ALTER TABLE [LentBooks] DROP CONSTRAINT [FK_LentBookLending];
+GO
+    ALTER TABLE [LentBooks] DROP CONSTRAINT [FK_LentBookEmployee];
+GO
+    ALTER TABLE [Books] DROP CONSTRAINT [FK_PublisherBook];
+GO
+    ALTER TABLE [AuthorBook] DROP CONSTRAINT [FK_AuthorBook_Author];
+GO
+    ALTER TABLE [AuthorBook] DROP CONSTRAINT [FK_AuthorBook_Book];
+GO
+    ALTER TABLE [Persons_Client] DROP CONSTRAINT [FK_Client_inherits_Person];
+GO
+    ALTER TABLE [Persons_Employee] DROP CONSTRAINT [FK_Employee_inherits_Person];
+GO
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- NOTE: if the table does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    DROP TABLE [Books];
+GO
+    DROP TABLE [Persons];
+GO
+    DROP TABLE [Lendings];
+GO
+    DROP TABLE [BookCategories];
+GO
+    DROP TABLE [LentBooks];
+GO
+    DROP TABLE [Publishers];
+GO
+    DROP TABLE [Authors];
+GO
+    DROP TABLE [Persons_Client];
+GO
+    DROP TABLE [Persons_Employee];
+GO
+    DROP TABLE [BookBookCategory];
+GO
+    DROP TABLE [AuthorBook];
+GO
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'Books'
+CREATE TABLE [Books] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Title] nvarchar(4000)  NOT NULL,
+    [ISBN] nvarchar(4000)  NULL,
+    [HardCover] bit  NOT NULL,
+    [PublishDate] datetime  NULL,
+    [Quantity] smallint  NOT NULL,
+    [Location] nvarchar(4000)  NULL,
+    [PublisherId] int  NULL,
+    [AdditionalInfo] nvarchar(4000)  NULL,
+    [Removed] bit  NOT NULL
+);
+GO
+
+-- Creating table 'Persons'
+CREATE TABLE [Persons] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [FirstName] nvarchar(4000)  NOT NULL,
+    [LastName] nvarchar(4000)  NOT NULL,
+    [Phone] nvarchar(4000)  NULL,
+    [Email] nvarchar(4000)  NULL,
+    [IdNumber] nvarchar(4000)  NULL,
+    [Address_Street] nvarchar(4000)  NULL,
+    [Address_HouseNumber] nvarchar(4000)  NULL,
+    [Address_ApartmentNumber] nvarchar(4000)  NULL,
+    [Address_PostalCode] nvarchar(4000)  NULL,
+    [Address_City] nvarchar(4000)  NULL
+);
+GO
+
+-- Creating table 'Lendings'
+CREATE TABLE [Lendings] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [EndDate] datetime  NOT NULL,
+    [LendingDate] datetime  NOT NULL,
+    [ReturnDate] datetime  NULL,
+    [ClientId] int  NOT NULL,
+    [LendingEmployeeId] int  NOT NULL
+);
+GO
+
+-- Creating table 'BookCategories'
+CREATE TABLE [BookCategories] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(4000)  NOT NULL
+);
+GO
+
+-- Creating table 'LentBooks'
+CREATE TABLE [LentBooks] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ReturnDate] datetime  NULL,
+    [EndDate] datetime  NOT NULL,
+    [BookId] int  NOT NULL,
+    [LendingId] int  NOT NULL,
+    [ReturnEmployeeId] int  NULL
+);
+GO
+
+-- Creating table 'Publishers'
+CREATE TABLE [Publishers] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(4000)  NOT NULL
+);
+GO
+
+-- Creating table 'Authors'
+CREATE TABLE [Authors] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(4000)  NOT NULL
+);
+GO
+
+-- Creating table 'Persons_Client'
+CREATE TABLE [Persons_Client] (
+    [CardNumber] nvarchar(4000)  NULL,
+    [AdditionalInfo] nvarchar(4000)  NULL,
+    [Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'Persons_Employee'
+CREATE TABLE [Persons_Employee] (
+    [Role] tinyint  NOT NULL,
+    [Username] nvarchar(4000)  NOT NULL,
+    [Password] nvarchar(4000)  NOT NULL,
+    [Removed] bit  NOT NULL,
+    [Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'BookBookCategory'
+CREATE TABLE [BookBookCategory] (
+    [BookBookCategory_BookCategory_Id] int  NOT NULL,
+    [BookCategories_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'AuthorBook'
+CREATE TABLE [AuthorBook] (
+    [Authors_Id] int  NOT NULL,
+    [AuthorBook_Author_Id] int  NOT NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [Id] in table 'Books'
+ALTER TABLE [Books]
+ADD CONSTRAINT [PK_Books]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Persons'
+ALTER TABLE [Persons]
+ADD CONSTRAINT [PK_Persons]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Lendings'
+ALTER TABLE [Lendings]
+ADD CONSTRAINT [PK_Lendings]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'BookCategories'
+ALTER TABLE [BookCategories]
+ADD CONSTRAINT [PK_BookCategories]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'LentBooks'
+ALTER TABLE [LentBooks]
+ADD CONSTRAINT [PK_LentBooks]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Publishers'
+ALTER TABLE [Publishers]
+ADD CONSTRAINT [PK_Publishers]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Authors'
+ALTER TABLE [Authors]
+ADD CONSTRAINT [PK_Authors]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Persons_Client'
+ALTER TABLE [Persons_Client]
+ADD CONSTRAINT [PK_Persons_Client]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Persons_Employee'
+ALTER TABLE [Persons_Employee]
+ADD CONSTRAINT [PK_Persons_Employee]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [BookBookCategory_BookCategory_Id], [BookCategories_Id] in table 'BookBookCategory'
+ALTER TABLE [BookBookCategory]
+ADD CONSTRAINT [PK_BookBookCategory]
+    PRIMARY KEY ([BookBookCategory_BookCategory_Id], [BookCategories_Id] );
+GO
+
+-- Creating primary key on [Authors_Id], [AuthorBook_Author_Id] in table 'AuthorBook'
+ALTER TABLE [AuthorBook]
+ADD CONSTRAINT [PK_AuthorBook]
+    PRIMARY KEY ([Authors_Id], [AuthorBook_Author_Id] );
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [ClientId] in table 'Lendings'
+ALTER TABLE [Lendings]
+ADD CONSTRAINT [FK_ClientLending]
+    FOREIGN KEY ([ClientId])
+    REFERENCES [Persons_Client]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ClientLending'
+CREATE INDEX [IX_FK_ClientLending]
+ON [Lendings]
+    ([ClientId]);
+GO
+
+-- Creating foreign key on [BookBookCategory_BookCategory_Id] in table 'BookBookCategory'
+ALTER TABLE [BookBookCategory]
+ADD CONSTRAINT [FK_BookBookCategory_Book]
+    FOREIGN KEY ([BookBookCategory_BookCategory_Id])
+    REFERENCES [Books]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [BookCategories_Id] in table 'BookBookCategory'
+ALTER TABLE [BookBookCategory]
+ADD CONSTRAINT [FK_BookBookCategory_BookCategory]
+    FOREIGN KEY ([BookCategories_Id])
+    REFERENCES [BookCategories]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BookBookCategory_BookCategory'
+CREATE INDEX [IX_FK_BookBookCategory_BookCategory]
+ON [BookBookCategory]
+    ([BookCategories_Id]);
+GO
+
+-- Creating foreign key on [LendingEmployeeId] in table 'Lendings'
+ALTER TABLE [Lendings]
+ADD CONSTRAINT [FK_LendingEmployee]
+    FOREIGN KEY ([LendingEmployeeId])
+    REFERENCES [Persons_Employee]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_LendingEmployee'
+CREATE INDEX [IX_FK_LendingEmployee]
+ON [Lendings]
+    ([LendingEmployeeId]);
+GO
+
+-- Creating foreign key on [BookId] in table 'LentBooks'
+ALTER TABLE [LentBooks]
+ADD CONSTRAINT [FK_LentBookBook]
+    FOREIGN KEY ([BookId])
+    REFERENCES [Books]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_LentBookBook'
+CREATE INDEX [IX_FK_LentBookBook]
+ON [LentBooks]
+    ([BookId]);
+GO
+
+-- Creating foreign key on [LendingId] in table 'LentBooks'
+ALTER TABLE [LentBooks]
+ADD CONSTRAINT [FK_LentBookLending]
+    FOREIGN KEY ([LendingId])
+    REFERENCES [Lendings]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_LentBookLending'
+CREATE INDEX [IX_FK_LentBookLending]
+ON [LentBooks]
+    ([LendingId]);
+GO
+
+-- Creating foreign key on [ReturnEmployeeId] in table 'LentBooks'
+ALTER TABLE [LentBooks]
+ADD CONSTRAINT [FK_LentBookEmployee]
+    FOREIGN KEY ([ReturnEmployeeId])
+    REFERENCES [Persons_Employee]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_LentBookEmployee'
+CREATE INDEX [IX_FK_LentBookEmployee]
+ON [LentBooks]
+    ([ReturnEmployeeId]);
+GO
+
+-- Creating foreign key on [PublisherId] in table 'Books'
+ALTER TABLE [Books]
+ADD CONSTRAINT [FK_PublisherBook]
+    FOREIGN KEY ([PublisherId])
+    REFERENCES [Publishers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PublisherBook'
+CREATE INDEX [IX_FK_PublisherBook]
+ON [Books]
+    ([PublisherId]);
+GO
+
+-- Creating foreign key on [Authors_Id] in table 'AuthorBook'
+ALTER TABLE [AuthorBook]
+ADD CONSTRAINT [FK_AuthorBook_Author]
+    FOREIGN KEY ([Authors_Id])
+    REFERENCES [Authors]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [AuthorBook_Author_Id] in table 'AuthorBook'
+ALTER TABLE [AuthorBook]
+ADD CONSTRAINT [FK_AuthorBook_Book]
+    FOREIGN KEY ([AuthorBook_Author_Id])
+    REFERENCES [Books]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AuthorBook_Book'
+CREATE INDEX [IX_FK_AuthorBook_Book]
+ON [AuthorBook]
+    ([AuthorBook_Author_Id]);
+GO
+
+-- Creating foreign key on [Id] in table 'Persons_Client'
+ALTER TABLE [Persons_Client]
+ADD CONSTRAINT [FK_Client_inherits_Person]
+    FOREIGN KEY ([Id])
+    REFERENCES [Persons]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'Persons_Employee'
+ALTER TABLE [Persons_Employee]
+ADD CONSTRAINT [FK_Employee_inherits_Person]
+    FOREIGN KEY ([Id])
+    REFERENCES [Persons]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------

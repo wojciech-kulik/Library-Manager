@@ -1,0 +1,899 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="DatabaseService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="WSHttpBinding_IDatabaseService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp />
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:EndorsingSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:SecureConversationToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:BootstrapPolicy>
+                  <wsp:Policy>
+                    <sp:SignedParts>
+                      <sp:Body />
+                      <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+                    </sp:SignedParts>
+                    <sp:EncryptedParts>
+                      <sp:Body />
+                    </sp:EncryptedParts>
+                    <sp:TransportBinding>
+                      <wsp:Policy>
+                        <sp:TransportToken>
+                          <wsp:Policy>
+                            <sp:HttpsToken RequireClientCertificate="false" />
+                          </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                          <wsp:Policy>
+                            <sp:Basic256 />
+                          </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                          <wsp:Policy>
+                            <sp:Strict />
+                          </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp />
+                      </wsp:Policy>
+                    </sp:TransportBinding>
+                    <sp:SignedSupportingTokens>
+                      <wsp:Policy>
+                        <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                          <wsp:Policy>
+                            <sp:WssUsernameToken10 />
+                          </wsp:Policy>
+                        </sp:UsernameToken>
+                      </wsp:Policy>
+                    </sp:SignedSupportingTokens>
+                    <sp:Wss11>
+                      <wsp:Policy />
+                    </sp:Wss11>
+                    <sp:Trust10>
+                      <wsp:Policy>
+                        <sp:MustSupportIssuedTokens />
+                        <sp:RequireClientEntropy />
+                        <sp:RequireServerEntropy />
+                      </wsp:Policy>
+                    </sp:Trust10>
+                  </wsp:Policy>
+                </sp:BootstrapPolicy>
+              </wsp:Policy>
+            </sp:SecureConversationToken>
+          </wsp:Policy>
+        </sp:EndorsingSupportingTokens>
+        <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy />
+        </sp:Wss11>
+        <sp:Trust10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:MustSupportIssuedTokens />
+            <sp:RequireClientEntropy />
+            <sp:RequireServerEntropy />
+          </wsp:Policy>
+        </sp:Trust10>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="https://localhost:3915/DatabaseService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="https://localhost:3915/DatabaseService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DBService" />
+      <xsd:import schemaLocation="https://localhost:3915/DatabaseService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://localhost:3915/DatabaseService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IDatabaseService_GetAllClients_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllClients" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllClients_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllClientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllClients_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q1:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClient" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetClient_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q2:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteClient" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteClient_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q3:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddClient" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddClient_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q4:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditClient" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditClient_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q5:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetEmployeeRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeRole" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetEmployeeRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetEmployeeRole_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q6:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllEmployees_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllEmployees" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllEmployees_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllEmployeesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllEmployees_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q7:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployee" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetEmployee_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q8:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddEmployee" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddEmployee_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q9:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditEmployee" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditEmployee_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q10:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEmployee" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteEmployee_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q11:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetLendingsOf_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLendingsOf" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetLendingsOf_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLendingsOfResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetLendingsOf_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q12:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetLentBooksOf_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLentBooksOf" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetLentBooksOf_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLentBooksOfResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetLentBooksOf_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q13="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q13:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_ReturnAllBooks_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReturnAllBooks" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_ReturnAllBooks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReturnAllBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_ReturnAllBooks_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q14:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_ReturnBooks_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReturnBooks" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_ReturnBooks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReturnBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_ReturnBooks_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q15="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q15:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddLending_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddLending" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddLending_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddLendingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddLending_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q16="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q16:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditLending_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditLending" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditLending_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditLendingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditLending_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q17="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q17:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteLending_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteLending" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteLending_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteLendingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteLending_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q18="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q18:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllBooks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllBooks" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllBooks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllBooks_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q19="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q19:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetBook_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBook" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetBook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetBook_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q20="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q20:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddBook_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddBook" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddBook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddBook_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q21="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q21:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditBook_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditBook" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditBook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_EditBook_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q22="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q22:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteBook_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteBook" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteBook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_DeleteBook_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q23="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q23:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllBookCategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllBookCategories" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllBookCategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllBookCategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllBookCategories_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q24="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q24:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllAuthors_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAuthors" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllAuthors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAuthorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllAuthors_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q25="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q25:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllPublishers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPublishers" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllPublishers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPublishersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_GetAllPublishers_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q26="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q26:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddPublisher_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddPublisher" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddPublisher_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddPublisherResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddPublisher_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q27="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q27:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddAuthor_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAuthor" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddAuthor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAuthorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddAuthor_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q28="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q28:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddBookCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddBookCategory" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddBookCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddBookCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_AddBookCategory_DBServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q29="http://schemas.datacontract.org/2004/07/DBService" name="detail" element="q29:DBServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_TestAuthorization_InputMessage">
+    <wsdl:part name="parameters" element="tns:TestAuthorization" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseService_TestAuthorization_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TestAuthorizationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IDatabaseService">
+    <wsdl:operation name="GetAllClients">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetAllClients" message="tns:IDatabaseService_GetAllClients_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetAllClientsResponse" message="tns:IDatabaseService_GetAllClients_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetAllClientsDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetAllClients_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetClient" message="tns:IDatabaseService_GetClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetClientResponse" message="tns:IDatabaseService_GetClient_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetClientDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetClient_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/DeleteClient" message="tns:IDatabaseService_DeleteClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/DeleteClientResponse" message="tns:IDatabaseService_DeleteClient_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/DeleteClientDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_DeleteClient_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/AddClient" message="tns:IDatabaseService_AddClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/AddClientResponse" message="tns:IDatabaseService_AddClient_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/AddClientDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_AddClient_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/EditClient" message="tns:IDatabaseService_EditClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/EditClientResponse" message="tns:IDatabaseService_EditClient_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/EditClientDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_EditClient_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetEmployeeRole" message="tns:IDatabaseService_GetEmployeeRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetEmployeeRoleResponse" message="tns:IDatabaseService_GetEmployeeRole_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetEmployeeRoleDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetEmployeeRole_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllEmployees">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetAllEmployees" message="tns:IDatabaseService_GetAllEmployees_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetAllEmployeesResponse" message="tns:IDatabaseService_GetAllEmployees_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetAllEmployeesDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetAllEmployees_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployee">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetEmployee" message="tns:IDatabaseService_GetEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetEmployeeResponse" message="tns:IDatabaseService_GetEmployee_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetEmployeeDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetEmployee_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddEmployee">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/AddEmployee" message="tns:IDatabaseService_AddEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/AddEmployeeResponse" message="tns:IDatabaseService_AddEmployee_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/AddEmployeeDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_AddEmployee_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditEmployee">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/EditEmployee" message="tns:IDatabaseService_EditEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/EditEmployeeResponse" message="tns:IDatabaseService_EditEmployee_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/EditEmployeeDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_EditEmployee_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEmployee">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/DeleteEmployee" message="tns:IDatabaseService_DeleteEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/DeleteEmployeeResponse" message="tns:IDatabaseService_DeleteEmployee_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/DeleteEmployeeDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_DeleteEmployee_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLendingsOf">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetLendingsOf" message="tns:IDatabaseService_GetLendingsOf_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetLendingsOfResponse" message="tns:IDatabaseService_GetLendingsOf_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetLendingsOfDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetLendingsOf_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLentBooksOf">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetLentBooksOf" message="tns:IDatabaseService_GetLentBooksOf_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetLentBooksOfResponse" message="tns:IDatabaseService_GetLentBooksOf_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetLentBooksOfDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetLentBooksOf_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReturnAllBooks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/ReturnAllBooks" message="tns:IDatabaseService_ReturnAllBooks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/ReturnAllBooksResponse" message="tns:IDatabaseService_ReturnAllBooks_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/ReturnAllBooksDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_ReturnAllBooks_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReturnBooks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/ReturnBooks" message="tns:IDatabaseService_ReturnBooks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/ReturnBooksResponse" message="tns:IDatabaseService_ReturnBooks_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/ReturnBooksDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_ReturnBooks_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddLending">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/AddLending" message="tns:IDatabaseService_AddLending_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/AddLendingResponse" message="tns:IDatabaseService_AddLending_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/AddLendingDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_AddLending_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditLending">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/EditLending" message="tns:IDatabaseService_EditLending_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/EditLendingResponse" message="tns:IDatabaseService_EditLending_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/EditLendingDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_EditLending_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLending">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/DeleteLending" message="tns:IDatabaseService_DeleteLending_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/DeleteLendingResponse" message="tns:IDatabaseService_DeleteLending_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/DeleteLendingDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_DeleteLending_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllBooks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetAllBooks" message="tns:IDatabaseService_GetAllBooks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetAllBooksResponse" message="tns:IDatabaseService_GetAllBooks_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetAllBooksDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetAllBooks_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBook">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetBook" message="tns:IDatabaseService_GetBook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetBookResponse" message="tns:IDatabaseService_GetBook_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetBookDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetBook_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBook">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/AddBook" message="tns:IDatabaseService_AddBook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/AddBookResponse" message="tns:IDatabaseService_AddBook_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/AddBookDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_AddBook_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditBook">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/EditBook" message="tns:IDatabaseService_EditBook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/EditBookResponse" message="tns:IDatabaseService_EditBook_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/EditBookDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_EditBook_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBook">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/DeleteBook" message="tns:IDatabaseService_DeleteBook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/DeleteBookResponse" message="tns:IDatabaseService_DeleteBook_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/DeleteBookDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_DeleteBook_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllBookCategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetAllBookCategories" message="tns:IDatabaseService_GetAllBookCategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetAllBookCategoriesResponse" message="tns:IDatabaseService_GetAllBookCategories_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetAllBookCategoriesDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetAllBookCategories_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAuthors">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetAllAuthors" message="tns:IDatabaseService_GetAllAuthors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetAllAuthorsResponse" message="tns:IDatabaseService_GetAllAuthors_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetAllAuthorsDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetAllAuthors_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPublishers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/GetAllPublishers" message="tns:IDatabaseService_GetAllPublishers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/GetAllPublishersResponse" message="tns:IDatabaseService_GetAllPublishers_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/GetAllPublishersDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_GetAllPublishers_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPublisher">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/AddPublisher" message="tns:IDatabaseService_AddPublisher_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/AddPublisherResponse" message="tns:IDatabaseService_AddPublisher_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/AddPublisherDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_AddPublisher_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAuthor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/AddAuthor" message="tns:IDatabaseService_AddAuthor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/AddAuthorResponse" message="tns:IDatabaseService_AddAuthor_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/AddAuthorDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_AddAuthor_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBookCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/AddBookCategory" message="tns:IDatabaseService_AddBookCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/AddBookCategoryResponse" message="tns:IDatabaseService_AddBookCategory_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IDatabaseService/AddBookCategoryDBServiceFaultFault" name="DBServiceFaultFault" message="tns:IDatabaseService_AddBookCategory_DBServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TestAuthorization">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseService/TestAuthorization" message="tns:IDatabaseService_TestAuthorization_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseService/TestAuthorizationResponse" message="tns:IDatabaseService_TestAuthorization_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSHttpBinding_IDatabaseService" type="tns:IDatabaseService">
+    <wsp:PolicyReference URI="#WSHttpBinding_IDatabaseService_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllClients">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetAllClients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetClient">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteClient">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/DeleteClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddClient">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/AddClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="EditClient">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/EditClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeRole">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetEmployeeRole" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllEmployees">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetAllEmployees" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployee">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddEmployee">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/AddEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="EditEmployee">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/EditEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEmployee">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/DeleteEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetLendingsOf">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetLendingsOf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetLentBooksOf">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetLentBooksOf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ReturnAllBooks">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/ReturnAllBooks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ReturnBooks">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/ReturnBooks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddLending">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/AddLending" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="EditLending">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/EditLending" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLending">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/DeleteLending" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllBooks">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetAllBooks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetBook">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetBook" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddBook">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/AddBook" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="EditBook">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/EditBook" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBook">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/DeleteBook" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllBookCategories">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetAllBookCategories" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAuthors">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetAllAuthors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPublishers">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/GetAllPublishers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddPublisher">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/AddPublisher" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddAuthor">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/AddAuthor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddBookCategory">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/AddBookCategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DBServiceFaultFault">
+        <soap12:fault use="literal" name="DBServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="TestAuthorization">
+      <soap12:operation soapAction="http://tempuri.org/IDatabaseService/TestAuthorization" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DatabaseService">
+    <wsdl:port name="WSHttpBinding_IDatabaseService" binding="tns:WSHttpBinding_IDatabaseService">
+      <soap12:address location="https://localhost:3915/DatabaseService.svc" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>https://localhost:3915/DatabaseService.svc</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
