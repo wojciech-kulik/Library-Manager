@@ -91,4 +91,33 @@
     <system:String x:Key="ClientNumberColon">Client no.:</system:String>
     <system:String x:Key="AdditionalInfoColon">Additional info:</system:String>
 
+    <!-- BooksReturnView.xaml -->
+    <system:String x:Key="SelectBooksToReturnColon">Select books to return:</system:String>
+    <system:String x:Key="SelectDeselectAll">Select/Deselect all</system:String>
+    <system:String x:Key="Returned">Returned</system:String>
+
+    <!-- BooksListView.xaml -->
+    <system:String x:Key="EditBook">Edit book</system:String>
+    <system:String x:Key="Publisher">Publisher</system:String>
+    <system:String x:Key="PublishDate">Publish date</system:String>
+    <system:String x:Key="Quantity">Quantity</system:String>
+    <system:String x:Key="Author">Author</system:String>
+    <system:String x:Key="HardCover">Hard cover</system:String>
+    <system:String x:Key="Category">Category</system:String>
+    <system:String x:Key="Available">Available</system:String>
+    <system:String x:Key="ISBN">ISBN</system:String>
+
+    <!-- BookDetailsView.xaml -->
+    <system:String x:Key="BookDetails">Book details</system:String>
+    <system:String x:Key="TitleColon">Title:</system:String>
+    <system:String x:Key="PublishDateColon">Publish date:</system:String>
+    <system:String x:Key="QuantityColon">Quantity:</system:String>
+    <system:String x:Key="AuthorsColon">Authors:</system:String>
+    <system:String x:Key="HardCoverColon">Hard cover:</system:String>
+    <system:String x:Key="CategoriesColon">Categories:</system:String>
+    <system:String x:Key="PublisherColon">Publisher:</system:String>
+    <system:String x:Key="LocationColon">Location:</system:String>
+    <system:String x:Key="AddAuthorColon">Add author:</system:String>
+    <system:String x:Key="AddCategoryColon">Add category:</system:String>
+    <system:String x:Key="ISBNColon">ISBN:</system:String>
 </ResourceDictionary>

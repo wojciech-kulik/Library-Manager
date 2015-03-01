@@ -90,4 +90,34 @@
     <!-- ClientDetailsView.xaml -->
     <system:String x:Key="ClientNumberColon">Nr klienta:</system:String>
     <system:String x:Key="AdditionalInfoColon">Dodatkowe inf.:</system:String>
+
+    <!-- BooksReturnView.xaml -->
+    <system:String x:Key="SelectBooksToReturnColon">Zaznacz książki do zwrotu:</system:String>
+    <system:String x:Key="SelectDeselectAll">Zazn./Odzn. wszystko</system:String>
+    <system:String x:Key="Returned">Zwrócono</system:String>
+
+    <!-- BooksListView.xaml -->
+    <system:String x:Key="EditBook">Edytuj książkę</system:String>
+    <system:String x:Key="Publisher">Wydawca</system:String>
+    <system:String x:Key="PublishDate">Data wydania</system:String>
+    <system:String x:Key="Quantity">Ilość</system:String>
+    <system:String x:Key="Author">Autor</system:String>
+    <system:String x:Key="HardCover">Twarda okładka</system:String>
+    <system:String x:Key="Category">Kategoria</system:String>
+    <system:String x:Key="Available">Dostępna</system:String>
+    <system:String x:Key="ISBN">ISBN</system:String>
+
+    <!-- BookDetailsView.xaml -->
+    <system:String x:Key="BookDetails">Szczegóły książki</system:String>
+    <system:String x:Key="TitleColon">Tytuł:</system:String>
+    <system:String x:Key="PublishDateColon">Publish date:</system:String>
+    <system:String x:Key="QuantityColon">Ilość:</system:String>
+    <system:String x:Key="AuthorsColon">Autorzy:</system:String>
+    <system:String x:Key="HardCoverColon">Twarda okładka:</system:String>
+    <system:String x:Key="CategoriesColon">Kategorie:</system:String>
+    <system:String x:Key="PublisherColon">Wydawca:</system:String>
+    <system:String x:Key="LocationColon">Lokalizacja:</system:String>
+    <system:String x:Key="AddAuthorColon">Dodaj autora:</system:String>
+    <system:String x:Key="AddCategoryColon">Dodaj kategorię:</system:String>
+    <system:String x:Key="ISBNColon">ISBN:</system:String>
 </ResourceDictionary>

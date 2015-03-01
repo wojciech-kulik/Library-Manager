@@ -24,6 +24,8 @@ namespace ClientApplication
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             ci.DateTimeFormat.ShortTimePattern = "HH:mm";
             Thread.CurrentThread.CurrentCulture = ci;
+
+            //App.SelectCulture("pl-PL");
         }
 
         void ExceptionHandler(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

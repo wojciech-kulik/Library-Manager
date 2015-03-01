@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:myCtrls="clr-namespace:ClientApplication.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="Biblioteka 1.0 [beta]" Height="546" Width="729.5" MinWidth="420" MinHeight="380"
+        Height="546" Width="729.5" MinWidth="420" MinHeight="380"
         WindowStartupLocation="CenterOwner" Background="#FF3E3E3E" 
         ShowInTaskbar="False" KeyDown="OnKeyDown" Foreground="White">
     <Grid>
@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <myCtrls:Header Text="Zwrot książek" Height="75" TextBlock.FontSize="23" />
+        <myCtrls:Header Text="{DynamicResource Return}" Height="75" TextBlock.FontSize="23" />
 
         <Border Grid.Row="1" CornerRadius="5" Margin="10">
             <Border.Background>
@@ -30,9 +30,9 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock VerticalAlignment="Bottom" FontFamily="Calibri" FontSize="18" Text="Zaznacz książki, które zwraca klient:" />
+                <TextBlock VerticalAlignment="Bottom" FontFamily="Calibri" FontSize="18" Text="{DynamicResource SelectBooksToReturnColon}" />
 
-                <myCtrls:ActionButton Grid.Column="1" cal:Message.Attach="[Event Click] = [Action SelectDeselectAll]" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,-5" Width="150" Height="30" TextBlock.FontSize="12" ImageSource="Images/selectall.ico"  Text="Zazn./Odzn. wszystko" />
+                <myCtrls:ActionButton Grid.Column="1" cal:Message.Attach="[Event Click] = [Action SelectDeselectAll]" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,-5" Width="150" Height="30" TextBlock.FontSize="12" ImageSource="Images/selectall.ico"  Text="{DynamicResource SelectDeselectAll}" />
 
                 <DataGrid Grid.ColumnSpan="2" IsReadOnly="False" Grid.Row="1" Margin="0,15,0,0" ItemsSource="{Binding LentBooks}" SelectedValue="{Binding SelectedLentBook}" SelectionMode="Single">
                     <DataGrid.Resources>
@@ -64,24 +64,24 @@
                         </Style>                        
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Binding="{Binding IsReturned, UpdateSourceTrigger=PropertyChanged}" Header="Zwrócono" SortMemberPath="IsReturned" />
-                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding Book.Title}" SortMemberPath="Book.Title" Header="Tytuł" Width="*" />
-                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding Book.Location, TargetNullValue=(brak)}" SortMemberPath="Book.Location" Header="Lokalizacja" ElementStyle="{StaticResource CenterColumn}" />
-                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding EndDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="EndDate" ElementStyle="{StaticResource CenterColumn}" Header="Termin zwrotu" Width="*" />
-                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding ReturnDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="ReturnDate" ElementStyle="{StaticResource CenterColumn}" Header="Data zwrotu" Width="*" />
-                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding ReturnEmployee, Converter={StaticResource FullNameConverter}}" SortMemberPath="ReturnEmployee.FullName" Header="Przyjął" ElementStyle="{StaticResource CenterColumn}" Width="*" />
+                        <DataGridCheckBoxColumn Binding="{Binding IsReturned, UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource Returned}" SortMemberPath="IsReturned" />
+                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding Book.Title}" SortMemberPath="Book.Title" Header="{DynamicResource Title}" Width="*" />
+                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding Book.Location, TargetNullValue=(brak)}" SortMemberPath="Book.Location" Header="{DynamicResource Location}" ElementStyle="{StaticResource CenterColumn}" />
+                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding EndDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="EndDate" ElementStyle="{StaticResource CenterColumn}" Header="{DynamicResource DueDate}" Width="*" />
+                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding ReturnDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="ReturnDate" ElementStyle="{StaticResource CenterColumn}" Header="{DynamicResource ReturnDate}" Width="*" />
+                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding ReturnEmployee, Converter={StaticResource FullNameConverter}}" SortMemberPath="ReturnEmployee.FullName" Header="{DynamicResource Employee}" ElementStyle="{StaticResource CenterColumn}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </Border>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
-            <myCtrls:ActionButton x:Name="btnCancel" Text="Anuluj" ImageSource="Images/cancel.ico" 
+            <myCtrls:ActionButton x:Name="btnCancel" Text="{DynamicResource Cancel}" ImageSource="Images/cancel.ico" 
                               Height="34" Margin="0,0,10,10" Width="100" 
                               HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
                               cal:Message.Attach="[Event Click] = [Action Cancel]" />
 
-            <myCtrls:ActionButton x:Name="btnSave" Text="Zapisz" ImageSource="Images/accept.png" 
+            <myCtrls:ActionButton x:Name="btnSave" Text="{DynamicResource Save}" ImageSource="Images/accept.png" 
                               Height="34" Margin="0,0,10,10" Width="100" 
                               HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
                               cal:Message.Attach="[Event Click] = [Action Save]" />
