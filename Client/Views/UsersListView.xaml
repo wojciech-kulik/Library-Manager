@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:myCtrls="clr-namespace:ClientApplication.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="Biblioteka 1.0 [beta]" Height="559.836" Width="761.682" MinWidth="600" MinHeight="550"
+        Height="559.836" Width="761.682" MinWidth="600" MinHeight="550"
         WindowStartupLocation="CenterOwner" Background="#FF3E3E3E" 
         ShowInTaskbar="False" KeyDown="OnKeyDown" Foreground="White">
     <Grid>
@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <myCtrls:Header Text="Baza użytkowników" Height="75" TextBlock.FontSize="23" />
+        <myCtrls:Header Text="{DynamicResource Users}" Height="75" TextBlock.FontSize="23" />
 
         <Border Grid.Row="1" CornerRadius="5" Margin="10,10,10,0" Padding="20,14">
             <Border.Resources>
@@ -28,9 +28,9 @@
             </Border.Background>
 
             <StackPanel Orientation="Horizontal" Height="80" >
-                <myCtrls:MainButton Text="Dodaj użytkownika" cal:Message.Attach="[Event Click] = [Action AddUser]" ImageSource="Images/add_user.ico" />
-                <myCtrls:MainButton Text="Edytuj użytkownika" cal:Message.Attach="[Event Click] = [Action EditUser]" IsEnabled="{Binding SelectedUser, Converter={StaticResource NullToEnabledConverter}}" ImageSource="Images/edit_user.ico" />
-                <myCtrls:MainButton Text="Usuń użytkownika" cal:Message.Attach="[Event Click] = [Action DeleteUser]" IsEnabled="{Binding SelectedUser, Converter={StaticResource NullToEnabledConverter}}"  ImageSource="Images/del_user.ico" />
+                <myCtrls:MainButton Text="{DynamicResource AddUser}" cal:Message.Attach="[Event Click] = [Action AddUser]" ImageSource="Images/add_user.ico" />
+                <myCtrls:MainButton Text="{DynamicResource EditUser}" cal:Message.Attach="[Event Click] = [Action EditUser]" IsEnabled="{Binding SelectedUser, Converter={StaticResource NullToEnabledConverter}}" ImageSource="Images/edit_user.ico" />
+                <myCtrls:MainButton Text="{DynamicResource RemoveUser}" cal:Message.Attach="[Event Click] = [Action DeleteUser]" IsEnabled="{Binding SelectedUser, Converter={StaticResource NullToEnabledConverter}}"  ImageSource="Images/del_user.ico" />
             </StackPanel>
         </Border>
 
@@ -52,17 +52,17 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding FirstName}" SortMemberPath="FirstName" Header="Imię" Width="*" />
-                        <DataGridTextColumn Binding="{Binding LastName}" SortMemberPath="LastName" Header="Nazwisko" Width="*" />
-                        <DataGridTextColumn Binding="{Binding Username}" SortMemberPath="Username" Header="Nazwa użytkownika" Width="*" />
-                        <DataGridTextColumn Binding="{Binding RoleString}" SortMemberPath="RoleString" Header="Rola" Width="*" />
+                        <DataGridTextColumn Binding="{Binding FirstName}" SortMemberPath="FirstName" Header="{DynamicResource FirstName}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding LastName}" SortMemberPath="LastName" Header="{DynamicResource LastName}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding Username}" SortMemberPath="Username" Header="{DynamicResource Username}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding RoleString}" SortMemberPath="RoleString" Header="{DynamicResource Role}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </Border>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3">
-            <myCtrls:ActionButton x:Name="btnCancel" Text="Zamknij" Height="34" Margin="0,0,10,10" Width="90"
+            <myCtrls:ActionButton x:Name="btnCancel" Text="{DynamicResource Close}" Height="34" Margin="0,0,10,10" Width="{DynamicResource CloseWidth}"
                               HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
                               cal:Message.Attach="[Event Click] = [Action Cancel]" />
         </StackPanel>

@@ -63,5 +63,10 @@ namespace ClientApplication
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(culture);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
         }
+
+        public static string GetString(string name)
+        {
+            return App.Current.Resources[name] as string;
+        }
     }
 }

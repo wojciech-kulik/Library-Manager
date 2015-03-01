@@ -35,4 +35,60 @@
     <system:String x:Key="Refresh">Refresh</system:String>
     <system:String x:Key="Books">Books</system:String>
     <system:String x:Key="Users">Users</system:String>
+    <system:String x:Key="Delays">Delays</system:String>
+    <system:String x:Key="Settings">Settings</system:String>
+    
+    <!-- LoginView.xaml -->
+    <system:String x:Key="SignIn">Sign in</system:String>
+    <system:String x:Key="LogIn">Log in</system:String>
+    <system:String x:Key="UsernameColon">Username:</system:String>
+    <system:String x:Key="PasswordColon">Password:</system:String>
+
+    <!-- UsersListView.xaml -->
+    <system:String x:Key="AddUser">Add user</system:String>
+    <system:String x:Key="EditUser">Edit user</system:String>
+    <system:String x:Key="RemoveUser">Remove user</system:String>
+    <system:String x:Key="Username">Username</system:String>
+    <system:String x:Key="Role">Role</system:String>
+    <system:String x:Key="Close">Close</system:String>
+    <system:Double x:Key="CloseWidth">73</system:Double>
+
+    <!-- UserDetailsView.xaml -->
+    <system:String x:Key="UserDetails">User details</system:String>
+    <system:String x:Key="AccountDetailsColon">Account details:</system:String>
+    <system:String x:Key="RoleColon">Role:</system:String>
+    <system:String x:Key="Administrator">Administrator</system:String>
+    
+    <system:String x:Key="PersonalDetailsColon">Personal details:</system:String>
+    <system:String x:Key="FirstNameColon">First name:</system:String>
+    <system:String x:Key="LastNameColon">Last name:</system:String>
+    <system:String x:Key="IdNumberColon">Id number:</system:String>
+    <system:String x:Key="PhoneColon">Phone:</system:String>
+    <system:String x:Key="EmailColon">E-mail:</system:String>
+    
+    <system:String x:Key="AddressColon">Address:</system:String>
+    <system:String x:Key="StreetColon">Street:</system:String>
+    <system:String x:Key="HouseNumberColon">House no.:</system:String>
+    <system:String x:Key="AppartmentNumberColon">Appartment no.:</system:String>
+    <system:String x:Key="PostalCodeColon">Postal code:</system:String>
+    <system:String x:Key="CityColon">City:</system:String>
+    
+    <system:String x:Key="Save">Save</system:String>
+    <system:String x:Key="Cancel">Cancel</system:String>
+
+    <!-- LendingDetailsView.xaml -->
+    <system:String x:Key="LendDateColon">Lend date:</system:String>
+    <system:String x:Key="DueDateColon">Due date:</system:String>
+    <system:String x:Key="ReturnDateColon">Return date:</system:String>
+    <system:String x:Key="AddBook">Add book</system:String>
+    <system:String x:Key="RemoveBook">Remove book</system:String>
+    <system:String x:Key="Title">Title</system:String>
+    <system:String x:Key="Location">Location</system:String>
+    <system:String x:Key="EditSelectedItem">Edit selected item:</system:String>
+    <system:String x:Key="DueDateForAll">Do you want to set this due date for all books?</system:String>
+
+    <!-- ClientDetailsView.xaml -->
+    <system:String x:Key="ClientNumberColon">Client no.:</system:String>
+    <system:String x:Key="AdditionalInfoColon">Additional info:</system:String>
+
 </ResourceDictionary>

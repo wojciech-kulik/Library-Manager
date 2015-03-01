@@ -166,9 +166,9 @@
                 <StackPanel Orientation="Horizontal" Height="70" HorizontalAlignment="Right" Margin="10,10,10,10">
                     <myCtrls:MainButton Text="{DynamicResource Refresh}" cal:Message.Attach="[Event Click] = [Action RefreshClients]" ImageSource="Images/refresh.ico" Margin="0,0,15,0" />
                     <myCtrls:MainButton Text="{DynamicResource Books}" cal:Message.Attach="[Event Click] = [Action ShowBooksList]" ImageSource="Images/books.ico" Margin="0,0,15,0" />
-                    <myCtrls:MainButton Text="Spóźnienia" Visibility="Collapsed" ImageSource="Images/time.png" Margin="0,0,15,0" />
+                    <myCtrls:MainButton Text="{DynamicResource Delays}" Visibility="Collapsed" ImageSource="Images/time.png" Margin="0,0,15,0" />
                     <myCtrls:MainButton Text="{DynamicResource Users}" Visibility="{Binding Role, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=1}" cal:Message.Attach="[Event Click] = [Action ShowUsersList]" ImageSource="Images/users.ico" Margin="0,0,0,0" />
-                    <myCtrls:MainButton Text="Ustawienia" ImageSource="Images/settings.ico" Visibility="Collapsed" />
+                    <myCtrls:MainButton Text="{DynamicResource Settings}" ImageSource="Images/settings.ico" Visibility="Collapsed" />
                 </StackPanel>
             </Grid>
         </Border>

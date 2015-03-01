@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:myCtrls="clr-namespace:ClientApplication.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="Biblioteka 1.0 [beta]" Height="665.523" Width="406"
+        Height="665.523" Width="406"
         WindowStartupLocation="CenterOwner" Background="#FF3E3E3E" 
         ShowInTaskbar="False" ResizeMode="NoResize" KeyDown="OnKeyDown">
     <Grid>
@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <myCtrls:Header Text="Szczegóły użytkownika" Height="75" TextBlock.FontSize="23" />
+        <myCtrls:Header Text="{DynamicResource UserDetails}" Height="75" TextBlock.FontSize="23" />
 
         <Border Grid.Row="1" CornerRadius="5" Margin="10">
             <Border.Background>
@@ -77,64 +77,64 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,5" Text="Dane konta:" Foreground="White" TextDecorations="Underline" />
+                <TextBlock Grid.Row="0" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,5" Text="{DynamicResource AccountDetailsColon}" Foreground="White" TextDecorations="Underline" />
 
-                <TextBlock Grid.Row="1"  Text="Nazwa użytkownika:" />
+                <TextBlock Grid.Row="1"  Text="{DynamicResource UsernameColon}" />
                 <TextBox Grid.Row="1"  Grid.Column="1" Text="{Binding User.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="2"  Text="Hasło:" />
+                <TextBlock Grid.Row="2"  Text="{DynamicResource PasswordColon}" />
                 <PasswordBox x:Name="pbPassword" Grid.Row="2"  Grid.Column="1" />
 
-                <TextBlock Grid.Row="3"  Text="Rola:" />
-                <ComboBox Grid.Row="3"  Grid.Column="1" SelectedIndex="{Binding User.Role, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBoxItem>Pracownik</ComboBoxItem>
-                    <ComboBoxItem>Administrator</ComboBoxItem>
+                <TextBlock Grid.Row="3" Text="{DynamicResource RoleColon}" />
+                <ComboBox Grid.Row="3" Grid.Column="1" SelectedIndex="{Binding User.Role, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="{DynamicResource Employee}" />
+                    <ComboBoxItem Content="{DynamicResource Administrator}" />
                 </ComboBox>
 
-                <TextBlock Grid.Row="4" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,5" Text="Dane osobowe:" Foreground="White" TextDecorations="Underline" />
+                <TextBlock Grid.Row="4" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,5" Text="{DynamicResource PersonalDetailsColon}" Foreground="White" TextDecorations="Underline" />
 
-                <TextBlock Grid.Row="5" Text="Imię:" />
+                <TextBlock Grid.Row="5" Text="{DynamicResource FirstNameColon}" />
                 <TextBox Grid.Row="5" Name="tbFirstName" Grid.Column="1" Text="{Binding User.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="6" Text="Nazwisko:" />
+                <TextBlock Grid.Row="6" Text="{DynamicResource LastNameColon}" />
                 <TextBox Grid.Row="6"  Grid.Column="1" Text="{Binding User.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="7"  Text="Nr dowodu:" />
+                <TextBlock Grid.Row="7"  Text="{DynamicResource IdNumberColon}" />
                 <TextBox Grid.Row="7"  Grid.Column="1" Text="{Binding User.IdNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="8"  Text="Telefon:" />
+                <TextBlock Grid.Row="8"  Text="{DynamicResource PhoneColon}" />
                 <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding User.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="9"  Text="E-mail:" />
+                <TextBlock Grid.Row="9"  Text="{DynamicResource EmailColon}" />
                 <TextBox Grid.Row="9"  Grid.Column="1" Text="{Binding User.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="10" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,5" Text="Dane adresowe:" Foreground="White" TextDecorations="Underline" />
+                <TextBlock Grid.Row="10" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,5" Text="{DynamicResource AddressColon}" Foreground="White" TextDecorations="Underline" />
 
-                <TextBlock Grid.Row="11"  Text="Ulica:"/>
+                <TextBlock Grid.Row="11"  Text="{DynamicResource StreetColon}"/>
                 <TextBox Grid.Row="11"  Grid.Column="1" Text="{Binding User.Address.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="12"  Text="Nr domu:" />
+                <TextBlock Grid.Row="12"  Text="{DynamicResource HouseNumberColon}" />
                 <TextBox Grid.Row="12"  Grid.Column="1" Width="70" HorizontalAlignment="Left" Text="{Binding User.Address.HouseNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="13"  Text="Nr mieszkania:" />
+                <TextBlock Grid.Row="13"  Text="{DynamicResource AppartmentNumberColon}" />
                 <TextBox Grid.Row="13"  Grid.Column="1" Width="70" HorizontalAlignment="Left" Text="{Binding User.Address.ApartmentNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="14"  Text="Kod pocztowy:" />
+                <TextBlock Grid.Row="14"  Text="{DynamicResource PostalCodeColon}" />
                 <TextBox Grid.Row="14" Grid.Column="1" Width="70" HorizontalAlignment="Left" Text="{Binding User.Address.PostalCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="15"  Text="Miasto:" />
+                <TextBlock Grid.Row="15"  Text="{DynamicResource CityColon}" />
                 <TextBox Grid.Row="15"  Grid.Column="1" Text="{Binding User.Address.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid> 
         </Border>
         
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
-            <myCtrls:ActionButton x:Name="btnCancel" Text="Anuluj" ImageSource="Images/cancel.ico" 
+            <myCtrls:ActionButton x:Name="btnCancel" Text="{DynamicResource Cancel}" ImageSource="Images/cancel.ico" 
                               Height="34" Margin="0,0,10,10" Width="100" 
                               HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
                               cal:Message.Attach="[Event Click] = [Action Cancel]" />
 
-            <myCtrls:ActionButton x:Name="btnSave" Text="Zapisz" ImageSource="Images/accept.png" 
+            <myCtrls:ActionButton x:Name="btnSave" Text="{DynamicResource Save}" ImageSource="Images/accept.png" 
                               Height="34" Margin="0,0,10,10" Width="100" 
                               HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
                               Click="btnSave_Click" />

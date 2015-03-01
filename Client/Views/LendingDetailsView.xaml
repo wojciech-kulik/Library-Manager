@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:myCtrls="clr-namespace:ClientApplication.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="Biblioteka 1.0 [beta]" Height="550" Width="771.167" MinWidth="600" MinHeight="530"
+        Height="550" Width="771.167" MinWidth="600" MinHeight="530"
         WindowStartupLocation="CenterOwner" Background="#FF3E3E3E" 
         ShowInTaskbar="False" KeyDown="OnKeyDown" Foreground="White">
     <Window.Resources>
@@ -40,7 +40,7 @@
             <Grid.Resources>
                 <Style TargetType="TextBlock"></Style>
             </Grid.Resources>
-            <myCtrls:Header Text="Wypożyczenie" Height="75" TextBlock.FontSize="23" />
+            <myCtrls:Header Text="{DynamicResource Lending}" Height="75" TextBlock.FontSize="23" />
         </Grid>
               
 
@@ -61,21 +61,21 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Data wypożyczenia:" />
+                <TextBlock Grid.Row="0" Text="{DynamicResource LendDateColon}" />
                 <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding Lending.LendingDate, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock Grid.Row="1" Text="Termin zwrotu:" />
+                <TextBlock Grid.Row="1" Text="{DynamicResource DueDateColon}" />
                 <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Lending.EndDate, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="DatePicker_SelectedDateChanged" />
 
-                <TextBlock Grid.Row="2"  Text="Data zwrotu:" />
+                <TextBlock Grid.Row="2"  Text="{DynamicResource ReturnDateColon}" />
                 <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Lending.ReturnDate, UpdateSourceTrigger=PropertyChanged}" />
 
                 <StackPanel Orientation="Horizontal" Grid.RowSpan="3" Grid.Column="2">
                     <StackPanel.Resources>
                         <Style TargetType="TextBlock"></Style>
                     </StackPanel.Resources>
-                    <myCtrls:MainButton Width="100" Height="80" Text="Dodaj książkę" cal:Message.Attach="[Event Click] = [Action AddBook]" ImageSource="Images/add_order.ico" Margin="0,-5,15,5" />
-                    <myCtrls:MainButton Width="100" Height="80" Text="Usuń książkę" Margin="0,-5,0,5" IsEnabled="{Binding SelectedBook, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action DeleteBook]" ImageSource="Images/del_order.ico" />
+                    <myCtrls:MainButton Width="100" Height="80" Text="{DynamicResource AddBook}" cal:Message.Attach="[Event Click] = [Action AddBook]" ImageSource="Images/add_order.ico" Margin="0,-5,15,5" />
+                    <myCtrls:MainButton Width="100" Height="80" Text="{DynamicResource RemoveBook}" Margin="0,-5,0,5" IsEnabled="{Binding SelectedBook, Converter={StaticResource NullToEnabledConverter}}" cal:Message.Attach="[Event Click] = [Action DeleteBook]" ImageSource="Images/del_order.ico" />
                 </StackPanel>
             </Grid>         
         </Border>
@@ -93,11 +93,11 @@
                 
                 <DataGrid Name="dgLentBooks" ItemsSource="{Binding Lending.Books}" SelectionMode="Single" SelectedValue="{Binding SelectedBook}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Book.Title}" SortMemberPath="Book.Title" Header="Tytuł" Width="*" />
-                        <DataGridTextColumn Binding="{Binding Book.Location, TargetNullValue=(brak)}" SortMemberPath="Book.Location" Header="Lokalizacja" ElementStyle="{StaticResource CenterColumn}" />
-                        <DataGridTextColumn Binding="{Binding EndDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="EndDate" ElementStyle="{StaticResource CenterColumn}" Header="Termin zwrotu" Width="*" />
-                        <DataGridTextColumn Binding="{Binding ReturnDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="ReturnDate" ElementStyle="{StaticResource CenterColumn}" Header="Data zwrotu" Width="*" />
-                        <DataGridTextColumn Binding="{Binding ReturnEmployee, Converter={StaticResource FullNameConverter}}" SortMemberPath="ReturnEmployee.FullName" ElementStyle="{StaticResource CenterColumn}" Header="Przyjął zwrot" Width="*" />
+                        <DataGridTextColumn Binding="{Binding Book.Title}" SortMemberPath="Book.Title" Header="{DynamicResource Title}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding Book.Location, TargetNullValue=(brak)}" SortMemberPath="Book.Location" Header="{DynamicResource Location}" ElementStyle="{StaticResource CenterColumn}" />
+                        <DataGridTextColumn Binding="{Binding EndDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="EndDate" ElementStyle="{StaticResource CenterColumn}" Header="{DynamicResource DueDate}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding ReturnDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="ReturnDate" ElementStyle="{StaticResource CenterColumn}" Header="{DynamicResource ReturnDate}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding ReturnEmployee, Converter={StaticResource FullNameConverter}}" SortMemberPath="ReturnEmployee.FullName" ElementStyle="{StaticResource CenterColumn}" Header="{DynamicResource Employee}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -120,12 +120,12 @@
                         <RowDefinition Height="Auto"  />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Margin="0,0,0,10" TextDecorations="Underline" FontFamily="Calibri" FontSize="14" Text="Edycja zaznaczonej pozycji:" HorizontalAlignment="Center" />
+                    <TextBlock Grid.Row="0" Margin="0,0,0,10" TextDecorations="Underline" FontFamily="Calibri" FontSize="14" Text="{DynamicResource EditSelectedItem}" />
 
-                    <TextBlock Margin="0" Grid.Row="1" Text="Termin zwrotu:" />
+                    <TextBlock Margin="0" Grid.Row="1" Text="{DynamicResource DueDateColon}" />
                     <DatePicker Grid.Row="2"  Grid.Column="1" SelectedDate="{Binding SelectedBook.EndDate, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding SelectedBook, Converter={StaticResource NullToEnabledConverter}}" />
 
-                    <TextBlock Grid.Row="3"  Text="Data zwrotu:" />
+                    <TextBlock Grid.Row="3"  Text="{DynamicResource ReturnDateColon}" />
                     <DatePicker Grid.Row="4" Grid.Column="1" SelectedDate="{Binding SelectedBook.ReturnDate, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedBook, Converter={StaticResource NullToEnabledConverter}}" />
                 </Grid>
             </Grid>
@@ -135,12 +135,12 @@
             <StackPanel.Resources>
                 <Style TargetType="TextBlock"></Style>
             </StackPanel.Resources>
-            <myCtrls:ActionButton x:Name="btnCancel" Text="Anuluj" ImageSource="Images/cancel.ico" 
+            <myCtrls:ActionButton x:Name="btnCancel" Text="{DynamicResource Cancel}" ImageSource="Images/cancel.ico" 
                               Height="34" Margin="0,0,10,10" Width="100" 
                               HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
                               cal:Message.Attach="[Event Click] = [Action Cancel]" />
 
-            <myCtrls:ActionButton x:Name="btnSave" Text="Zapisz" ImageSource="Images/accept.png" 
+            <myCtrls:ActionButton x:Name="btnSave" Text="{DynamicResource Save}" ImageSource="Images/accept.png" 
                               Height="34" Margin="0,0,10,10" Width="100" 
                               HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
                               cal:Message.Attach="[Event Click] = [Action Save]" />

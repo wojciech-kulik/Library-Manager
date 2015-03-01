@@ -34,12 +34,14 @@ namespace ClientApplication.Views
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgLentBooks.Items.Count > 0 && (sender as DatePicker).SelectedDate.HasValue && 
-                MessageBox.Show("Czy ustawić ten termin zwrotu dla wszystkich książek?", "Termin zwrotu",
+            if (dgLentBooks.Items.Count > 0 && (sender as DatePicker).SelectedDate.HasValue &&
+                MessageBox.Show(App.GetString("DueDateForAll"), App.GetString("DueDate"),
                                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             {
                 foreach (var lentBook in dgLentBooks.Items)
                     (lentBook as LentBookDTO).EndDate = (sender as DatePicker).SelectedDate.Value;
+
+                dgLentBooks.Items.Refresh();
             }
             
         }

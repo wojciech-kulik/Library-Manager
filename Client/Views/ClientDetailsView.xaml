@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:myCtrls="clr-namespace:ClientApplication.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="Biblioteka 1.0 [beta]" Height="627" Width="406"
+        Height="627" Width="406"
         WindowStartupLocation="CenterOwner" Background="#FF3E3E3E" 
         ShowInTaskbar="False" ResizeMode="NoResize" KeyDown="OnKeyDown">
     <Grid>
@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <myCtrls:Header Text="Szczegóły klienta" Height="75" TextBlock.FontSize="23" />
+        <myCtrls:Header Text="{DynamicResource ClientDetails}" Height="75" TextBlock.FontSize="23" />
 
         <Border Grid.Row="1" CornerRadius="5" Margin="10">
             <Border.Background>
@@ -59,56 +59,56 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,5" Text="Dane osobowe:" Foreground="White" TextDecorations="Underline" />
+                <TextBlock Grid.Row="0" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,5" Text="{DynamicResource PersonalDetailsColon}" Foreground="White" TextDecorations="Underline" />
 
-                <TextBlock Grid.Row="1" Text="Imię:" />
+                <TextBlock Grid.Row="1" Text="{DynamicResource FirstNameColon}" />
                 <TextBox Grid.Row="1" Name="tbFirstName" Grid.Column="1" Text="{Binding Client.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="2" Text="Nazwisko:" />
+                <TextBlock Grid.Row="2" Text="{DynamicResource LastNameColon}" />
                 <TextBox Grid.Row="2"  Grid.Column="1" Text="{Binding Client.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="3"  Text="Nr dowodu:" />
+                <TextBlock Grid.Row="3"  Text="{DynamicResource IdNumberColon}" />
                 <TextBox Grid.Row="3"  Grid.Column="1" Text="{Binding Client.IdNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="4"  Text="Telefon:" />
+                <TextBlock Grid.Row="4"  Text="{DynamicResource PhoneColon}" />
                 <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Client.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="5"  Text="E-mail:" />
+                <TextBlock Grid.Row="5"  Text="{DynamicResource EmailColon}" />
                 <TextBox Grid.Row="5"  Grid.Column="1" Text="{Binding Client.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="6"  Text="Numer klienta:" />
+                <TextBlock Grid.Row="6"  Text="{DynamicResource ClientNumberColon}" />
                 <TextBox Grid.Row="6"  Grid.Column="1" Text="{Binding Client.CardNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="7"  Text="Dodatkowe inf.:" />
+                <TextBlock Grid.Row="7"  Text="{DynamicResource AdditionalInfoColon}" />
                 <TextBox Grid.Row="7"  Grid.Column="1" Text="{Binding Client.AdditionalInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="8" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,5" Text="Dane adresowe:" Foreground="White" TextDecorations="Underline" />
+                <TextBlock Grid.Row="8" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,5" Text="{DynamicResource AddressColon}" Foreground="White" TextDecorations="Underline" />
 
-                <TextBlock Grid.Row="9"  Text="Ulica:"/>
+                <TextBlock Grid.Row="9"  Text="{DynamicResource StreetColon}"/>
                 <TextBox Grid.Row="9"  Grid.Column="1" Text="{Binding Client.Address.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="10"  Text="Nr domu:" />
+                <TextBlock Grid.Row="10"  Text="{DynamicResource HouseNumberColon}" />
                 <TextBox Grid.Row="10"  Grid.Column="1" Width="70" HorizontalAlignment="Left" Text="{Binding Client.Address.HouseNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="11"  Text="Nr mieszkania:" />
+                <TextBlock Grid.Row="11"  Text="{DynamicResource AppartmentNumberColon}" />
                 <TextBox Grid.Row="11"  Grid.Column="1" Width="70" HorizontalAlignment="Left" Text="{Binding Client.Address.ApartmentNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="12"  Text="Kod pocztowy:" />
+                <TextBlock Grid.Row="12"  Text="{DynamicResource PostalCodeColon}" />
                 <TextBox Grid.Row="12" Grid.Column="1" Width="70" HorizontalAlignment="Left" Text="{Binding Client.Address.PostalCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="13"  Text="Miasto:" />
+                <TextBlock Grid.Row="13"  Text="{DynamicResource CityColon}" />
                 <TextBox Grid.Row="13"  Grid.Column="1" Text="{Binding Client.Address.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid> 
         </Border>
         
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
-            <myCtrls:ActionButton x:Name="btnCancel" Text="Anuluj" ImageSource="Images/cancel.ico" 
+            <myCtrls:ActionButton x:Name="btnCancel" Text="{DynamicResource Cancel}" ImageSource="Images/cancel.ico" 
                               Height="34" Margin="0,0,10,10" Width="100" 
                               HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
                               cal:Message.Attach="[Event Click] = [Action Cancel]" />
 
-            <myCtrls:ActionButton x:Name="btnSave" Text="Zapisz" ImageSource="Images/accept.png" 
+            <myCtrls:ActionButton x:Name="btnSave" Text="{DynamicResource Save}" ImageSource="Images/accept.png" 
                               Height="34" Margin="0,0,10,10" Width="100" 
                               HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
                               cal:Message.Attach="[Event Click] = [Action Save]" />
