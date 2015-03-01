@@ -93,7 +93,7 @@ namespace Common
 
         #region Authorization
 
-        void TestAuthorization();
+        void TestAuthorization(string username, string password);
 
         #endregion
     }

@@ -70,6 +70,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
@@ -100,6 +101,7 @@
     <Compile Include="Caliburn.Micro\ContainerExtensions.cs" />
     <Compile Include="Caliburn.Micro\ExtensionMethods.cs" />
     <Compile Include="Caliburn.Micro\SimpleContainer.cs" />
+    <Compile Include="ConfigurationModels\DatabaseSettingsSection.cs" />
     <Compile Include="Controls\ActionButton.xaml.cs">
       <DependentUpon>ActionButton.xaml</DependentUpon>
     </Compile>
@@ -112,6 +114,7 @@
     <Compile Include="Converters\AddressConverter.cs" />
     <Compile Include="Converters\BookCategoriesConverter.cs" />
     <Compile Include="Converters\BoolToStringConverter.cs" />
+    <Compile Include="Converters\BoolToOppositeConverter.cs" />
     <Compile Include="Converters\NullToNotAvailableConverter.cs" />
     <Compile Include="Converters\RoleToVisibilityConverter.cs" />
     <Compile Include="Converters\FullNameConverter.cs" />

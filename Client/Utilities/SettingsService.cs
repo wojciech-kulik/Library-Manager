@@ -9,12 +9,6 @@ namespace ClientApplication.Utilities
 {
     public class SettingsService : ISettingsService
     {
-        #region saved to file
-
-        #endregion
-
-        #region only in memory
-
         static string Username { get; set; }
 
         string ISettingsService.Username
@@ -28,23 +22,5 @@ namespace ClientApplication.Utilities
                 SettingsService.Username = value;
             }
         }
-
-
-
-        static string Password { get; set; } //hash
-
-        string ISettingsService.Password
-        {
-            get
-            {
-                return SettingsService.Password;
-            }
-            set
-            {
-                SettingsService.Password = value;
-            }
-        }
-
-        #endregion
     }
 }

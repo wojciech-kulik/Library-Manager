@@ -21,6 +21,7 @@
                     <conv:IsNullToBool x:Key="IsNullToBool" />
                     <conv:FullNameConverter x:Key="FullNameConverter" />
                     <conv:BoolToStringConverter x:Key="BoolToStringConverter" />
+                    <conv:BoolToOppositeConverter x:Key="BoolToOppositeConverter" />
                     <conv:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter" />
                     <conv:NullToNotAvailableConverter x:Key="NullToNotAvailableConverter" />
                 </ResourceDictionary>

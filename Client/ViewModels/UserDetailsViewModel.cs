@@ -75,8 +75,6 @@ namespace ClientApplication.ViewModels
                 if (_settingsService.Username == oldUser.Username)
                 {
                     _settingsService.Username = User.Username;
-                    if (!String.IsNullOrWhiteSpace(User.Password))
-                        _settingsService.Password = User.Password;
                 }
             }
             TryClose(true);

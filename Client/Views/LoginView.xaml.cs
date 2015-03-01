@@ -40,8 +40,20 @@ namespace ClientApplication.Views
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as LoginViewModel).Password = pbPassword.Password;
-            (DataContext as LoginViewModel).Login();
+            var vm = DataContext as LoginViewModel;
+            vm.Password = pbPassword.Password;
+            vm.DBPassword = pbDBPassword.Password;
+            vm.Login();
+        }
+
+        private void dbSettings_Expanded(object sender, RoutedEventArgs e)
+        {
+            Height = 510;
+        }
+
+        private void dbSettings_Collapsed(object sender, RoutedEventArgs e)
+        {
+            Height = 330;
         }
     }
 }

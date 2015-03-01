@@ -9,7 +9,5 @@ namespace Common
     public interface ISettingsService
     {
         string Username { get; set; }
-
-        string Password { get; set; }
     }
 }

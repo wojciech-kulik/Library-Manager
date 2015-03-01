@@ -46,6 +46,14 @@
     <system:String x:Key="LogIn">Zaloguj</system:String>
     <system:String x:Key="UsernameColon">Użytkownik:</system:String>
     <system:String x:Key="PasswordColon">Hasło:</system:String>
+    <system:String x:Key="ServerAddressColon">Adres serwera:</system:String>
+    <system:String x:Key="DatabaseNameColon">Nazwa bazy:</system:String>
+    <system:String x:Key="RememberPassword">Zapamiętaj hasło</system:String>
+    <system:String x:Key="WindowsAuthentication">Uwierzytelnianie Windows</system:String>
+    <system:String x:Key="Database">Baza danych</system:String>
+    <system:String x:Key="FillDatabaseSettings" xml:space="preserve">Wprowadź ustawienia bazy danych (adres serwera oraz nazwę bazy).
+        
+Jeżeli nie wybrałeś "Uwierzytelnianie Windows", to musisz podać użytkownika i hasło.</system:String>
 
     <!-- UsersListView.xaml -->
     <system:String x:Key="AddUser">Dodaj użytkownika</system:String>

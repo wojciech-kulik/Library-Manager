@@ -5,7 +5,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using DB;
 using AutoMapper;
-using System.Security.Permissions;
 using System.Collections;
 using Common;
 using System.Diagnostics;
@@ -16,9 +15,13 @@ namespace DBService
 {
     public class DatabaseService : IDatabaseService
     {
+        private string _connectionString;
+        private string _username;
+        
+
         private LibraryDataContext GetDataContext()
         {
-            var dataContext = new LibraryDataContext();
+            var dataContext = new LibraryDataContext(_connectionString);
             dataContext.Database.CreateIfNotExists();
 
             return dataContext;
@@ -26,12 +29,11 @@ namespace DBService
 
         private Employee GetCurrentEmployee(LibraryDataContext dataContext)
         {
-            //string userName = ServiceSecurityContext.Current.PrimaryIdentity.Name;
-            Employee emp = null;//= dataContext.Persons.OfType<Employee>().FirstOrDefault(e => e.Username == userName);
+            Employee emp = dataContext.Persons.OfType<Employee>().FirstOrDefault(e => e.Username == _username);
 
-            /*if (emp == null)
-                throw new ArgumentException(String.Format("Pracownik o loginie '{0}' nie został znaleziony w bazie danych.", ""));
-            else*/
+            if (emp == null)
+                throw new Exception(String.Format("Employee '{0}' not found!", _username));
+            else
                 return emp;
         }
 
@@ -64,8 +66,10 @@ namespace DBService
             Mapper.CreateMap<PublisherDTO, Publisher>();
         }
 
-        public DatabaseService()
+        public DatabaseService(string connectionString, string username)
         {
+            _connectionString = connectionString;
+            _username = username;
             return;
             #region test creation
             try
@@ -824,8 +828,16 @@ namespace DBService
 
         #region Authorization
 
-        public void TestAuthorization()
+        public void TestAuthorization(string username, string password)
         {
+            using (var dataContext = GetDataContext())
+            {
+                var user = dataContext.Persons.OfType<Employee>().First(x => x.Username == username);
+                if (!BCryptHelper.CheckPassword(password, user.Password))
+                {
+                    throw new InvalidOperationException("Password is incorrect!");
+                }
+            }
         }
 
         #endregion

@@ -46,6 +46,14 @@
     <system:String x:Key="LogIn">Log in</system:String>
     <system:String x:Key="UsernameColon">Username:</system:String>
     <system:String x:Key="PasswordColon">Password:</system:String>
+    <system:String x:Key="ServerAddressColon">Server address:</system:String>
+    <system:String x:Key="DatabaseNameColon">Database name:</system:String>
+    <system:String x:Key="RememberPassword">Remember password</system:String>
+    <system:String x:Key="WindowsAuthentication">Windows Authentication</system:String>
+    <system:String x:Key="Database">Database</system:String>
+    <system:String x:Key="FillDatabaseSettings" xml:space="preserve">Fill required database settings (i.e. server address and database name. 
+
+If you don't check "Windows Authentication", you have to enter username and password.</system:String>
 
     <!-- UsersListView.xaml -->
     <system:String x:Key="AddUser">Add user</system:String>

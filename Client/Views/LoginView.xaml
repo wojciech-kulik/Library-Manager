@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:myCtrls="clr-namespace:ClientApplication.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Height="292.517" Width="389.923" MinWidth="350" MinHeight="250"
+        Height="330" Width="389.923" MinWidth="350" MinHeight="250"
         WindowStartupLocation="CenterOwner" Background="#FF3E3E3E" 
         ShowInTaskbar="False" KeyDown="OnKeyDown" Foreground="White" WindowStyle="ToolWindow" ResizeMode="NoResize">
     <Grid>
@@ -45,6 +45,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"  />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -56,6 +57,70 @@
 
                 <TextBlock Text="{DynamicResource PasswordColon}" Grid.Row="1"  Margin="0,23,0,0" />
                 <PasswordBox x:Name="pbPassword" Grid.Row="1" Grid.Column="1" Margin="20,20,0,0" />
+
+                <Expander Grid.Row="2" Grid.ColumnSpan="2" Header="{DynamicResource Database}" Foreground="White" Margin="0,20,0,0" 
+                          Expanded="dbSettings_Expanded" Collapsed="dbSettings_Collapsed" IsExpanded="{Binding DatabaseSettingsVisible}">
+                    <Grid Margin="10,15,0,0">
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="13" />
+                                <Setter Property="FontFamily" Value="Calibri" />
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Margin" Value="20,0,0,0" />
+                                <Setter Property="Height" Value="22" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                                <Setter Property="FontFamily" Value="Calibri" />
+                                <Setter Property="FontSize" Value="15" />
+                            </Style>
+                            <Style TargetType="PasswordBox">
+                                <Setter Property="Margin" Value="20,0,0,0" />
+                                <Setter Property="Height" Value="22" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                                <Setter Property="FontFamily" Value="Calibri" />
+                                <Setter Property="FontSize" Value="15" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Text="{DynamicResource ServerAddressColon}" Margin="0,3,0,0"  />
+                        <TextBox Grid.Column="1" 
+                                 Text="{Binding ServerAddress, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <TextBlock Grid.Row="2" Text="{DynamicResource DatabaseNameColon}" Margin="0,11,0,0"  />
+                        <TextBox Grid.Row="2" Grid.Column="1" 
+                                 Text="{Binding DatabaseName, UpdateSourceTrigger=PropertyChanged}" Margin="20,8,0,0"  />
+
+                        <TextBlock Grid.Row="3" Text="{DynamicResource UsernameColon}" Margin="0,11,0,0"  />
+                        <TextBox Grid.Row="3" Grid.Column="1" 
+                                 Text="{Binding DBUsername, UpdateSourceTrigger=PropertyChanged}" Margin="20,8,0,0"  
+                                 IsEnabled="{Binding IsChecked, ElementName=cbWindowsAuthentication, Converter={StaticResource BoolToOppositeConverter}}"/>
+
+                        <TextBlock Grid.Row="4" Text="{DynamicResource PasswordColon}"  Margin="0,11,0,0" />
+                        <PasswordBox Grid.Row="4" Grid.Column="1" x:Name="pbDBPassword" Margin="20,8,0,0" 
+                                     IsEnabled="{Binding IsChecked, ElementName=cbWindowsAuthentication, Converter={StaticResource BoolToOppositeConverter}}" />
+
+                        <CheckBox Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" Foreground="White" Margin="20,10,3,0" Content="{DynamicResource RememberPassword}" 
+                                  IsEnabled="{Binding IsChecked, ElementName=cbWindowsAuthentication, Converter={StaticResource BoolToOppositeConverter}}" 
+                                  IsChecked="{Binding RememberPassword, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <CheckBox Grid.Row="6" Grid.Column="2" x:Name="cbWindowsAuthentication" HorizontalAlignment="Left" Foreground="White" Margin="20,10,3,0" 
+                                  Content="{DynamicResource WindowsAuthentication}" IsChecked="{Binding UseWindowsAuthentication, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </Expander>
             </Grid>
         </Border>
 

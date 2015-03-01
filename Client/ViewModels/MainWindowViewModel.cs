@@ -90,13 +90,7 @@ namespace ClientApplication.ViewModels
                     _selectedClient = value;
                     if (value != null)
                     {
-                        Task.Run(() =>
-                            {
-                                using (var dbService = _dbServiceManager.GetService())
-                                {
-                                    value.Lendings = dbService.GetLendingsOf(value.Id);
-                                }
-                            });
+                        LoadLendings();
                     }
                     NotifyOfPropertyChange(() => SelectedClient);
                 }
@@ -131,7 +125,21 @@ namespace ClientApplication.ViewModels
 
         #region Client operations
 
-        public void RefreshSelectedClient()
+        private async Task LoadLendings()
+        {
+            await Task.Run(() =>
+            {
+                using (var dbService = _dbServiceManager.GetService())
+                {
+                    if (SelectedClient == null)
+                        return;
+                    SelectedClient.Lendings = dbService.GetLendingsOf(SelectedClient.Id);
+                    NotifyOfPropertyChange("SelectedClient");
+                }
+            });
+        }
+
+        public async void RefreshSelectedClient()
         {
             int id = SelectedClient != null ? SelectedClient.Id : -1;
             int lendingId = SelectedLending != null ? SelectedLending.Id : -1;
@@ -156,6 +164,7 @@ namespace ClientApplication.ViewModels
                         break;
                     }
 
+                await LoadLendings();
                 SelectedLending = SelectedClient.Lendings.FirstOrDefault(l => l.Id == lendingId);
             }
         }

@@ -7,6 +7,7 @@ using System.Windows;
 using System.Threading;
 using System.ServiceModel;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace ClientApplication
 {
@@ -19,7 +20,6 @@ namespace ClientApplication
         {
             InitializeComponent();
             Application.Current.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(ExceptionHandler);
-
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             ci.DateTimeFormat.ShortTimePattern = "HH:mm";
@@ -69,6 +69,24 @@ namespace ClientApplication
         public static string GetString(string name)
         {
             return App.Current.Resources[name] as string;
+        }
+
+        private static Configuration _config;
+        public static Configuration Config
+        {
+            get
+            {
+                if (_config == null)
+                {
+                    var exePath = Process.GetCurrentProcess().MainModule.FileName;
+                    #if DEBUG
+                    exePath = exePath.Replace(".vshost", "");
+                    #endif
+                    _config = ConfigurationManager.OpenExeConfiguration(exePath);
+                }
+
+                return _config;
+            }
         }
     }
 }

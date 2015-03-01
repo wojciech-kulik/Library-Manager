@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DBService;
+using System.Configuration;
 
 namespace ClientApplication.Utilities
 {
     public class DBServiceManager : IDBServiceManager<IDatabaseService>
-    { 
-        private ISettingsService _settingsService;
+    {
+        private readonly ISettingsService _settingsService;
 
         public DBServiceManager(ISettingsService settingsService)
         {
@@ -19,9 +20,8 @@ namespace ClientApplication.Utilities
 
         public IDatabaseService GetService()
         {
-            var service = new DatabaseService();
-
-            return service;
+            var connectionString = App.Config.ConnectionStrings.ConnectionStrings["LibraryDataContext"].ConnectionString;
+            return new DatabaseService(connectionString, _settingsService.Username);
         }
     }
 }
