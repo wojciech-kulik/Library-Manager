@@ -76,14 +76,14 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding FirstName}" Header="{DynamicResource FirstName}" SortMemberPath="FirstName" Width="*" />
                         <DataGridTextColumn Binding="{Binding LastName}" Header="{DynamicResource LastName}" SortMemberPath="LastName" Width="*" />
-                        <DataGridTextColumn Binding="{Binding CardNumber, TargetNullValue=(brak)}" Header="{DynamicResource ClientNumber}" SortMemberPath="CardNumber" />
-                        <DataGridTextColumn Binding="{Binding Phone, TargetNullValue=(brak)}" Header="{DynamicResource PhoneNumber}" SortMemberPath="Phone" />
+                        <DataGridTextColumn Binding="{Binding CardNumber, Converter={StaticResource NullToNotAvailableConverter}}" Header="{DynamicResource ClientNumber}" SortMemberPath="CardNumber" />
+                        <DataGridTextColumn Binding="{Binding Phone, Converter={StaticResource NullToNotAvailableConverter}}" Header="{DynamicResource PhoneNumber}" SortMemberPath="Phone" />
                         <DataGridTemplateColumn Header="{DynamicResource Email}" SortMemberPath="Email">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Padding="2,0,2,0">
                                     <Hyperlink Style="{StaticResource HyperlinkStyle}" PreviewMouseDown="Hyperlink_PreviewMouseDown" NavigateUri="{Binding Email}" >                                        
-                                        <TextBlock Text="{Binding Email, TargetNullValue=(brak)}"/>
+                                        <TextBlock Text="{Binding Email, Converter={StaticResource NullToNotAvailableConverter}}"/>
                                     </Hyperlink>
                                 </TextBlock>
                                 </DataTemplate>
@@ -108,13 +108,13 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource IdNumber}" Margin="0,10,10,5" TextDecorations="Underline" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SelectedClient.IdNumber, TargetNullValue=(brak)}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SelectedClient.IdNumber, Converter={StaticResource NullToNotAvailableConverter}}" />
 
                             <TextBlock Grid.Row="0" Grid.Column="2" Text="{DynamicResource ClientAddress}" Margin="0,10,10,5" TextDecorations="Underline" />
                             <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding SelectedClient.Address, Converter={StaticResource AddressConverter}}" />
 
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource AdditionalInfo}" Margin="0,10,10,5" TextDecorations="Underline" />
-                            <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding SelectedClient.AdditionalInfo, TargetNullValue='(brak)'}" Margin="0,0,0,10" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding SelectedClient.AdditionalInfo, Converter={StaticResource NullToNotAvailableConverter}}" Margin="0,0,0,10" />
                         </Grid>
                     </Border>
                 </Expander>

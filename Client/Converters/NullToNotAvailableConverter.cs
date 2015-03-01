@@ -7,19 +7,16 @@ using System.Globalization;
 
 namespace ClientApplication.Converters
 {
-    class BoolToStringConverter : IValueConverter
+    class NullToNotAvailableConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return App.GetString("NotAvailable");
-
-            return (bool)value ? App.GetString("Yes") : App.GetString("No");
+            return value ?? App.GetString("NotAvailable");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException("DateTimeConverter not implemented yet.");
+            throw new NotImplementedException();
         }
     }
 }

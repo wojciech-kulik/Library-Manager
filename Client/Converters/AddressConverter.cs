@@ -17,9 +17,9 @@ namespace ClientApplication.Converters
                 AddressDTO addr = (AddressDTO)value;
 
                 if (String.IsNullOrEmpty(addr.Street) && String.IsNullOrEmpty(addr.City))
-                    return "(brak)";
+                    return App.GetString("NotAvailable");
 
-                string nr = addr.HouseNumber + (String.IsNullOrEmpty(addr.ApartmentNumber) ? "" : " m. " + addr.ApartmentNumber);
+                string nr = addr.HouseNumber + (String.IsNullOrEmpty(addr.ApartmentNumber) ? "" : " " + App.GetString("Apt") + " " + addr.ApartmentNumber);
                 return (addr.Street + " " + nr).Trim() + "\n" + (addr.PostalCode + " " + addr.City).Trim();
             } 
             else

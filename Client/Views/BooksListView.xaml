@@ -53,13 +53,13 @@
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Title}" SortMemberPath="Title" Header="{DynamicResource Title}" Width="*" />
-                        <DataGridTextColumn Binding="{Binding AuthorsString, TargetNullValue=(brak)}" SortMemberPath="AuthorsString" Header="{DynamicResource Author}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding AuthorsString, Converter={StaticResource NullToNotAvailableConverter}}" SortMemberPath="AuthorsString" Header="{DynamicResource Author}" Width="*" />
                         <DataGridTextColumn Binding="{Binding PublisherString}" Header="{DynamicResource Publisher}" SortMemberPath="PublisherString" ElementStyle="{StaticResource CenterColumn}" Width="*" />
                         <DataGridTextColumn Binding="{Binding PublishDate, Converter={StaticResource DateTimeConverter}}" Header="{DynamicResource PublishDate}" SortMemberPath="PublishDate" ElementStyle="{StaticResource CenterColumn}" Width="Auto" />
-                        <DataGridTextColumn Binding="{Binding ISBN, TargetNullValue=(brak)}" Header="ISBN" SortMemberPath="{DynamicResource ISBN}" ElementStyle="{StaticResource CenterColumn}" Width="Auto" />
+                        <DataGridTextColumn Binding="{Binding ISBN, Converter={StaticResource NullToNotAvailableConverter}}" Header="ISBN" SortMemberPath="{DynamicResource ISBN}" ElementStyle="{StaticResource CenterColumn}" Width="Auto" />
                         <DataGridTextColumn Binding="{Binding HardCover, Converter={StaticResource BoolToStringConverter}}" Header="{DynamicResource HardCover}" SortMemberPath="Cover" ElementStyle="{StaticResource CenterColumn}" Width="60" />
-                        <DataGridTextColumn Binding="{Binding BookCategoriesString, TargetNullValue=(brak)}" Header="{DynamicResource Category}" SortMemberPath="BookCategoriesString" Width="*" />
-                        <DataGridTextColumn Binding="{Binding Location, TargetNullValue=(brak)}" SortMemberPath="Location" Header="{DynamicResource Location}" ElementStyle="{StaticResource CenterColumn}" Width="Auto" />
+                        <DataGridTextColumn Binding="{Binding BookCategoriesString, Converter={StaticResource NullToNotAvailableConverter}}" Header="{DynamicResource Category}" SortMemberPath="BookCategoriesString" Width="*" />
+                        <DataGridTextColumn Binding="{Binding Location, Converter={StaticResource NullToNotAvailableConverter}}" SortMemberPath="Location" Header="{DynamicResource Location}" ElementStyle="{StaticResource CenterColumn}" Width="Auto" />
                         <DataGridTextColumn Binding="{Binding Quantity}" SortMemberPath="Quantity" Header="{DynamicResource Quantity}" ElementStyle="{StaticResource CenterColumn}" Width="Auto" />
                         <DataGridTextColumn Binding="{Binding Available, Converter={StaticResource BoolToStringConverter}}" SortMemberPath="Available" Header="{DynamicResource Available}" ElementStyle="{StaticResource CenterColumn}" Width="Auto" />
                     </DataGrid.Columns>

@@ -116,7 +116,7 @@
                 <TextBlock Grid.Row="12"  Text="{DynamicResource HouseNumberColon}" />
                 <TextBox Grid.Row="12"  Grid.Column="1" Width="70" HorizontalAlignment="Left" Text="{Binding User.Address.HouseNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="13"  Text="{DynamicResource AppartmentNumberColon}" />
+                <TextBlock Grid.Row="13"  Text="{DynamicResource ApartmentNumberColon}" />
                 <TextBox Grid.Row="13"  Grid.Column="1" Width="70" HorizontalAlignment="Left" Text="{Binding User.Address.ApartmentNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock Grid.Row="14"  Text="{DynamicResource PostalCodeColon}" />

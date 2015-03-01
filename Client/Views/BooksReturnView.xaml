@@ -66,7 +66,7 @@
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Binding="{Binding IsReturned, UpdateSourceTrigger=PropertyChanged}" Header="{DynamicResource Returned}" SortMemberPath="IsReturned" />
                         <DataGridTextColumn IsReadOnly="True" Binding="{Binding Book.Title}" SortMemberPath="Book.Title" Header="{DynamicResource Title}" Width="*" />
-                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding Book.Location, TargetNullValue=(brak)}" SortMemberPath="Book.Location" Header="{DynamicResource Location}" ElementStyle="{StaticResource CenterColumn}" />
+                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding Book.Location, Converter={StaticResource NullToNotAvailableConverter}}" SortMemberPath="Book.Location" Header="{DynamicResource Location}" ElementStyle="{StaticResource CenterColumn}" />
                         <DataGridTextColumn IsReadOnly="True" Binding="{Binding EndDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="EndDate" ElementStyle="{StaticResource CenterColumn}" Header="{DynamicResource DueDate}" Width="*" />
                         <DataGridTextColumn IsReadOnly="True" Binding="{Binding ReturnDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="ReturnDate" ElementStyle="{StaticResource CenterColumn}" Header="{DynamicResource ReturnDate}" Width="*" />
                         <DataGridTextColumn IsReadOnly="True" Binding="{Binding ReturnEmployee, Converter={StaticResource FullNameConverter}}" SortMemberPath="ReturnEmployee.FullName" Header="{DynamicResource Employee}" ElementStyle="{StaticResource CenterColumn}" Width="*" />

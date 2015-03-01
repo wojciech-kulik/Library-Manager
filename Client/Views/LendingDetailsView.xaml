@@ -94,7 +94,7 @@
                 <DataGrid Name="dgLentBooks" ItemsSource="{Binding Lending.Books}" SelectionMode="Single" SelectedValue="{Binding SelectedBook}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Book.Title}" SortMemberPath="Book.Title" Header="{DynamicResource Title}" Width="*" />
-                        <DataGridTextColumn Binding="{Binding Book.Location, TargetNullValue=(brak)}" SortMemberPath="Book.Location" Header="{DynamicResource Location}" ElementStyle="{StaticResource CenterColumn}" />
+                        <DataGridTextColumn Binding="{Binding Book.Location, Converter={StaticResource NullToNotAvailableConverter}}" SortMemberPath="Book.Location" Header="{DynamicResource Location}" ElementStyle="{StaticResource CenterColumn}" />
                         <DataGridTextColumn Binding="{Binding EndDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="EndDate" ElementStyle="{StaticResource CenterColumn}" Header="{DynamicResource DueDate}" Width="*" />
                         <DataGridTextColumn Binding="{Binding ReturnDate, Converter={StaticResource DateTimeConverter}}" SortMemberPath="ReturnDate" ElementStyle="{StaticResource CenterColumn}" Header="{DynamicResource ReturnDate}" Width="*" />
                         <DataGridTextColumn Binding="{Binding ReturnEmployee, Converter={StaticResource FullNameConverter}}" SortMemberPath="ReturnEmployee.FullName" ElementStyle="{StaticResource CenterColumn}" Header="{DynamicResource Employee}" Width="*" />

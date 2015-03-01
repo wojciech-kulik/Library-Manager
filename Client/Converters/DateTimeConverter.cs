@@ -12,7 +12,7 @@ namespace ClientApplication.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
-                return "(brak)";
+                return App.GetString("NotAvailable");
 
             bool with_time = false;
             if (parameter != null) 

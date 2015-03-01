@@ -30,16 +30,5 @@ namespace Common
                 return _authorsString.NullIfEmpty();
             }
         }
-
-        public string PublisherString
-        {
-            get
-            {
-                if (Publisher == null)
-                    return "(brak)";
-                else
-                    return Publisher.Name;
-            }
-        }
     }
 }

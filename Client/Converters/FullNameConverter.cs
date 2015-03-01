@@ -18,7 +18,7 @@ namespace ClientApplication.Converters
             }
             else
             {
-                return "(brak)";
+                return App.GetString("NotAvailable");
             }
         }
 

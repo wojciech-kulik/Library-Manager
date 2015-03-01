@@ -3,6 +3,9 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
     
     <system:String x:Key="NotAvailable">(brak)</system:String>
+    <system:String x:Key="Yes">TAK</system:String>
+    <system:String x:Key="No">NIE</system:String>
+    <system:String x:Key="Apt">m.</system:String>
 
     <!-- MainWindowView.xaml -->
     <system:String x:Key="AddClient">Dodaj klienta</system:String>
@@ -69,7 +72,7 @@
     <system:String x:Key="AddressColon">Dane adresowe:</system:String>
     <system:String x:Key="StreetColon">Ulica:</system:String>
     <system:String x:Key="HouseNumberColon">Nr budynku:</system:String>
-    <system:String x:Key="AppartmentNumberColon">Nr mieszkania:</system:String>
+    <system:String x:Key="ApartmentNumberColon">Nr mieszkania:</system:String>
     <system:String x:Key="PostalCodeColon">Kod pocztowy:</system:String>
     <system:String x:Key="CityColon">Miasto:</system:String>
     
