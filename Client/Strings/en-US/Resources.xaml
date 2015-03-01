@@ -123,4 +123,45 @@
     <system:String x:Key="AddAuthorColon">Add author:</system:String>
     <system:String x:Key="AddCategoryColon">Add category:</system:String>
     <system:String x:Key="ISBNColon">ISBN:</system:String>
+
+    <!-- UsersListViewModel.cs -->
+    <system:String x:Key="Error">Error</system:String>
+    <system:String x:Key="CantRemoveYourself">You cannot remove yourself.</system:String>
+    <system:String x:Key="Removing">Removing</system:String>
+    <system:String x:Key="AreYouSureRemoveUser">Do you really want to remove user "{0}"?</system:String>
+    
+    <!-- UserDetailsViewModel.cs -->
+    <system:String x:Key="UsernameIsTaken">This username is taken. Please choose another.</system:String>
+    <system:String x:Key="UsernameIsTakenCaption">Username is taken</system:String>
+    <system:String x:Key="CantRemoveAdminYourself">You cannot remove your administrator role yourself.</system:String>
+    <system:String x:Key="FirstNameLastNameRequired">First name and last name is required.</system:String>
+    <system:String x:Key="UsernameIsRequired">Username is required.</system:String>
+    <system:String x:Key="PasswordIsRequired">Password is required.</system:String>
+    <system:String x:Key="FillStreetAndCity">If you fill address, you have to fill at least street and city.</system:String>
+    <system:String x:Key="FillRequiredFields">Fill required fields</system:String>
+
+    <!-- MainWindowViewModel.cs -->
+    <system:String x:Key="AreYouSureRemoveClientAndHistory">Do you really want to remove client "{0}" and his whole history?</system:String>
+    <system:String x:Key="AreYouSureRemoveSelectedLending">Do you really want to remove the selected lending?</system:String>
+    
+    <!-- LoginViewModel.cs -->
+    <system:String x:Key="FillUsernameAndPassword">Fill username and password.</system:String>
+    <system:String x:Key="UserNotFoundPasswordWrong">User not found or password is wrong.</system:String>
+
+    <!-- LendingDetailsViewModel.cs -->
+    <system:String x:Key="BooksAreRequired">You have to add at least one book to save the lending.</system:String>
+    <system:String x:Key="BookAlreadyAdded">Book "{0}" has been already added.</system:String>
+
+    <!-- BooksListViewModel.cs -->
+    <system:String x:Key="AreYouSureRemoveBook">Do you really want to remove book "{0}"?</system:String>
+
+    <!-- BookDetailsViewModel.cs -->
+    <system:String x:Key="AreYouSureAddPublisher">Are you sure you want to add publisher "{0}"?</system:String>
+    <system:String x:Key="NewPublisher">New publisher</system:String>
+    <system:String x:Key="AreYouSureAddCategory">Are you sure you want to add category "{0}"?</system:String>
+    <system:String x:Key="NewCategory">New category</system:String>
+    <system:String x:Key="AreYouSureAddAuthor">Are you sure you want to add author "{0}"?</system:String>
+    <system:String x:Key="NewAuthor">New author</system:String>
+    <system:String x:Key="TitleIsRequired">Title is required.</system:String>
+
 </ResourceDictionary>

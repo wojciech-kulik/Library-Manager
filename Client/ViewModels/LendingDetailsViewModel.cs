@@ -76,8 +76,7 @@ namespace ClientApplication.ViewModels
         {
             if (Lending.Books.Count == 0)
             {
-                MessageBox.Show("Dodaj książki, aby móc zapisać wypożyczenie. Jeśli chcesz je usunąć całkowicie, zrób to z głównego okna programu.",
-                                "Uwaga", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(App.GetString("BooksAreRequired"), App.GetString("FillRequiredFields"), MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -121,7 +120,7 @@ namespace ClientApplication.ViewModels
         {
             if (Lending.Books.Any(lb => lb.BookId == e.Book.Id))
             {
-                MessageBox.Show(String.Format("Książka \"{0}\" została już dodana do tego wypożyczenia.", e.Book.Title), "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(String.Format(App.GetString("BookAlreadyAdded"), e.Book.Title), App.GetString("Error"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

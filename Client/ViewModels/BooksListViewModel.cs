@@ -223,7 +223,7 @@ namespace ClientApplication.ViewModels
 
         public void DeleteBook()
         {
-            if (MessageBox.Show("Czy jesteś pewien, że chcesz usunąć z bazy książkę \"" +  SelectedBook.Title + "\"?", "Usuwanie",
+            if (MessageBox.Show(String.Format(App.GetString("AreYouSureRemoveBook"), SelectedBook.Title), App.GetString("Removing"),
                                 MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) != MessageBoxResult.Yes)
             {
                 return;

@@ -123,4 +123,45 @@
     <system:String x:Key="AddAuthorColon">Dodaj autora:</system:String>
     <system:String x:Key="AddCategoryColon">Dodaj kategorię:</system:String>
     <system:String x:Key="ISBNColon">ISBN:</system:String>
+
+    <!-- UsersListViewModel.cs -->
+    <system:String x:Key="Error">Błąd</system:String>
+    <system:String x:Key="CantRemoveYourself">Nie można usunąć samego siebie.</system:String>
+    <system:String x:Key="Removing">Usuwanie</system:String>
+    <system:String x:Key="AreYouSureRemoveUser">Czy jesteś pewien, że chcesz usunąć z bazy użytkownika "{0}"?</system:String>
+
+    <!-- UserDetailsViewModel.cs -->
+    <system:String x:Key="UsernameIsTaken">Użytkownik o podanej nazwie istnieje już w systemie. Wybierz inną nazwę użytkownika.</system:String>
+    <system:String x:Key="UsernameIsTakenCaption">Nazwa zajęta</system:String>
+    <system:String x:Key="CantRemoveAdminYourself">Nie możesz sam sobie odebrać uprawnień administracyjnych.</system:String>
+    <system:String x:Key="FirstNameLastNameRequired">Imię i nazwisko jest wymagane.</system:String>
+    <system:String x:Key="UsernameIsRequired">Nazwa użytkownika jest wymagana.</system:String>
+    <system:String x:Key="PasswordIsRequired">Hasło jest wymagane.</system:String>
+    <system:String x:Key="FillStreetAndCity">Jeżeli podajesz adres, to należ uzupełnić minimum ulicę i miasto.</system:String>
+    <system:String x:Key="FillRequiredFields">Wypełnij wymagane pola</system:String>
+
+    <!-- MainWindowViewModel.cs -->
+    <system:String x:Key="AreYouSureRemoveClientAndHistory">Czy jesteś pewien, że chcesz usunąć z bazy klienta "{0}" i całą jego historię wypożyczeń?</system:String>
+    <system:String x:Key="AreYouSureRemoveSelectedLending">Czy jesteś pewien, że chcesz usunąć zaznaczone wypożyczenie?</system:String>
+
+    <!-- LoginViewModel.cs -->
+    <system:String x:Key="FillUsernameAndPassword">Podaj nazwę użytkownika oraz hasło.</system:String>
+    <system:String x:Key="UserNotFoundPasswordWrong">Podany użytkownik nie został znaleziony lub hasło jest nieprawidłowe.</system:String>
+
+    <!-- LendingDetailsViewModel.cs -->
+    <system:String x:Key="BooksAreRequired">Dodaj przynajmniej jedną książkę, aby móc zapisać wypożyczenie.</system:String>
+    <system:String x:Key="BookAlreadyAdded">Książka "{0}" została już dodana.</system:String>
+
+    <!-- BooksListViewModel.cs -->
+    <system:String x:Key="AreYouSureRemoveBook">Czy jesteś pewien, że chcesz usunąć z bazy książkę "{0}"?</system:String>
+
+    <!-- BookDetailsViewModel.cs -->
+    <system:String x:Key="AreYouSureAddPublisher">Czy jesteś pewien, że chcesz dodać wydawcę "{0}"?</system:String>
+    <system:String x:Key="NewPublisher">Nowy wydawca</system:String>
+    <system:String x:Key="AreYouSureAddCategory">Czy jesteś pewien, że chcesz dodać kategorię "{0}"?</system:String>
+    <system:String x:Key="NewCategory">Nowa kategoria</system:String>
+    <system:String x:Key="AreYouSureAddAuthor">Czy jesteś pewien, że chcesz dodać autora "{0}"?</system:String>
+    <system:String x:Key="NewAuthor">Nowy autor</system:String>
+    <system:String x:Key="TitleIsRequired">Tytuł jest wymagany.</system:String>
+
 </ResourceDictionary>

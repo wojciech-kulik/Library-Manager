@@ -76,7 +76,7 @@ namespace ClientApplication.ViewModels
         {
             if (String.IsNullOrWhiteSpace(Client.FirstName) || String.IsNullOrWhiteSpace(Client.LastName))
             {
-                MessageBox.Show("Imię i nazwisko jest wymagane.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(App.GetString("FirstNameLastNameRequired"), App.GetString("FillRequiredFields"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if ((String.IsNullOrWhiteSpace(Client.Address.City) || String.IsNullOrWhiteSpace(Client.Address.Street)) &&
@@ -84,7 +84,7 @@ namespace ClientApplication.ViewModels
                 !String.IsNullOrWhiteSpace(Client.Address.HouseNumber) || !String.IsNullOrWhiteSpace(Client.Address.ApartmentNumber) || 
                 !String.IsNullOrWhiteSpace(Client.Address.PostalCode)))
             {
-                MessageBox.Show("Jeżeli podajesz adres, to należ uzupełnić minimum ulicę i miasto.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(App.GetString("FillStreetAndCity"), App.GetString("FillRequiredFields"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

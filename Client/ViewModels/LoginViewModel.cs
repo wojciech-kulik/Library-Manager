@@ -72,7 +72,7 @@ namespace ClientApplication.ViewModels
         {
             if (String.IsNullOrWhiteSpace(Username) || String.IsNullOrWhiteSpace(Password))
             {
-                MessageBox.Show("Nie podano nazwy użytkownika i/lub hasła.", "Brak danych", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(App.GetString("FillUsernameAndPassword"), App.GetString("FillRequiredFields"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -87,7 +87,7 @@ namespace ClientApplication.ViewModels
             }
             catch (System.ServiceModel.Security.MessageSecurityException)
             {
-                MessageBox.Show("Podany użytkownik nie został znaleziony lub hasło jest nieprawidłowe.", "Nieprawidłowe dane", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(App.GetString("UserNotFoundPasswordWrong"), App.GetString("Error"), MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

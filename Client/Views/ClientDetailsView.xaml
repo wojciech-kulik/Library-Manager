@@ -90,7 +90,7 @@
                 <TextBlock Grid.Row="10"  Text="{DynamicResource HouseNumberColon}" />
                 <TextBox Grid.Row="10"  Grid.Column="1" Width="70" HorizontalAlignment="Left" Text="{Binding Client.Address.HouseNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="11"  Text="{DynamicResource AppartmentNumberColon}" />
+                <TextBlock Grid.Row="11"  Text="{DynamicResource ApartmentNumberColon}" />
                 <TextBox Grid.Row="11"  Grid.Column="1" Width="70" HorizontalAlignment="Left" Text="{Binding Client.Address.ApartmentNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock Grid.Row="12"  Text="{DynamicResource PostalCodeColon}" />

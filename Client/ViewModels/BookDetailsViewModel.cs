@@ -282,7 +282,7 @@ namespace ClientApplication.ViewModels
                 return;
             }
 
-            if (MessageBox.Show(String.Format("Czy chcesz dodać wydawcę \"{0}\" do bazy danych?", publisherName), "Nowy wydawca",
+            if (MessageBox.Show(String.Format(App.GetString("AreYouSureAddPublisher"), publisherName), App.GetString("NewPublisher"),
                                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             {
                 using (var dbService = _dbServiceManager.GetService())
@@ -320,7 +320,7 @@ namespace ClientApplication.ViewModels
                     return;
                 }
 
-                if (MessageBox.Show(String.Format("Czy chcesz dodać autora \"{0}\" do bazy danych?", authorName), "Nowy autor",
+                if (MessageBox.Show(String.Format(App.GetString("AreYouSureAddAuthor"), authorName), App.GetString("NewAuthor"),
                                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
                 {
                     using (var dbService = _dbServiceManager.GetService())
@@ -350,7 +350,7 @@ namespace ClientApplication.ViewModels
                     return;
                 }
 
-                if (MessageBox.Show(String.Format("Czy chcesz dodać kategorię \"{0}\" do bazy danych?", bookCategoryName), "Nowa kategoria",
+                if (MessageBox.Show(String.Format(App.GetString("AreYouSureAddCategory"), bookCategoryName), App.GetString("NewCategory"),
                                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
                 {
                     using (var dbService = _dbServiceManager.GetService())
@@ -393,7 +393,7 @@ namespace ClientApplication.ViewModels
         {
             if (String.IsNullOrWhiteSpace(Book.Title))
             {
-                MessageBox.Show("Tytuł książki jest wymagany.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(App.GetString("TitleIsRequired"), App.GetString("FillRequiredFields"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

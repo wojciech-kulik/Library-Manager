@@ -241,9 +241,7 @@ namespace ClientApplication.ViewModels
 
         public void DeleteClient()
         {
-            if (MessageBox.Show("Czy jesteś pewien, że chcesz usunąć z bazy klienta \"" +
-                                SelectedClient.FirstName + " " + SelectedClient.LastName +
-                                "\" oraz całą jego historię wypożyczeń?", "Usuwanie",
+            if (MessageBox.Show(String.Format(App.GetString("AreYouSureRemoveClientAndHistory"), SelectedClient.FullName), App.GetString("Removing"),
                                 MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) != MessageBoxResult.Yes)
             {
                 return;
@@ -294,7 +292,7 @@ namespace ClientApplication.ViewModels
 
         public void DeleteLending()
         {
-            if (MessageBox.Show("Czy jesteś pewien, że chcesz usunąć zaznaczone wypożyczenie?", "Usuwanie",
+            if (MessageBox.Show(App.GetString("AreYouSureRemoveSelectedLending"), App.GetString("Removing"),
                 MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) != MessageBoxResult.Yes)
             {
                 return;

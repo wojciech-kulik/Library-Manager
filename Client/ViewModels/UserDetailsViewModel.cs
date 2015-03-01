@@ -61,14 +61,14 @@ namespace ClientApplication.ViewModels
             {
                 if (dbService.GetAllEmployees().Any(emp => !emp.Removed && emp.Id != User.Id && emp.Username == User.Username.ToLower()))
                 {
-                    MessageBox.Show("Użytkownik o podanej nazwie istnieje już w systemie. Wybierz inną nazwę użytkownika.", "Nazwa zajęta", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(App.GetString("UsernameIsTaken"), App.GetString("UsernameIsTakenCaption"), MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
                 var oldUser = dbService.GetEmployee(User.Id);
                 if (_settingsService.Username == oldUser.Username && (Role)User.Role != Role.Admin)
                 {
-                    MessageBox.Show("Nie możesz sam sobie odebrać uprawnień administracyjnych.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(App.GetString("CantRemoveAdminYourself"), App.GetString("Error"), MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
                 dbService.EditEmployee(User);
@@ -88,7 +88,7 @@ namespace ClientApplication.ViewModels
             {
                 if (dbService.GetAllEmployees().Any(emp => !emp.Removed && emp.Username == User.Username.ToLower()))
                 {
-                    MessageBox.Show("Użytkownik o podanej nazwie istnieje już w systemie. Wybierz inną nazwę użytkownika.", "Nazwa zajęta", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(App.GetString("UsernameIsTaken"), App.GetString("UsernameIsTakenCaption"), MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
                 dbService.AddEmployee(User);
@@ -100,17 +100,17 @@ namespace ClientApplication.ViewModels
         {
             if (String.IsNullOrWhiteSpace(User.FirstName) || String.IsNullOrWhiteSpace(User.LastName))
             {
-                MessageBox.Show("Imię i nazwisko jest wymagane.", "Brak danych", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(App.GetString("FirstNameLastNameRequired"), App.GetString("FillRequiredFields"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (String.IsNullOrWhiteSpace(User.Username))
             {
-                MessageBox.Show("Nazwa użytkownika jest wymagana.", "Brak danych", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(App.GetString("UsernameIsRequired"), App.GetString("FillRequiredFields"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (!IsEditing && String.IsNullOrWhiteSpace(User.Password))
             {
-                MessageBox.Show("Podanie hasła jest wymagane w przypadku tworzenia nowego użytkownika.", "Brak danych", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(App.GetString("PasswordIsRequired"), App.GetString("FillRequiredFields"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if ((String.IsNullOrWhiteSpace(User.Address.City) || String.IsNullOrWhiteSpace(User.Address.Street)) &&
@@ -118,7 +118,7 @@ namespace ClientApplication.ViewModels
                 !String.IsNullOrWhiteSpace(User.Address.HouseNumber) || !String.IsNullOrWhiteSpace(User.Address.ApartmentNumber) ||
                 !String.IsNullOrWhiteSpace(User.Address.PostalCode)))
             {
-                MessageBox.Show("Jeżeli podajesz adres, to należ uzupełnić minimum ulicę i miasto.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(App.GetString("FillStreetAndCity"), App.GetString("Error"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

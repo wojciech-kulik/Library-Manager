@@ -140,10 +140,10 @@ namespace ClientApplication.ViewModels
         {
             if (SelectedUser.Username.ToLower() == _settingsService.Username.ToLower())
             {
-                MessageBox.Show("Nie można usunąć samego siebie.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(App.GetString("CantRemoveYourself"), App.GetString("Error"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            if (MessageBox.Show("Czy jesteś pewien, że chcesz usunąć z bazy użytkownika \"" + SelectedUser.FullName + "\"?", "Usuwanie",
+            if (MessageBox.Show(String.Format(App.GetString("AreYouSureRemoveUser"), SelectedUser.FullName), App.GetString("Removing"),
                                 MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) != MessageBoxResult.Yes)
             {
                 return;
