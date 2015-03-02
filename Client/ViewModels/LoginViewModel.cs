@@ -341,13 +341,16 @@ namespace ClientApplication.ViewModels
 
         public void Login()
         {
-            if (!ValidateDatabaseSettings() || !ValidateCredentials())
+            if (!ValidateDatabaseSettings())
                 return;
-            
+
+            _settingsService.Username = Username;   
             AddConnectionString();
             SaveDBSettings();
-            
-            _settingsService.Username = Username;        
+
+            if (!ValidateCredentials())
+                return;    
+                 
             if (AuthenticateUser())
             {
                 TryClose(true);
