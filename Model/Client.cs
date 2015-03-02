@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Client : Person, INotifyPropertyChanged
+    public class Client : Person
     {
         public string CardNumber { get; set; }
 
@@ -30,20 +30,8 @@ namespace Model
                 if (_lendings != value)
                 {
                     _lendings = value;
-                    NotifyPropertyChanged("Lendings");
+                    NotifyOfPropertyChange();
                 }
-            }
-        }
-        #endregion
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
         #endregion

@@ -124,11 +124,13 @@
             </Grid>
         </Border>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
-            <myCtrls:ActionButton x:Name="btnLogin" Text="{DynamicResource LogIn}" ImageSource="Images/locker.ico" 
-                              Height="34" Margin="0,0,10,10" Width="110" 
-                              HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
-                              Click="btnLogin_Click" />
-        </StackPanel>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Left" Margin="12,8,0,0" 
+                       Text="{DynamicResource NeedAccount}" FontSize="13" TextDecorations="Underline" Cursor="Hand" Foreground="LightBlue"
+                       cal:Message.Attach="[Event MouseDown] = [Action NeedAccount]"/>
+
+        <myCtrls:ActionButton x:Name="btnLogin" Text="{DynamicResource LogIn}" ImageSource="Images/locker.ico" 
+                            Height="34" Margin="0,0,10,10" Width="110" 
+                            HorizontalAlignment="Right" TextOptions.TextRenderingMode="Aliased"
+                            Grid.Row="2" Click="btnLogin_Click" />
     </Grid>
 </Window>

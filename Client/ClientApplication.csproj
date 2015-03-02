@@ -344,29 +344,6 @@
     <Resource Include="Views\Images\users.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Images\accept.png" />
-    <Content Include="Images\add_book.png" />
-    <Content Include="Images\cancel.ico" />
-    <Content Include="Images\delete_book.png" />
-    <Content Include="Images\edit_book.ico" />
-    <Content Include="Images\locker.ico" />
-    <Content Include="Images\refresh.ico" />
-    <Content Include="Images\return.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\add_order.ico" />
-    <Content Include="Images\selectall.ico" />
-    <Content Include="Images\settings.ico" />
-    <Content Include="Images\users.ico" />
-    <Content Include="Images\books.ico" />
-    <Content Include="Images\del_order.ico" />
-    <Content Include="Images\edit_user.ico" />
-    <Content Include="Images\add_user.ico" />
-    <Content Include="Images\del_user.ico" />
-    <Content Include="Images\edit_wypoz.ico" />
-    <Content Include="Images\delete.ico" />
-    <Content Include="Images\book.ico" />
-    <Content Include="Images\time.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

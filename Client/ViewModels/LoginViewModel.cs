@@ -306,13 +306,11 @@ namespace ClientApplication.ViewModels
 
         private bool AuthenticateUser()
         {
-            var dbService = _dbServiceManager.GetService();
-            try
+            if (_dbServiceManager.GetService().Authenticate(Username, Password))
             {
-                dbService.TestAuthorization(Username, Password);
                 return true;
             }
-            catch
+            else
             {
                 MessageBox.Show(App.GetString("UserNotFoundPasswordWrong"), App.GetString("Error"), MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -320,22 +318,36 @@ namespace ClientApplication.ViewModels
             return false;
         }
 
-        public void Login()
+        private bool ValidateCredentials()
         {
-            if (!ValidateDatabaseSettings())
-            {
-                return;
-            }
-            AddConnectionString();
-            SaveDBSettings();
-
             if (String.IsNullOrWhiteSpace(Username) || String.IsNullOrWhiteSpace(Password))
             {
                 MessageBox.Show(App.GetString("FillUsernameAndPassword"), App.GetString("FillRequiredFields"), MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                return false;
             }
-            _settingsService.Username = Username;
-           
+
+            if (_dbServiceManager.GetService().IsFirstLogIn())
+            {
+                return MessageBox.Show(App.GetString("FirstLogIn"), App.GetString("FirstLogInCaption"), MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) == MessageBoxResult.Yes;
+            }
+
+            return true;
+        }
+
+        public void NeedAccount()
+        {
+            MessageBox.Show(App.GetString("NeedAccountDialog"), App.GetString("Account"), MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public void Login()
+        {
+            if (!ValidateDatabaseSettings() || !ValidateCredentials())
+                return;
+            
+            AddConnectionString();
+            SaveDBSettings();
+            
+            _settingsService.Username = Username;        
             if (AuthenticateUser())
             {
                 TryClose(true);

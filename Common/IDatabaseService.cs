@@ -92,9 +92,11 @@ namespace Common
 
         #endregion
 
-        #region Authorization
+        #region Authentication
 
-        void TestAuthorization(string username, string password);
+        bool IsFirstLogIn();
+
+        bool Authenticate(string username, string password);
 
         #endregion
     }

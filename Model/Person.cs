@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public abstract partial class Person
+    public abstract partial class Person : ModelBase
     {
         public int Id { get; set; }
 

@@ -51,6 +51,16 @@
     <system:String x:Key="RememberPassword">Remember password</system:String>
     <system:String x:Key="WindowsAuthentication">Windows Authentication</system:String>
     <system:String x:Key="Database">Database</system:String>
+    <system:String x:Key="FirstLogIn" xml:space="preserve">This is the first log in, filled credentials will be used to create an administrator account.        
+
+Make sure, that your password and username are correct! 
+Do you really want to continue?</system:String>
+    <system:String x:Key="FirstLogInCaption">First log in</system:String>
+    <system:String x:Key="NeedAccount">Need an account?</system:String>
+    <system:String x:Key="Account">Account</system:String>
+    <system:String x:Key="NeedAccountDialog" xml:space="preserve">In case of new database filled credentials will be used to create the first account. 
+        
+If there are already users in database, ask an administrator to create an account for you.</system:String>
     <system:String x:Key="FillDatabaseSettings" xml:space="preserve">Fill required database settings (i.e. server address and database name. 
 
 If you don't check "Windows Authentication", you have to enter username and password.</system:String>

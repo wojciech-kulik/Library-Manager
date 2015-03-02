@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Address
+    public class Address : ModelBase
     {
         public string Street { get; set; }
 

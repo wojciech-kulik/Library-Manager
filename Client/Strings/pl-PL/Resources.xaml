@@ -51,6 +51,16 @@
     <system:String x:Key="RememberPassword">Zapamiętaj hasło</system:String>
     <system:String x:Key="WindowsAuthentication">Uwierzytelnianie Windows</system:String>
     <system:String x:Key="Database">Baza danych</system:String>
+    <system:String x:Key="NeedAccount">Potrzebujesz konta?</system:String>
+    <system:String x:Key="Account">Konto</system:String>
+    <system:String x:Key="NeedAccountDialog" xml:space="preserve">W przypadku nowej bazy danych podane hasło i login zostaną wykorzystane do utworzenia pierwszego konta. 
+        
+Jeżeli w bazie danych są już użytkownicy, poproś administratora o utworzenie konta dla Ciebie.</system:String>
+    <system:String x:Key="FirstLogIn" xml:space="preserve">Jest to pierwsze logowanie, wprowadzone dane posłużą do utworzenia konta administratora. 
+        
+Upewnij się, że wprowadzone hasło i login są poprawne! 
+Czy na pewno chcesz kontynuować?</system:String>
+    <system:String x:Key="FirstLogInCaption">Pierwsze logowanie</system:String>
     <system:String x:Key="FillDatabaseSettings" xml:space="preserve">Wprowadź ustawienia bazy danych (adres serwera oraz nazwę bazy).
         
 Jeżeli nie wybrałeś "Uwierzytelnianie Windows", to musisz podać użytkownika i hasło.</system:String>

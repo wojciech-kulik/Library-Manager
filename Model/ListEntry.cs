@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Model
 {
-    public class ListEntry
+    public class ListEntry : ModelBase
     {
         public int Id { get; set; }
 

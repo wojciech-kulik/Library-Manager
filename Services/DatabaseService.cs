@@ -780,17 +780,44 @@ namespace Services
 
         #endregion
 
-        #region Authorization
+        #region Authentication
 
-        public void TestAuthorization(string username, string password)
+        public bool Authenticate(string username, string password)
         {
-            using (var dataContext = GetDataContext())
+            try
             {
-                var user = dataContext.Persons.OfType<DB.Employee>().First(x => x.Username == username);
-                if (!BCryptHelper.CheckPassword(password, user.Password))
+                if (IsFirstLogIn())
                 {
-                    throw new InvalidOperationException("Password is incorrect!");
+                    AddEmployee(new Model.Employee()
+                    {
+                        Username = username,
+                        Password = password,
+                        FirstName = "Admin",
+                        LastName = "Admin",
+                        Role = (byte)Role.Admin
+                    });
+                    return true;
                 }
+
+                using (var dataContext = GetDataContext())
+                {
+                    var user = dataContext.Persons.OfType<DB.Employee>().First(x => x.Username == username);
+                    if (BCryptHelper.CheckPassword(password, user.Password))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch { }
+
+            return false;
+        }
+
+        public bool IsFirstLogIn()
+        {
+            using(var dataContext = GetDataContext())
+            {
+                return dataContext.Persons.OfType<DB.Employee>().Count() == 0;
             }
         }
 
