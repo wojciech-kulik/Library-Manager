@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public partial class LentBookDTO
+    public partial class LentBook
     {
         public int Id { get; set; }
 
         public Nullable<DateTime> ReturnDate { get; set; }
 
-        public EmployeeDTO ReturnEmployee { get; set; }
+        public Employee ReturnEmployee { get; set; }
 
         public Nullable<int> ReturnEmployeeId { get; set; }
 
@@ -23,8 +23,8 @@ namespace Model
 
         public int LendingId { get; set; }
 
-        public BookDTO Book { get; set; }
+        public Book Book { get; set; }
 
-        public LendingDTO Lending { get; set; }
+        public Lending Lending { get; set; }
     }
 }

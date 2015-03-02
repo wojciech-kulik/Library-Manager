@@ -40,7 +40,7 @@ namespace ClientApplication.Views
                                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             {
                 foreach (var lentBook in dgLentBooks.Items)
-                    (lentBook as LentBookDTO).EndDate = (sender as DatePicker).SelectedDate.Value;
+                    (lentBook as LentBook).EndDate = (sender as DatePicker).SelectedDate.Value;
 
                 dgLentBooks.Items.Refresh();
             }

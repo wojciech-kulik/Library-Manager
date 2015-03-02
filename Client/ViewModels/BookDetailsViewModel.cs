@@ -15,7 +15,7 @@ namespace ClientApplication.ViewModels
         public BookDetailsViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<IDatabaseService> dbServiceManager)
             : base(navigationService, windowManager, dbServiceManager)
         {
-            Book = new BookDTO() { BookCategories = new ObservableCollection<BookCategoryDTO>(), Authors = new ObservableCollection<AuthorDTO>() };
+            Book = new Book() { BookCategories = new ObservableCollection<BookCategory>(), Authors = new ObservableCollection<Author>() };
             RefreshCategoriesAuthorsAndPublishers();
         }
 
@@ -29,9 +29,9 @@ namespace ClientApplication.ViewModels
 
         #region Book
 
-        private BookDTO _book;
+        private Book _book;
 
-        public BookDTO Book
+        public Book Book
         {
             get
             {
@@ -52,9 +52,9 @@ namespace ClientApplication.ViewModels
 
         #region BookCategories
 
-        private BindableCollection<BookCategoryDTO> _bookCategories;
+        private BindableCollection<BookCategory> _bookCategories;
 
-        public BindableCollection<BookCategoryDTO> BookCategories
+        public BindableCollection<BookCategory> BookCategories
         {
             get
             {
@@ -74,9 +74,9 @@ namespace ClientApplication.ViewModels
 
         #region Authors
 
-        private BindableCollection<AuthorDTO> _authors;
+        private BindableCollection<Author> _authors;
 
-        public BindableCollection<AuthorDTO> Authors
+        public BindableCollection<Author> Authors
         {
             get
             {
@@ -95,9 +95,9 @@ namespace ClientApplication.ViewModels
 
         #region Publishers
 
-        private BindableCollection<PublisherDTO> _publishers;
+        private BindableCollection<Publisher> _publishers;
 
-        public BindableCollection<PublisherDTO> Publishers
+        public BindableCollection<Publisher> Publishers
         {
             get
             {
@@ -117,9 +117,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedBookCategory
 
-        private BookCategoryDTO _selectedBookCategory;
+        private BookCategory _selectedBookCategory;
 
-        public BookCategoryDTO SelectedBookCategory
+        public BookCategory SelectedBookCategory
         {
             get
             {
@@ -140,9 +140,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedAuthor
 
-        private AuthorDTO _selectedAuthor;
+        private Author _selectedAuthor;
 
-        public AuthorDTO SelectedAuthor
+        public Author SelectedAuthor
         {
             get
             {
@@ -163,9 +163,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedPublisher
 
-        private PublisherDTO _selectedPublisher;
+        private Publisher _selectedPublisher;
 
-        public PublisherDTO SelectedPublisher
+        public Publisher SelectedPublisher
         {
             get
             {
@@ -190,9 +190,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedListboxAuthor
 
-        private AuthorDTO _selectedListboxAuthor;
+        private Author _selectedListboxAuthor;
 
-        public AuthorDTO SelectedListboxAuthor
+        public Author SelectedListboxAuthor
         {
             get
             {
@@ -211,9 +211,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedListboxBookCategory
 
-        private BookCategoryDTO _selectedListboxBookCategory;
+        private BookCategory _selectedListboxBookCategory;
 
-        public BookCategoryDTO SelectedListboxBookCategory
+        public BookCategory SelectedListboxBookCategory
         {
             get
             {
@@ -240,9 +240,9 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                BookCategories = new BindableCollection<BookCategoryDTO>(dbService.GetAllBookCategories());
-                Authors = new BindableCollection<AuthorDTO>(dbService.GetAllAuthors());
-                Publishers = new BindableCollection<PublisherDTO>(dbService.GetAllPublishers());
+                BookCategories = new BindableCollection<BookCategory>(dbService.GetAllBookCategories());
+                Authors = new BindableCollection<Author>(dbService.GetAllAuthors());
+                Publishers = new BindableCollection<Publisher>(dbService.GetAllPublishers());
             }
         }
 
@@ -272,7 +272,7 @@ namespace ClientApplication.ViewModels
 
         public void AddNewPublisher(string publisherName)
         {
-            PublisherDTO publisher = Publishers.FirstOrDefault(p => p.Name.ToLower() == publisherName.ToLower());
+            Publisher publisher = Publishers.FirstOrDefault(p => p.Name.ToLower() == publisherName.ToLower());
             if (publisher != null)
             {
                 SelectedPublisher = publisher;
@@ -284,7 +284,7 @@ namespace ClientApplication.ViewModels
             {
                 using (var dbService = _dbServiceManager.GetService())
                 {
-                    PublisherDTO newPub = new PublisherDTO() { Name = publisherName };
+                    Publisher newPub = new Publisher() { Name = publisherName };
                     newPub.Id = dbService.AddPublisher(newPub);
 
                     Publishers.Add(newPub);
@@ -310,7 +310,7 @@ namespace ClientApplication.ViewModels
             {
                 (context.EventArgs as KeyEventArgs).Handled = true;
 
-                AuthorDTO author = Authors.FirstOrDefault(p => p.Name.ToLower() == authorName.ToLower());
+                Author author = Authors.FirstOrDefault(p => p.Name.ToLower() == authorName.ToLower());
                 if (author != null)
                 {
                     SelectedAuthor = author;
@@ -322,7 +322,7 @@ namespace ClientApplication.ViewModels
                 {
                     using (var dbService = _dbServiceManager.GetService())
                     {
-                        AuthorDTO newAuthor = new AuthorDTO() { Name = authorName };
+                        Author newAuthor = new Author() { Name = authorName };
                         newAuthor.Id = dbService.AddAuthor(newAuthor);
 
                         Authors.Add(newAuthor);
@@ -340,7 +340,7 @@ namespace ClientApplication.ViewModels
             {
                 (context.EventArgs as KeyEventArgs).Handled = true;
 
-                BookCategoryDTO bookCat = BookCategories.FirstOrDefault(p => p.Name.ToLower() == bookCategoryName.ToLower());
+                BookCategory bookCat = BookCategories.FirstOrDefault(p => p.Name.ToLower() == bookCategoryName.ToLower());
                 if (bookCat != null)
                 {
                     SelectedBookCategory = bookCat;
@@ -352,7 +352,7 @@ namespace ClientApplication.ViewModels
                 {
                     using (var dbService = _dbServiceManager.GetService())
                     {
-                        BookCategoryDTO newBookCat = new BookCategoryDTO() { Name = bookCategoryName };
+                        BookCategory newBookCat = new BookCategory() { Name = bookCategoryName };
                         newBookCat.Id = dbService.AddBookCategory(newBookCat);
 
                         BookCategories.Add(newBookCat);

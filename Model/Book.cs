@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public partial class BookDTO
+    public partial class Book
     {
         public int Id { get; set; }
 
@@ -23,13 +23,13 @@ namespace Model
 
         public string Location { get; set; }
 
-        public ICollection<BookCategoryDTO> BookCategories { get; set; }
+        public ICollection<BookCategory> BookCategories { get; set; }
 
-        public PublisherDTO Publisher { get; set; }
+        public Publisher Publisher { get; set; }
 
         public Nullable<int> PublisherId { get; set; }
 
-        public ICollection<AuthorDTO> Authors { get; set; }
+        public ICollection<Author> Authors { get; set; }
 
         public string AdditionalInfo { get; set; }
 

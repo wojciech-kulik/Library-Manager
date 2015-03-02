@@ -11,7 +11,7 @@ namespace ClientApplication.ViewModels
         public ClientDetailsViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<IDatabaseService> dbServiceManager)
             : base(navigationService, windowManager, dbServiceManager)
         {
-            Client = new ClientDTO();
+            Client = new Client();
         }
 
 
@@ -26,9 +26,9 @@ namespace ClientApplication.ViewModels
 
         #region Client
 
-        private ClientDTO _client;
+        private Client _client;
 
-        public ClientDTO Client
+        public Client Client
         {
             get
             {

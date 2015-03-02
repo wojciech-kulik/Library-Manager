@@ -252,9 +252,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\DBServiceManager.DatabaseService.ClientDTO.datasource" />
-    <None Include="Properties\DataSources\DBServiceManager.DatabaseService.LendingDTO.datasource" />
-    <None Include="Properties\DataSources\DBServiceManager.DatabaseService.LentBookDTO.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -376,7 +373,7 @@
       <Project>{e9018dff-0f7a-4dc6-a330-5edcb75acbfa}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DatabaseService\Services.csproj">
+    <ProjectReference Include="..\Services\Services.csproj">
       <Project>{ac770801-24d7-499f-86fa-e0dfcb350c76}</Project>
       <Name>Services</Name>
     </ProjectReference>

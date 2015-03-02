@@ -14,7 +14,7 @@ namespace ClientApplication.ViewModels
         public UserDetailsViewModel(INavigationService navigationService, IWindowManager windowManager, IDBServiceManager<IDatabaseService> dbServiceManager, ISettingsService settingsService)
             : base(navigationService, windowManager, dbServiceManager)
         {
-            User = new EmployeeDTO();
+            User = new Employee();
             _settingsService = settingsService;
         }
 
@@ -28,9 +28,9 @@ namespace ClientApplication.ViewModels
 
         #region User
 
-        private EmployeeDTO _user;
+        private Employee _user;
 
-        public EmployeeDTO User
+        public Employee User
         {
             get
             {

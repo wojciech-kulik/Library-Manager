@@ -19,7 +19,7 @@ namespace ClientApplication.ViewModels
             RefreshAllBooks();
         }
 
-        public delegate void BookSelectedEventHandler(BookSelectedEventArgs<BookDTO> e);
+        public delegate void BookSelectedEventHandler(BookSelectedEventArgs<Book> e);
 
         public event BookSelectedEventHandler BookSelectEvent;
 
@@ -34,9 +34,9 @@ namespace ClientApplication.ViewModels
 
         #region AllBooks
 
-        private BindableCollection<BookDTO> _allBooks;
+        private BindableCollection<Book> _allBooks;
 
-        public BindableCollection<BookDTO> AllBooks
+        public BindableCollection<Book> AllBooks
         {
             get
             {
@@ -55,9 +55,9 @@ namespace ClientApplication.ViewModels
 
         #region Books
 
-        private BindableCollection<BookDTO> _books;
+        private BindableCollection<Book> _books;
 
-        public BindableCollection<BookDTO> Books
+        public BindableCollection<Book> Books
         {
             get
             {
@@ -76,9 +76,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedBook
 
-        private BookDTO _selectedBook;
+        private Book _selectedBook;
 
-        public BookDTO SelectedBook
+        public Book SelectedBook
         {
             get
             {
@@ -125,7 +125,7 @@ namespace ClientApplication.ViewModels
             if (BookSelectionMode)
             {
                 if (BookSelectEvent != null)
-                    BookSelectEvent(new BookSelectedEventArgs<BookDTO>() { Book = Mapper.Map<BookDTO>(SelectedBook) });
+                    BookSelectEvent(new BookSelectedEventArgs<Book>() { Book = Mapper.Map<Book>(SelectedBook) });
             }
 
             TryClose(true);
@@ -135,8 +135,8 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                AllBooks = new BindableCollection<BookDTO>(dbService.GetAllBooks());
-                Books = new BindableCollection<BookDTO>(AllBooks);
+                AllBooks = new BindableCollection<Book>(dbService.GetAllBooks());
+                Books = new BindableCollection<Book>(AllBooks);
             }
         }
 
@@ -147,7 +147,7 @@ namespace ClientApplication.ViewModels
 
             using (var dbService = _dbServiceManager.GetService())
             {
-                BookDTO newBook = dbService.GetBook(id);
+                Book newBook = dbService.GetBook(id);
 
                 for (int i = 0; i < AllBooks.Count; i++)
                     if (AllBooks[i].Id == id)
@@ -175,9 +175,9 @@ namespace ClientApplication.ViewModels
             if (keyArgs != null && keyArgs.Key == Key.Enter)
             {
                 if (String.IsNullOrEmpty(phrase))
-                    Books = new BindableCollection<BookDTO>(AllBooks);
+                    Books = new BindableCollection<Book>(AllBooks);
                 else
-                    Books = new BindableCollection<BookDTO>(AllBooks.Where(c => c.Title.ContainsAny(phrase) || (!String.IsNullOrEmpty(c.AuthorsString) && c.AuthorsString.ContainsAny(phrase))));
+                    Books = new BindableCollection<Book>(AllBooks.Where(c => c.Title.ContainsAny(phrase) || (!String.IsNullOrEmpty(c.AuthorsString) && c.AuthorsString.ContainsAny(phrase))));
             }
         }
 
@@ -188,7 +188,7 @@ namespace ClientApplication.ViewModels
             if (result)
             {
                 //Adding a new books to list
-                BookDTO newBook = null;
+                Book newBook = null;
                 using (var dbService = _dbServiceManager.GetService())
                 {
                     var books = dbService.GetAllBooks();
@@ -206,7 +206,7 @@ namespace ClientApplication.ViewModels
                     }
                 }
 
-                Books = new BindableCollection<BookDTO>(AllBooks);
+                Books = new BindableCollection<Book>(AllBooks);
                 SelectedBook = newBook;
             }
         }
@@ -215,7 +215,7 @@ namespace ClientApplication.ViewModels
         {
             _navigationService.GetWindow<BookDetailsViewModel>()
                 .WithParam(vm => vm.IsEditing, true)
-                .WithParam(vm => vm.Book, Mapper.Map<BookDTO>(SelectedBook))
+                .WithParam(vm => vm.Book, Mapper.Map<Book>(SelectedBook))
                 .DoIfSuccess(() => RefreshSelectedBook())
                 .ShowWindowModal();
         }

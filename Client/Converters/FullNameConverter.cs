@@ -13,9 +13,9 @@ namespace ClientApplication.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PersonDTO)
+            if (value is Person)
             {
-                return (value as PersonDTO).FullName;
+                return (value as Person).FullName;
             }
             else
             {

@@ -6,7 +6,11 @@ using System.Web;
 
 namespace Model
 {
-    public class AuthorDTO : DictionaryDTO
+    public class Publisher : ListEntry
     {
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

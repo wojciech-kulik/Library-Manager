@@ -6,10 +6,7 @@ using System.Web;
 
 namespace Model
 {
-    public class DictionaryDTO
+    public class Author : ListEntry
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
     }
 }

@@ -27,9 +27,9 @@ namespace ClientApplication.ViewModels
 
         #region AllClients
 
-        private BindableCollection<ClientDTO> _allClients;
+        private BindableCollection<Client> _allClients;
 
-        public BindableCollection<ClientDTO> AllClients
+        public BindableCollection<Client> AllClients
         {
             get
             {
@@ -49,9 +49,9 @@ namespace ClientApplication.ViewModels
 
         #region Clients
 
-        private BindableCollection<ClientDTO> _clients;
+        private BindableCollection<Client> _clients;
 
-        public BindableCollection<ClientDTO> Clients
+        public BindableCollection<Client> Clients
         {
             get
             {
@@ -71,9 +71,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedClient
 
-        private ClientDTO _selectedClient;
+        private Client _selectedClient;
 
-        public ClientDTO SelectedClient
+        public Client SelectedClient
         {
             get
             {
@@ -96,9 +96,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedLending
 
-        private LendingDTO _selectedLending;
+        private Lending _selectedLending;
 
-        public LendingDTO SelectedLending
+        public Lending SelectedLending
         {
             get
             {
@@ -142,7 +142,7 @@ namespace ClientApplication.ViewModels
 
             using (var dbService = _dbServiceManager.GetService())
             {
-                ClientDTO newClient = dbService.GetClient(id);            
+                Client newClient = dbService.GetClient(id);            
 
                 for(int i = 0; i < AllClients.Count; i++)
                     if (AllClients[i].Id == id)
@@ -178,8 +178,8 @@ namespace ClientApplication.ViewModels
                         if (Role == null)
                             Role = (Role)dbService.GetEmployeeRole(_settingsService.Username);
 
-                        AllClients = new BindableCollection<ClientDTO>(dbService.GetAllClients());
-                        Clients = new BindableCollection<ClientDTO>(AllClients);
+                        AllClients = new BindableCollection<Client>(dbService.GetAllClients());
+                        Clients = new BindableCollection<Client>(AllClients);
                         SelectedClient = Clients.FirstOrDefault(c => c.Id == id);
                     }
                 });
@@ -194,12 +194,12 @@ namespace ClientApplication.ViewModels
                 if (String.IsNullOrEmpty(phrase))
                 {
                     int id = SelectedClient != null ? SelectedClient.Id : -1;
-                    Clients = new BindableCollection<ClientDTO>(AllClients);
+                    Clients = new BindableCollection<Client>(AllClients);
                     SelectedClient = Clients.FirstOrDefault(c => c.Id == id);
                 }
                 else
                 {
-                    Clients = new BindableCollection<ClientDTO>(AllClients.Where(c => c.FullName.ContainsAny(phrase)));
+                    Clients = new BindableCollection<Client>(AllClients.Where(c => c.FullName.ContainsAny(phrase)));
                 }
             }
         }
@@ -211,7 +211,7 @@ namespace ClientApplication.ViewModels
             if (result)
             {
                 //Adding a new clients to list
-                ClientDTO newClient = null;
+                Client newClient = null;
                 using (var dbService = _dbServiceManager.GetService())
                 {                    
                     var clients = dbService.GetAllClients();
@@ -229,7 +229,7 @@ namespace ClientApplication.ViewModels
                     }
                 }
 
-                Clients = new BindableCollection<ClientDTO>(AllClients);
+                Clients = new BindableCollection<Client>(AllClients);
                 SelectedClient = newClient;
             }
         }
@@ -238,7 +238,7 @@ namespace ClientApplication.ViewModels
         {
             _navigationService.GetWindow<ClientDetailsViewModel>()
                 .WithParam(vm => vm.IsEditing, true)
-                .WithParam(vm => vm.Client, Mapper.Map<ClientDTO>(SelectedClient))
+                .WithParam(vm => vm.Client, Mapper.Map<Client>(SelectedClient))
                 .DoIfSuccess(() => RefreshSelectedClient())
                 .ShowWindowModal();
         }
@@ -276,16 +276,16 @@ namespace ClientApplication.ViewModels
         {
             //todo: termin zwrotu
             _navigationService.GetWindow<LendingDetailsViewModel>()
-                .WithParam(vm => vm.Lending, new LendingDTO() { ClientId = SelectedClient.Id, Books = new ObservableCollection<LentBookDTO>(), LendingDate = DateTime.Now, EndDate = DateTime.Now.AddDays(7) })
+                .WithParam(vm => vm.Lending, new Lending() { ClientId = SelectedClient.Id, Books = new ObservableCollection<LentBook>(), LendingDate = DateTime.Now, EndDate = DateTime.Now.AddDays(7) })
                 .DoIfSuccess(() => RefreshSelectedClient())
                 .ShowWindowModal();
         }
 
         public void EditLending()
         {
-            LendingDTO lending = Mapper.Map<LendingDTO>(SelectedLending);
+            Lending lending = Mapper.Map<Lending>(SelectedLending);
             using (var dbSerivce = _dbServiceManager.GetService())
-                lending.Books = new BindableCollection<LentBookDTO>(dbSerivce.GetLentBooksOf(SelectedLending.Id));             
+                lending.Books = new BindableCollection<LentBook>(dbSerivce.GetLentBooksOf(SelectedLending.Id));             
 
             _navigationService.GetWindow<LendingDetailsViewModel>()
                 .WithParam(vm => vm.Lending, lending)
@@ -310,9 +310,9 @@ namespace ClientApplication.ViewModels
 
         public void ReturnBooks()
         {
-            BindableCollection<LentBookDTO> lentBooks;
+            BindableCollection<LentBook> lentBooks;
             using(var dbSerivce = _dbServiceManager.GetService())
-                lentBooks = new BindableCollection<LentBookDTO>(dbSerivce.GetLentBooksOf(SelectedLending.Id));
+                lentBooks = new BindableCollection<LentBook>(dbSerivce.GetLentBooksOf(SelectedLending.Id));
 
             _navigationService.GetWindow<BooksReturnViewModel>()
                 .WithParam(w => w.LentBooks, lentBooks)

@@ -23,9 +23,9 @@ namespace ClientApplication.ViewModels
 
         #region Users
 
-        private BindableCollection<EmployeeDTO> _users;
+        private BindableCollection<Employee> _users;
 
-        public BindableCollection<EmployeeDTO> Users
+        public BindableCollection<Employee> Users
         {
             get
             {
@@ -44,9 +44,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedUser
 
-        private EmployeeDTO _selectedUser;
+        private Employee _selectedUser;
 
-        public EmployeeDTO SelectedUser
+        public Employee SelectedUser
         {
             get
             {
@@ -71,7 +71,7 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                Users = new BindableCollection<EmployeeDTO>(dbService.GetAllEmployees());
+                Users = new BindableCollection<Employee>(dbService.GetAllEmployees());
             }
         }
 
@@ -82,7 +82,7 @@ namespace ClientApplication.ViewModels
 
             using (var dbService = _dbServiceManager.GetService())
             {
-                EmployeeDTO newUser = dbService.GetEmployee(id);
+                Employee newUser = dbService.GetEmployee(id);
 
                 for (int i = 0; i < Users.Count; i++)
                     if (Users[i].Id == id)
@@ -101,7 +101,7 @@ namespace ClientApplication.ViewModels
             if (result)
             {
                 //Adding a new user to list
-                EmployeeDTO newUser = null;
+                Employee newUser = null;
                 using (var dbService = _dbServiceManager.GetService())
                 {
                     var users = dbService.GetAllEmployees();
@@ -127,7 +127,7 @@ namespace ClientApplication.ViewModels
         {
             _navigationService.GetWindow<UserDetailsViewModel>()
                 .WithParam(vm => vm.IsEditing, true)
-                .WithParam(vm => vm.User, Mapper.Map<EmployeeDTO>(SelectedUser))
+                .WithParam(vm => vm.User, Mapper.Map<Employee>(SelectedUser))
                 .DoIfSuccess(() => RefreshSelectedUser())
                 .ShowWindowModal();
         }

@@ -25,9 +25,9 @@ namespace ClientApplication.ViewModels
 
         #region Lending
 
-        private LendingDTO _lending;
+        private Lending _lending;
 
-        public LendingDTO Lending
+        public Lending Lending
         {
             get
             {
@@ -46,9 +46,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedBook
 
-        private LentBookDTO _selectedBook;
+        private LentBook _selectedBook;
 
-        public LentBookDTO SelectedBook
+        public LentBook SelectedBook
         {
             get
             {
@@ -113,7 +113,7 @@ namespace ClientApplication.ViewModels
                 .ShowWindowModal();
         }
 
-        void LendingDetailsViewModel_BookSelectedEvent(BookSelectedEventArgs<BookDTO> e)
+        void LendingDetailsViewModel_BookSelectedEvent(BookSelectedEventArgs<Book> e)
         {
             if (Lending.Books.Any(lb => lb.BookId == e.Book.Id))
             {
@@ -121,7 +121,7 @@ namespace ClientApplication.ViewModels
                 return;
             }
 
-            Lending.Books.Add(new LentBookDTO() 
+            Lending.Books.Add(new LentBook() 
             { 
                 Book = e.Book, 
                 BookId = e.Book.Id, 

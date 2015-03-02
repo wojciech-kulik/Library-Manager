@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public partial class EmployeeDTO : PersonDTO
+    public partial class Employee : Person
     {
         public byte Role { get; set; }
 
@@ -15,9 +15,9 @@ namespace Model
 
         public string Password { get; set; }
 
-        public ICollection<LendingDTO> Lendings { get; set; }
+        public ICollection<Lending> Lendings { get; set; }
 
-        public ICollection<LentBookDTO> Returns { get; set; }
+        public ICollection<LentBook> Returns { get; set; }
 
         public bool Removed { get; set; }
     }

@@ -18,9 +18,9 @@ namespace ClientApplication.ViewModels
 
         #region LentBooks
 
-        private BindableCollection<LentBookDTO> _lentBooks;
+        private BindableCollection<LentBook> _lentBooks;
 
-        public BindableCollection<LentBookDTO> LentBooks
+        public BindableCollection<LentBook> LentBooks
         {
             get
             {
@@ -39,9 +39,9 @@ namespace ClientApplication.ViewModels
 
         #region SelectedLentBook
 
-        private LentBookDTO _selectedLentBook;
+        private LentBook _selectedLentBook;
 
-        public LentBookDTO SelectedLentBook
+        public LentBook SelectedLentBook
         {
             get
             {
@@ -98,8 +98,8 @@ namespace ClientApplication.ViewModels
 
         private void RefreshCheckboxes()
         {
-            LentBookDTO selection = SelectedLentBook;
-            BindableCollection<LentBookDTO> tmp = LentBooks;
+            LentBook selection = SelectedLentBook;
+            BindableCollection<LentBook> tmp = LentBooks;
 
             LentBooks = null;
             LentBooks = tmp;

@@ -29,9 +29,9 @@ namespace Services
             return dataContext;
         }
 
-        private Employee GetCurrentEmployee(LibraryDataContext dataContext)
+        private DB.Employee GetCurrentEmployee(LibraryDataContext dataContext)
         {
-            Employee emp = dataContext.Persons.OfType<Employee>().FirstOrDefault(e => e.Username == _username);
+            DB.Employee emp = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(e => e.Username == _username);
 
             if (emp == null)
                 throw new Exception(String.Format("Employee '{0}' not found!", _username));
@@ -46,101 +46,53 @@ namespace Services
 
         static DatabaseService()
         {
-            Mapper.CreateMap<ClientDTO, Client>().ForMember("Lendings", opt => opt.Ignore());
-            Mapper.CreateMap<Client, ClientDTO>().ForMember("Lendings", opt => opt.Ignore());
-            Mapper.CreateMap<BookCategory, BookCategoryDTO>();
-            Mapper.CreateMap<BookCategoryDTO, BookCategory>();
-            Mapper.CreateMap<Book, BookDTO>();
-            Mapper.CreateMap<BookDTO, Book>();
-            Mapper.CreateMap<Employee, EmployeeDTO>().ForMember("Password", opt => opt.Ignore()).ForMember("Lendings", opt => opt.Ignore()).ForMember("Returns", opt => opt.Ignore());
-            Mapper.CreateMap<EmployeeDTO, Employee>().ForMember("Lendings", opt => opt.Ignore()).ForMember("Returns", opt => opt.Ignore());
-            Mapper.CreateMap<Lending, LendingDTO>().ForMember("Books", opt => opt.Ignore()).ForMember("Client", opt => opt.Ignore());
-            Mapper.CreateMap<LendingDTO, Lending>().ForMember("Books", opt => opt.Ignore()).ForMember("Client", opt => opt.Ignore());
+            Mapper.CreateMap<Model.Client, DB.Client>().ForMember("Lendings", opt => opt.Ignore());
+            Mapper.CreateMap<DB.Client, Model.Client>().ForMember("Lendings", opt => opt.Ignore());
+            Mapper.CreateMap<Model.BookCategory, DB.BookCategory>();
+            Mapper.CreateMap<DB.BookCategory, Model.BookCategory>();
+            Mapper.CreateMap<Model.Book, DB.Book>();
+            Mapper.CreateMap<DB.Book, Model.Book>();
+            Mapper.CreateMap<DB.Employee, Model.Employee>().ForMember("Password", opt => opt.Ignore()).ForMember("Lendings", opt => opt.Ignore()).ForMember("Returns", opt => opt.Ignore());
+            Mapper.CreateMap<Model.Employee, DB.Employee>().ForMember("Lendings", opt => opt.Ignore()).ForMember("Returns", opt => opt.Ignore());
+            Mapper.CreateMap<Model.Lending, DB.Lending>().ForMember("Books", opt => opt.Ignore()).ForMember("Client", opt => opt.Ignore());
+            Mapper.CreateMap<DB.Lending, Model.Lending>().ForMember("Books", opt => opt.Ignore()).ForMember("Client", opt => opt.Ignore());
             Mapper.CreateMap<Model.Address, DB.Address>();
             Mapper.CreateMap<DB.Address, Model.Address>();
-            Mapper.CreateMap<LentBook, LentBookDTO>();
-            Mapper.CreateMap<LentBookDTO, LentBook>();
-            Mapper.CreateMap<Person, PersonDTO>();
-            Mapper.CreateMap<PersonDTO, Person>();
-            Mapper.CreateMap<Author, AuthorDTO>();
-            Mapper.CreateMap<AuthorDTO, Author>();
-            Mapper.CreateMap<Publisher, PublisherDTO>();
-            Mapper.CreateMap<PublisherDTO, Publisher>();
+            Mapper.CreateMap<Model.LentBook, DB.LentBook>();
+            Mapper.CreateMap<DB.LentBook, Model.LentBook>();
+            Mapper.CreateMap<DB.Person, Model.Person>();
+            Mapper.CreateMap<Model.Person, DB.Person>();
+            Mapper.CreateMap<Model.Author, DB.Author>();
+            Mapper.CreateMap<DB.Author, Model.Author>();
+            Mapper.CreateMap<Model.Publisher, DB.Publisher>();
+            Mapper.CreateMap<DB.Publisher, Model.Publisher>();
         }
 
         public DatabaseService(string connectionString, string username)
         {
             _connectionString = connectionString;
             _username = username;
-            return;
-            #region test creation
-            try
-            {
-                var _dataContext = GetDataContext();
-
-                Client c = new Client() { FirstName = "Jacek", LastName = "Kowalski", Phone = "6431231", IdNumber = "ARR21231", Email = "mail@o2.pl", CardNumber = "112312" };
-                c.Address.City = "Miasteczko";
-                c.Address.HouseNumber = "25";
-                c.Address.Street = "Uliczka";
-                c.Address.PostalCode = "50-500";
-
-                Employee emp = new Employee() { FirstName = "Jacek", LastName = "Kowalski", Phone = "6431231", IdNumber = "ARR21231", Username = "Login", Password = "pass" };
-                emp.Address.City = "Miasteczko";
-                emp.Address.HouseNumber = "25";
-                emp.Address.Street = "Uliczka";
-                emp.Address.PostalCode = "50-500";
-
-                BookCategory bc = new BookCategory() { Name = "Fantasy" };
-                BookCategory bc2 = new BookCategory() { Name = "Przygodowa" };
-
-                Author author = new Author() { Name = "Tolkien" };
-                Author author2 = new Author() { Name = "Stephen King" };
-
-                Publisher publisher = new Publisher() { Name = "Helion" };
-
-                Book b = new Book() { Authors = new List<Author>() { { author }, { author2 } }, Title = "Władca Pierścieni", Location = "2AB", BookCategories = new List<BookCategory>() { { bc }, { bc2 } } };
-                Book b2 = new Book() { Authors = new List<Author>() { { author2 } }, Title = "Ręka mistrza", Location = "AA2", ISBN = "123132131231", PublishDate = DateTime.Now.AddYears(-1), Publisher = publisher, BookCategories = new List<BookCategory>() { {bc} } };              
-
-                LentBook lb = new LentBook() { Book = b, EndDate = DateTime.Now.AddDays(7) };
-                LentBook lb2 = new LentBook() { Book = b2, EndDate = DateTime.Now.AddDays(7) };
-
-                Lending l = new Lending() { LendingDate = DateTime.Now, EndDate = DateTime.Now.AddDays(7), LendingEmployee = emp, Client = c };
-                l.Books.Add(lb);
-                l.Books.Add(lb2);
-
-                c.Lendings.Add(l);
-
-                _dataContext.Persons.Add(emp);
-                _dataContext.Persons.Add(c);
-                _dataContext.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            #endregion
         }
 
 
         #region Client
 
-        public IList<ClientDTO> GetAllClients()
+        public IList<Model.Client> GetAllClients()
         {
             using (var dataContext = GetDataContext())
-                return Mapper.Map<List<ClientDTO>>(dataContext.Persons.OfType<Client>());            
+                return Mapper.Map<List<Model.Client>>(dataContext.Persons.OfType<DB.Client>());            
         }
 
-        public ClientDTO GetClient(int clientId)
+        public Model.Client GetClient(int clientId)
         {
             using (var dataContext = GetDataContext())
             {
-                var client = dataContext.Persons.OfType<Client>().FirstOrDefault(c => c.Id == clientId);
+                var client = dataContext.Persons.OfType<DB.Client>().FirstOrDefault(c => c.Id == clientId);
 
                 if (client == null)
                     throw new ArgumentOutOfRangeException("Nie znaleziono klienta o podanym ID.", (Exception)null);
                 else
-                    return Mapper.Map<ClientDTO>(client);
+                    return Mapper.Map<Model.Client>(client);
             }
         }
 
@@ -148,7 +100,7 @@ namespace Services
         {
             using (var dataContext = GetDataContext())
             {
-                Client client = dataContext.Persons.OfType<Client>().FirstOrDefault(p => p.Id == clientId);
+                DB.Client client = dataContext.Persons.OfType<DB.Client>().FirstOrDefault(p => p.Id == clientId);
                 if (client == null)
                     throw new InvalidOperationException("Podany klient nie został znaleziony w bazie danych. Możliwe, że inny użytkownik właśnie go usunął.");
 
@@ -164,30 +116,30 @@ namespace Services
             }
         }
 
-        public void AddClient(ClientDTO client)
+        public void AddClient(Model.Client client)
         {
             if (client == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o kliencie.", (Exception)null);
 
             using (var dataContext = GetDataContext())
             {
-                dataContext.Persons.Add(Mapper.Map<Client>(client));
+                dataContext.Persons.Add(Mapper.Map<DB.Client>(client));
                 dataContext.SaveChanges();
             }
         }
 
-        public void EditClient(ClientDTO client)
+        public void EditClient(Model.Client client)
         {
             if (client == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o kliencie.", (Exception)null);
 
             using (var dataContext = GetDataContext())
             {
-                Client c = dataContext.Persons.OfType<Client>().FirstOrDefault(cl => cl.Id == client.Id);
+                DB.Client c = dataContext.Persons.OfType<DB.Client>().FirstOrDefault(cl => cl.Id == client.Id);
                 if (c == null)
                     throw new InvalidOperationException("Podany klient nie został znaleziony w bazie danych. Możliwe, że inny użytkownik właśnie go usunął.");
 
-                Mapper.Map<ClientDTO, Client>(client, c);
+                Mapper.Map<Model.Client, DB.Client>(client, c);
                 dataContext.SaveChanges();
             }
         }
@@ -200,7 +152,7 @@ namespace Services
         {
             using (var dataContext = GetDataContext())
             {
-                Employee e = dataContext.Persons.OfType<Employee>().FirstOrDefault(emp => emp.Username == username.ToLower());
+                DB.Employee e = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(emp => emp.Username == username.ToLower());
                 if (e == null)
                     return (byte)Role.Admin; 
                     //throw new ArgumentOutOfRangeException("Nie znaleziono pracownika o danej nazwie.");
@@ -209,22 +161,22 @@ namespace Services
             }
         }
 
-        public IList<EmployeeDTO> GetAllEmployees()
+        public IList<Model.Employee> GetAllEmployees()
         {
             using (var dataContext = GetDataContext())
-                return Mapper.Map<List<EmployeeDTO>>(dataContext.Persons.OfType<Employee>().Where(emp => !emp.Removed));
+                return Mapper.Map<List<Model.Employee>>(dataContext.Persons.OfType<DB.Employee>().Where(emp => !emp.Removed));
         }
 
-        public EmployeeDTO GetEmployee(int employeeId)
+        public Model.Employee GetEmployee(int employeeId)
         {
             using (var dataContext = GetDataContext())
             {
-                var employee = dataContext.Persons.OfType<Employee>().FirstOrDefault(e => e.Id == employeeId);
+                var employee = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(e => e.Id == employeeId);
 
                 if (employee == null)
                     throw new ArgumentOutOfRangeException("Nie znaleziono pracownika o podanym ID.", (Exception)null);
                 else
-                    return Mapper.Map<EmployeeDTO>(employee);
+                    return Mapper.Map<Model.Employee>(employee);
             }
         }
 
@@ -232,7 +184,7 @@ namespace Services
         {
             using (var dataContext = GetDataContext())
             {
-                Employee employee = dataContext.Persons.OfType<Employee>().FirstOrDefault(e => e.Id == employeeId);
+                DB.Employee employee = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(e => e.Id == employeeId);
                 if (employee.Username == GetCurrentEmployee(dataContext).Username)
                     throw new InvalidOperationException("Nie można usunąć samego siebie.");
                 if (employee == null)
@@ -247,7 +199,7 @@ namespace Services
             }
         }
 
-        public void AddEmployee(EmployeeDTO employee)
+        public void AddEmployee(Model.Employee employee)
         {
             if (employee == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o pracowniku.", (Exception)null);
@@ -257,34 +209,34 @@ namespace Services
                 employee.Password = BCryptHelper.HashPassword(employee.Password, BCryptHelper.GenerateSalt(10));
                 employee.Username = employee.Username.ToLower();
 
-                if (dataContext.Persons.OfType<Employee>().Any(emp => !emp.Removed && emp.Username == employee.Username))
+                if (dataContext.Persons.OfType<DB.Employee>().Any(emp => !emp.Removed && emp.Username == employee.Username))
                     throw new InvalidOperationException("Użytkownik o podanej nazwie istnieje już w systemie.");
 
-                dataContext.Persons.Add(Mapper.Map<Employee>(employee));
+                dataContext.Persons.Add(Mapper.Map<DB.Employee>(employee));
                 dataContext.SaveChanges();
             }
         }
 
-        public void EditEmployee(EmployeeDTO employee)
+        public void EditEmployee(Model.Employee employee)
         {
             if (employee == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o pracowniku.", (Exception)null);
 
             using (var dataContext = GetDataContext())
             {
-                Employee toEdit = dataContext.Persons.OfType<Employee>().FirstOrDefault(e => e.Id == employee.Id);
+                DB.Employee toEdit = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(e => e.Id == employee.Id);
                 if (toEdit == null)
                     throw new InvalidOperationException("Podany pracownik nie został znaleziony w bazie danych. Możliwe, że inny użytkownik właśnie go usunął.");
 
                 string oldPass = toEdit.Password;
                 employee.Username = employee.Username.ToLower();
 
-                if (dataContext.Persons.OfType<Employee>().Any(emp => !emp.Removed && emp.Id != employee.Id && emp.Username == employee.Username))
+                if (dataContext.Persons.OfType<DB.Employee>().Any(emp => !emp.Removed && emp.Id != employee.Id && emp.Username == employee.Username))
                     throw new InvalidOperationException("Użytkownik o podanej nazwie istnieje już w systemie.");
                 if (employee.Username == GetCurrentEmployee(dataContext).Username && (Role)employee.Role != Role.Admin)
                     throw new InvalidOperationException("Nie możesz sam sobie odebrać administratora.");
 
-                Mapper.Map<EmployeeDTO, Employee>(employee, toEdit);
+                Mapper.Map<Model.Employee, DB.Employee>(employee, toEdit);
 
                 if (!String.IsNullOrWhiteSpace(toEdit.Password))
                     toEdit.Password = BCryptHelper.HashPassword(toEdit.Password, BCryptHelper.GenerateSalt(10));
@@ -299,18 +251,18 @@ namespace Services
 
         #region Lendings
 
-        public IList<LendingDTO> GetLendingsOf(int clientId)
+        public IList<Model.Lending> GetLendingsOf(int clientId)
         {
             using (var dataContext = GetDataContext())
-                return (from l in dataContext.Persons.OfType<Client>().First(c => c.Id == clientId).Lendings
-                        select new LendingDTO()
+                return (from l in dataContext.Persons.OfType<DB.Client>().First(c => c.Id == clientId).Lendings
+                        select new Model.Lending()
                         {
                             ClientId = l.ClientId,
                             EndDate = l.EndDate,
                             Id = l.Id,
                             LendingDate = l.LendingDate,
                             LendingEmployeeId = l.LendingEmployeeId,
-                            LendingEmployee = new EmployeeDTO()
+                            LendingEmployee = new Model.Employee()
                                 {
                                     Id = l.LendingEmployeeId,
                                     FirstName = l.LendingEmployee.FirstName,
@@ -320,16 +272,16 @@ namespace Services
                         }).ToList();
         }
 
-        public IList<LentBookDTO> GetLentBooksOf(int lendingId)
+        public IList<Model.LentBook> GetLentBooksOf(int lendingId)
         {
             using (var dataContext = GetDataContext())
                 return (from lb in dataContext.Lendings.First(l => l.Id == lendingId).Books
-                        select new LentBookDTO()
+                        select new Model.LentBook()
                         {
                             Id = lb.Id,
                             LendingId = lb.LendingId,
-                            ReturnEmployee = lb.ReturnEmployee != null ? 
-                                                new EmployeeDTO()
+                            ReturnEmployee = lb.ReturnEmployee != null ?
+                                                new Model.Employee()
                                                 { 
                                                     Id = lb.ReturnEmployeeId.Value,
                                                     FirstName = lb.ReturnEmployee.FirstName,
@@ -339,7 +291,7 @@ namespace Services
                             EndDate = lb.EndDate,
                             ReturnDate = lb.ReturnDate,
                             BookId = lb.BookId,
-                            Book = new BookDTO()
+                            Book = new Model.Book()
                             {                                                        
                                 Id = lb.BookId,
                                 Title = lb.Book.Title,
@@ -354,8 +306,8 @@ namespace Services
 
             using (var dataContext = GetDataContext())
             {
-                Employee currentEmployee = GetCurrentEmployee(dataContext);
-                Lending l = dataContext.Lendings.FirstOrDefault(lending => lending.Id == lendingId);
+                DB.Employee currentEmployee = GetCurrentEmployee(dataContext);
+                DB.Lending l = dataContext.Lendings.FirstOrDefault(lending => lending.Id == lendingId);
                 if (l == null)
                     throw new InvalidOperationException("Nie znaleziono wypożyczenia o podanym ID. Możliwe, że inny użytkownik właśnie je usunął.");
 
@@ -383,7 +335,7 @@ namespace Services
 
             using (var dataContext = GetDataContext())
             {
-                Employee currentEmployee = GetCurrentEmployee(dataContext);
+                DB.Employee currentEmployee = GetCurrentEmployee(dataContext);
 
                 //set ReturnDate and ReturnEmployee according to argument
                 dataContext.LentBooks
@@ -416,7 +368,7 @@ namespace Services
             }
         }
 
-        public void AddLending(LendingDTO lending)
+        public void AddLending(Model.Lending lending)
         {
             if (lending == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o wypożyczeniu.", (Exception)null);
@@ -428,10 +380,10 @@ namespace Services
 
             using (var dataContext = GetDataContext())
             {
-                Lending newLending = new Lending()
+                DB.Lending newLending = new DB.Lending()
                 {
                     ClientId = lending.ClientId,
-                    Books = new List<LentBook>(),
+                    Books = new List<DB.LentBook>(),
                     EndDate = lending.EndDate,
                     Id = lending.Id,
                     ReturnDate = lending.ReturnDate,
@@ -441,7 +393,7 @@ namespace Services
 
                 foreach (var lentBook in lending.Books)
                 {
-                    LentBook lb = new LentBook()
+                    DB.LentBook lb = new DB.LentBook()
                     {        
                         Lending = newLending,
                         BookId = lentBook.BookId,
@@ -457,7 +409,7 @@ namespace Services
             }
         }
 
-        public void EditLending(LendingDTO lending)
+        public void EditLending(Model.Lending lending)
         {
             if (lending == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o wypożyczeniu.", (Exception)null);
@@ -468,7 +420,7 @@ namespace Services
                 if (current == null)
                     throw new InvalidOperationException("Nie znaleziono danego wypożyczenia w bazie. Możliwe, że inny użytkownik właśnie je usunął.");
 
-                Employee currentEmployee = GetCurrentEmployee(dataContext);
+                DB.Employee currentEmployee = GetCurrentEmployee(dataContext);
 
                 //update Lending object
                 current.LendingDate = lending.LendingDate;
@@ -477,11 +429,11 @@ namespace Services
 
                 //update LentBooks in Lending object
                 var listOfNewBooks = lending.Books.ToList();
-                foreach (LentBook book in current.Books.ToList())
+                foreach (DB.LentBook book in current.Books.ToList())
                 {
                     listOfNewBooks.RemoveFirst(lb => lb.Id == book.Id); //to see which books have been added
 
-                    LentBookDTO newBook = lending.Books.FirstOrDefault(b => b.Id == book.Id);
+                    Model.LentBook newBook = lending.Books.FirstOrDefault(b => b.Id == book.Id);
 
                     if (newBook == null) //lentBook removed
                     {
@@ -506,9 +458,9 @@ namespace Services
 
 
                 //add new LentBooks to Lending object
-                foreach (LentBookDTO book in listOfNewBooks)
+                foreach (Model.LentBook book in listOfNewBooks)
                 {
-                    LentBook toAdd = new LentBook()
+                    DB.LentBook toAdd = new DB.LentBook()
                     {
                         Lending = current,
                         BookId = book.BookId,                        
@@ -527,8 +479,8 @@ namespace Services
         {
             using (var dataContext = GetDataContext())
             {
-                Client client = dataContext.Persons.OfType<Client>().FirstOrDefault(p => p.Id == clientId);
-                Lending lending = dataContext.Lendings.FirstOrDefault(l => l.Id == lendingId);
+                DB.Client client = dataContext.Persons.OfType<DB.Client>().FirstOrDefault(p => p.Id == clientId);
+                DB.Lending lending = dataContext.Lendings.FirstOrDefault(l => l.Id == lendingId);
                 if (client == null)
                     throw new InvalidOperationException("Nie znaleziono klienta o podanym ID. Możliwe, że inny użytkownik właśnie go usunął");
                 if (lending == null)
@@ -547,7 +499,7 @@ namespace Services
 
         #region Books
 
-        public IList<BookDTO> GetAllBooks()
+        public IList<Model.Book> GetAllBooks()
         {
             using (var dataContext = GetDataContext())
             {
@@ -559,7 +511,7 @@ namespace Services
                             Authors = book.Authors,
                             ISBN = book.ISBN,
                             PublisherId = book.PublisherId,
-                            Publisher = new PublisherDTO()
+                            Publisher = new Model.Publisher()
                                         {
                                             Id = (book.Publisher == null) ? -1 : book.Publisher.Id,
                                             Name = (book.Publisher == null) ? "" : book.Publisher.Name
@@ -572,16 +524,16 @@ namespace Services
                             BookCategories = book.BookCategories,
                             AdditionalInfo = book.AdditionalInfo,
                             Available = dataContext.LentBooks.Where(lb => lb.ReturnDate == null && lb.BookId == book.Id).Count() < book.Quantity
-                        }).AsEnumerable().Select(b => new BookDTO()
+                        }).AsEnumerable().Select(b => new Model.Book()
                         {                            
                             Authors = (from a in b.Authors
-                                      select new AuthorDTO()
+                                      select new Model.Author()
                                       {
                                           Id = a.Id,
                                           Name = a.Name
                                       }).ToList(),                                   
                             BookCategories = (from cat in b.BookCategories
-                                                select new BookCategoryDTO()
+                                                select new Model.BookCategory()
                                                 {
                                                     Id = cat.Id,
                                                     Name = cat.Name
@@ -597,11 +549,11 @@ namespace Services
                             Title = b.Title,
                             AdditionalInfo = b.AdditionalInfo,
                             Available = b.Available
-                        }).ToList().ForEach<BookDTO>(bb => { if (bb.Publisher.Id == -1) bb.Publisher = null; });
+                        }).ToList().ForEach<Model.Book>(bb => { if (bb.Publisher.Id == -1) bb.Publisher = null; });
             }
         }
 
-        public BookDTO GetBook(int bookId)
+        public Model.Book GetBook(int bookId)
         {
             using (var dataContext = GetDataContext())
             {
@@ -611,44 +563,44 @@ namespace Services
                     throw new ArgumentOutOfRangeException("Nie znaleziono książki o podanym ID.", (Exception)null);
                 else
                 {
-                    var result = Mapper.Map<BookDTO>(book);
+                    var result = Mapper.Map<Model.Book>(book);
                     result.Available = dataContext.LentBooks.Where(lb => lb.ReturnDate == null && lb.BookId == result.Id).Count() < result.Quantity;
                     return result;
                 }
             }
         }
 
-        public void AddBook(BookDTO book)
+        public void AddBook(Model.Book book)
         {
             if (book == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o książce.", (Exception)null);
 
             using (var dataContext = GetDataContext())
             {
-                Book newBook = Mapper.Map<Book>(book);
+                DB.Book newBook = Mapper.Map<DB.Book>(book);
 
                 //copy authors
-                List<AuthorDTO> authorsDTO = book.Authors.ToList();
-                newBook.Authors = new List<Author>();
-                foreach (var author in authorsDTO)
+                List<Model.Author> authorsModel = book.Authors.ToList();
+                newBook.Authors = new List<DB.Author>();
+                foreach (var author in authorsModel)
                 {
-                    Author a = dataContext.Authors.FirstOrDefault(aa => aa.Id == author.Id);
+                    DB.Author a = dataContext.Authors.FirstOrDefault(aa => aa.Id == author.Id);
                     if (a != null)
                         newBook.Authors.Add(a);
                     else
-                        newBook.Authors.Add(new Author() { Name = author.Name });
+                        newBook.Authors.Add(new DB.Author() { Name = author.Name });
                 }
 
                 //copy bookCategories
-                List<BookCategoryDTO> bookCategoriesDTO = book.BookCategories.ToList();
-                newBook.BookCategories = new List<BookCategory>();
-                foreach (var bookCat in bookCategoriesDTO)
+                List<Model.BookCategory> bookCategoriesModel = book.BookCategories.ToList();
+                newBook.BookCategories = new List<DB.BookCategory>();
+                foreach (var bookCat in bookCategoriesModel)
                 {
-                    BookCategory b = dataContext.BookCategories.FirstOrDefault(bc => bc.Id == bookCat.Id);
+                    DB.BookCategory b = dataContext.BookCategories.FirstOrDefault(bc => bc.Id == bookCat.Id);
                     if (b != null)
                         newBook.BookCategories.Add(b);
                     else
-                        newBook.BookCategories.Add(new BookCategory() { Name = bookCat.Name });
+                        newBook.BookCategories.Add(new DB.BookCategory() { Name = bookCat.Name });
                 }
 
                 dataContext.Books.Add(newBook);
@@ -656,14 +608,14 @@ namespace Services
             }
         }
 
-        public void EditBook(BookDTO book)
+        public void EditBook(Model.Book book)
         {
             if (book == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o książce.", (Exception)null);
 
             using (var dataContext = GetDataContext())
             {
-                Book toEdit = dataContext.Books.FirstOrDefault(b => b.Id == book.Id);
+                DB.Book toEdit = dataContext.Books.FirstOrDefault(b => b.Id == book.Id);
                 if (toEdit == null)
                     throw new InvalidOperationException("Podana książka nie została znaleziona w bazie danych. Możliwe, że inny użytkownik właśnie ją usunął.");
 
@@ -677,14 +629,14 @@ namespace Services
                 toEdit.PublisherId = book.PublisherId;
                 toEdit.Quantity = book.Quantity;
                 toEdit.Removed = book.Removed;
-                toEdit.Title = toEdit.Title;
+                toEdit.Title = book.Title;
 
                 #region updating authors
 
                 var newListOfAuthors = book.Authors.ToList();
                 foreach (var oldAuthor in toEdit.Authors.ToList())
                 {
-                    AuthorDTO newAuthor = newListOfAuthors.FirstOrDefault(a => a.Id == oldAuthor.Id);
+                    Model.Author newAuthor = newListOfAuthors.FirstOrDefault(a => a.Id == oldAuthor.Id);
 
                     //removed author
                     if (newAuthor == null)
@@ -703,7 +655,7 @@ namespace Services
                 var newListOfBookCategories = book.BookCategories.ToList();
                 foreach (var oldCat in toEdit.BookCategories.ToList())
                 {
-                    BookCategoryDTO newCat = newListOfBookCategories.FirstOrDefault(bc => bc.Id == oldCat.Id);
+                    Model.BookCategory newCat = newListOfBookCategories.FirstOrDefault(bc => bc.Id == oldCat.Id);
 
                     //removed category
                     if (newCat == null)
@@ -725,7 +677,7 @@ namespace Services
         {
             using (var dataContext = GetDataContext())
             {
-                Book toDel = dataContext.Books.FirstOrDefault(b => b.Id == bookId);
+                DB.Book toDel = dataContext.Books.FirstOrDefault(b => b.Id == bookId);
                 if (toDel == null)
                     throw new InvalidOperationException("Podana książka nie została znaleziona w bazie danych. Możliwe, że inny użytkownik właśnie ją usunął.");
 
@@ -749,22 +701,22 @@ namespace Services
 
         #region Publisher
 
-        public IList<PublisherDTO> GetAllPublishers()
+        public IList<Model.Publisher> GetAllPublishers()
         {
             using (var dataContext = GetDataContext())
             {
-                return Mapper.Map<List<PublisherDTO>>(dataContext.Publishers);
+                return Mapper.Map<List<Model.Publisher>>(dataContext.Publishers);
             }
         }
 
-        public int AddPublisher(PublisherDTO publisher)
+        public int AddPublisher(Model.Publisher publisher)
         {
             if (publisher == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o wydawcy.", (Exception)null);
 
             using (var dataContext = GetDataContext())
             {
-                Publisher newPub = new Publisher() { Name = publisher.Name };
+                DB.Publisher newPub = new DB.Publisher() { Name = publisher.Name };
                 dataContext.Publishers.Add(newPub);
                 dataContext.SaveChanges();
 
@@ -776,22 +728,22 @@ namespace Services
 
         #region BookCategories
 
-        public IList<BookCategoryDTO> GetAllBookCategories()
+        public IList<Model.BookCategory> GetAllBookCategories()
         {
             using (var dataContext = GetDataContext())
             {
-                return Mapper.Map<List<BookCategoryDTO>>(dataContext.BookCategories);
+                return Mapper.Map<List<Model.BookCategory>>(dataContext.BookCategories);
             }
         }
 
-        public int AddBookCategory(BookCategoryDTO bookCategory)
+        public int AddBookCategory(Model.BookCategory bookCategory)
         {
             if (bookCategory == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o kategorii.", (Exception)null);
 
             using (var dataContext = GetDataContext())
             {
-                BookCategory newBookCat = new BookCategory() { Name = bookCategory.Name };
+                DB.BookCategory newBookCat = new DB.BookCategory() { Name = bookCategory.Name };
                 dataContext.BookCategories.Add(newBookCat);
                 dataContext.SaveChanges();
 
@@ -803,22 +755,22 @@ namespace Services
 
         #region Authors
 
-        public IList<AuthorDTO> GetAllAuthors()
+        public IList<Model.Author> GetAllAuthors()
         {
             using (var dataContext = GetDataContext())
             {
-                return Mapper.Map<List<AuthorDTO>>(dataContext.Authors);
+                return Mapper.Map<List<Model.Author>>(dataContext.Authors);
             }
         }
 
-        public int AddAuthor(AuthorDTO author)
+        public int AddAuthor(Model.Author author)
         {
             if (author == null)
                 throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o autorze.", (Exception)null);
 
             using (var dataContext = GetDataContext())
             {
-                Author newAuthor = new Author() { Name = author.Name };
+                DB.Author newAuthor = new DB.Author() { Name = author.Name };
                 dataContext.Authors.Add(newAuthor);
                 dataContext.SaveChanges();
 
@@ -834,7 +786,7 @@ namespace Services
         {
             using (var dataContext = GetDataContext())
             {
-                var user = dataContext.Persons.OfType<Employee>().First(x => x.Username == username);
+                var user = dataContext.Persons.OfType<DB.Employee>().First(x => x.Username == username);
                 if (!BCryptHelper.CheckPassword(password, user.Password))
                 {
                     throw new InvalidOperationException("Password is incorrect!");

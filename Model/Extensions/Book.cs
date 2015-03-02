@@ -7,7 +7,7 @@ using Helpers;
 
 namespace Model
 {
-    public partial class BookDTO
+    public partial class Book
     {
         private string _bookCategoriesString;
         public string BookCategoriesString

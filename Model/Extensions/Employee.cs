@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public partial class EmployeeDTO : PersonDTO
+    public partial class Employee : Person
     {
         public string RoleString
         {

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public partial class PersonDTO
+    public partial class Person
     {
-        public PersonDTO()
+        public Person()
         {
             Address = new Address();
         }

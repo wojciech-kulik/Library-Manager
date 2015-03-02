@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Model
 {
-    public partial class LentBookDTO
+    public partial class LentBook
     {
         public bool IsReturnedChanged { get; set; }
 

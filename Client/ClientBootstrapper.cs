@@ -48,14 +48,14 @@ namespace ClientApplication
             container.Singleton<INavigationService, NavigationService>();
 
             //AutoMapper
-            Mapper.CreateMap<ClientDTO, ClientDTO>();
-            Mapper.CreateMap<BookCategoryDTO, BookCategoryDTO>();
-            Mapper.CreateMap<BookDTO, BookDTO>();
-            Mapper.CreateMap<EmployeeDTO, EmployeeDTO>();
-            Mapper.CreateMap<LendingDTO, LendingDTO>();
+            Mapper.CreateMap<Client, Client>();
+            Mapper.CreateMap<BookCategory, BookCategory>();
+            Mapper.CreateMap<Book, Book>();
+            Mapper.CreateMap<Employee, Employee>();
+            Mapper.CreateMap<Lending, Lending>();
             Mapper.CreateMap<Address, Address>();
-            Mapper.CreateMap<LentBookDTO, LentBookDTO>();
-            Mapper.CreateMap<PersonDTO, PersonDTO>();
+            Mapper.CreateMap<LentBook, LentBook>();
+            Mapper.CreateMap<Person, Person>();
         }
 
         protected override object GetInstance(Type serviceType, string key)

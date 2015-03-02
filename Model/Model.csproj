@@ -39,21 +39,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\DictionaryDTO.cs" />
-    <Compile Include="Extensions\EmployeeDTO.cs" />
-    <Compile Include="Extensions\LentBookDTO.cs" />
-    <Compile Include="Extensions\PersonDTO.cs" />
+    <Compile Include="Extensions\Book.cs" />
+    <Compile Include="Extensions\Employee.cs" />
+    <Compile Include="Extensions\LentBook.cs" />
+    <Compile Include="Extensions\Person.cs" />
     <Compile Include="Address.cs" />
-    <Compile Include="AuthorDTO.cs" />
-    <Compile Include="BookCategoryDTO.cs" />
-    <Compile Include="BookDTO.cs" />
-    <Compile Include="ClientDTO.cs" />
-    <Compile Include="DictionaryDTO.cs" />
-    <Compile Include="EmployeeDTO.cs" />
-    <Compile Include="LendingDTO.cs" />
-    <Compile Include="LentBookDTO.cs" />
-    <Compile Include="PersonDTO.cs" />
-    <Compile Include="PublisherDTO.cs" />
+    <Compile Include="Author.cs" />
+    <Compile Include="BookCategory.cs" />
+    <Compile Include="Book.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="ListEntry.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="Lending.cs" />
+    <Compile Include="LentBook.cs" />
+    <Compile Include="Person.cs" />
+    <Compile Include="Publisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
   </ItemGroup>

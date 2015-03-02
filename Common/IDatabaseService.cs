@@ -11,84 +11,84 @@ namespace Common
     public interface IDatabaseService : IDisposable
     {
         #region Clients
-        IList<ClientDTO> GetAllClients();
+        IList<Client> GetAllClients();
 
-        ClientDTO GetClient(int clientId);
+        Client GetClient(int clientId);
 
         void DeleteClient(int clientId);
 
-        void AddClient(ClientDTO client);
+        void AddClient(Client client);
 
-        void EditClient(ClientDTO client);
+        void EditClient(Client client);
         #endregion
 
         #region Employees
 
         byte GetEmployeeRole(string username);
 
-        IList<EmployeeDTO> GetAllEmployees();
+        IList<Employee> GetAllEmployees();
 
-        EmployeeDTO GetEmployee(int employeeId);
+        Employee GetEmployee(int employeeId);
 
-        void AddEmployee(EmployeeDTO employee);
+        void AddEmployee(Employee employee);
 
-        void EditEmployee(EmployeeDTO employee);
+        void EditEmployee(Employee employee);
 
         void DeleteEmployee(int employeeId);
 
         #endregion
 
         #region Lendings
-        IList<LendingDTO> GetLendingsOf(int clientId);
+        IList<Lending> GetLendingsOf(int clientId);
 
-        IList<LentBookDTO> GetLentBooksOf(int lendingId);
+        IList<LentBook> GetLentBooksOf(int lendingId);
 
         void ReturnAllBooks(int lendingId);
 
         void ReturnBooks(Dictionary<int, bool> bookIds, int lendingId);
 
-        void AddLending(LendingDTO lending);
+        void AddLending(Lending lending);
 
-        void EditLending(LendingDTO lending);
+        void EditLending(Lending lending);
 
         void DeleteLending(int clientId, int lendingId);
         #endregion
 
         #region Books
 
-        IList<BookDTO> GetAllBooks();
+        IList<Book> GetAllBooks();
 
-        BookDTO GetBook(int bookId);
+        Book GetBook(int bookId);
 
-        void AddBook(BookDTO book);
+        void AddBook(Book book);
 
-        void EditBook(BookDTO book);
+        void EditBook(Book book);
 
         void DeleteBook(int bookId);
 
-        IList<BookCategoryDTO> GetAllBookCategories();
+        IList<BookCategory> GetAllBookCategories();
 
-        IList<AuthorDTO> GetAllAuthors();
+        IList<Author> GetAllAuthors();
 
-        IList<PublisherDTO> GetAllPublishers();
+        IList<Publisher> GetAllPublishers();
 
         #endregion
 
         #region Publisher
 
-        int AddPublisher(PublisherDTO publisher);
+        int AddPublisher(Publisher publisher);
 
         #endregion
 
         #region Authors
 
-        int AddAuthor(AuthorDTO author);
+        int AddAuthor(Author author);
 
         #endregion
 
         #region BookCategories
 
-        int AddBookCategory(BookCategoryDTO bookCategory);
+        int AddBookCategory(BookCategory bookCategory);
 
         #endregion
 

@@ -15,7 +15,7 @@ namespace ClientApplication.Converters
         {
             string result = "";
             
-            foreach (var cat in (IEnumerable<BookCategoryDTO>)value)
+            foreach (var cat in (IEnumerable<BookCategory>)value)
             {
                 if (result != "")
                     result += ", ";

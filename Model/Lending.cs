@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class LendingDTO
+    public class Lending
     {
         public int Id { get; set; }
 
@@ -19,11 +19,11 @@ namespace Model
 
         public Nullable<DateTime> ReturnDate { get; set; }
 
-        public ClientDTO Client { get; set; }
+        public Client Client { get; set; }
 
-        public ICollection<LentBookDTO> Books { get; set; }
+        public ICollection<LentBook> Books { get; set; }
 
-        public EmployeeDTO LendingEmployee { get; set; }
+        public Employee LendingEmployee { get; set; }
 
         public int LendingEmployeeId { get; set; }        
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class ClientDTO : PersonDTO, INotifyPropertyChanged
+    public class Client : Person, INotifyPropertyChanged
     {
         public string CardNumber { get; set; }
 
@@ -17,9 +17,9 @@ namespace Model
 
         #region Lendings
 
-        private ICollection<LendingDTO> _lendings;
+        private ICollection<Lending> _lendings;
 
-        public ICollection<LendingDTO> Lendings
+        public ICollection<Lending> Lendings
         {
             get
             {
