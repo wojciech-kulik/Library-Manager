@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Data;
 using System.Globalization;
 using Common;
+using Model;
 
 namespace ClientApplication.Converters
 {

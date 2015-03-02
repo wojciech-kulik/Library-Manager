@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common
+namespace Model
 {
     public abstract partial class PersonDTO
     {
@@ -21,6 +21,6 @@ namespace Common
 
         public string IdNumber { get; set; }
 
-        public AddressDTO Address { get; set; }
+        public Address Address { get; set; }
     }
 }

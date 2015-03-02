@@ -5,6 +5,7 @@ using System.Text;
 using Caliburn.Micro;
 using System.ComponentModel.Composition;
 using Common;
+using Services;
 
 namespace ClientApplication.ViewModels
 {

@@ -122,9 +122,10 @@
     <Compile Include="Converters\NullToEnabledConverter.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
+    <Compile Include="Utilities\BookSelectedEventArgs.cs" />
+    <Compile Include="Utilities\DBServiceManager.cs" />
     <Compile Include="Utilities\MyWindowManager.cs" />
     <Compile Include="Utilities\NavigationService.cs" />
-    <Compile Include="Utilities\SettingsService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BooksReturnViewModel.cs" />
     <Compile Include="ViewModels\ClientDetailsViewModel.cs" />
@@ -135,7 +136,6 @@
     <Compile Include="ViewModels\LendingDetailsViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Utilities\DBServiceManager.cs" />
     <Page Include="Controls\ActionButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -376,9 +376,17 @@
       <Project>{e9018dff-0f7a-4dc6-a330-5edcb75acbfa}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DatabaseService\DatabaseService.csproj">
+    <ProjectReference Include="..\DatabaseService\Services.csproj">
       <Project>{ac770801-24d7-499f-86fa-e0dfcb350c76}</Project>
-      <Name>DatabaseService</Name>
+      <Name>Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{06886343-c6e0-4e92-a3fb-f744658ecacd}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{366ec1fa-55c5-49b2-a121-41c3353de72e}</Project>
+      <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

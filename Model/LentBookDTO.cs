@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common
+namespace Model
 {
     public partial class LentBookDTO
     {

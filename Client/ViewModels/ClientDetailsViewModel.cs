@@ -1,12 +1,7 @@
 ﻿using Caliburn.Micro;
 using Common;
+using Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ClientApplication.ViewModels

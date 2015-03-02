@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Data;
 using System.Globalization;
 using Common;
+using Model;
 
 namespace ClientApplication.Converters
 {
@@ -12,9 +13,9 @@ namespace ClientApplication.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is AddressDTO)
+            if (value is Address)
             {
-                AddressDTO addr = (AddressDTO)value;
+                Address addr = (Address)value;
 
                 if (String.IsNullOrEmpty(addr.Street) && String.IsNullOrEmpty(addr.City))
                     return App.GetString("NotAvailable");

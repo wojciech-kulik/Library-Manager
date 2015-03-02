@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Caliburn.Micro;
-using System.ComponentModel.Composition;
 using System.Windows;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Input;
-using System.ComponentModel.Composition.Hosting;
 using AutoMapper;
 using Common;
-using System.Diagnostics;
 using System.Collections.ObjectModel;
+using Model;
+using Helpers;
 
 namespace ClientApplication.ViewModels
 {

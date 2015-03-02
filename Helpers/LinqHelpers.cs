@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 
-namespace Common
+namespace Helpers
 {
     public static class LinqHelpers
     {

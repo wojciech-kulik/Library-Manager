@@ -11,6 +11,8 @@ using Common;
 using ClientApplication.Utilities;
 using AutoMapper;
 using System.Windows;
+using Model;
+using Services;
 
 namespace ClientApplication
 {
@@ -51,7 +53,7 @@ namespace ClientApplication
             Mapper.CreateMap<BookDTO, BookDTO>();
             Mapper.CreateMap<EmployeeDTO, EmployeeDTO>();
             Mapper.CreateMap<LendingDTO, LendingDTO>();
-            Mapper.CreateMap<AddressDTO, AddressDTO>();
+            Mapper.CreateMap<Address, Address>();
             Mapper.CreateMap<LentBookDTO, LentBookDTO>();
             Mapper.CreateMap<PersonDTO, PersonDTO>();
         }

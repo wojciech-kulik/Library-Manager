@@ -5,9 +5,9 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common
+namespace Model
 {
-    public class AddressDTO
+    public class Address
     {
         public string Street { get; set; }
 

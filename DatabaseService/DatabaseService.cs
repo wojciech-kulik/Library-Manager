@@ -6,12 +6,14 @@ using System.Text;
 using DB;
 using AutoMapper;
 using System.Collections;
-using Common;
+using Helpers;
 using System.Diagnostics;
 using AutoMapper.Mappers;
 using DevOne.Security.Cryptography.BCrypt;
+using Model;
+using Common;
 
-namespace DBService
+namespace Services
 {
     public class DatabaseService : IDatabaseService
     {
@@ -54,8 +56,8 @@ namespace DBService
             Mapper.CreateMap<EmployeeDTO, Employee>().ForMember("Lendings", opt => opt.Ignore()).ForMember("Returns", opt => opt.Ignore());
             Mapper.CreateMap<Lending, LendingDTO>().ForMember("Books", opt => opt.Ignore()).ForMember("Client", opt => opt.Ignore());
             Mapper.CreateMap<LendingDTO, Lending>().ForMember("Books", opt => opt.Ignore()).ForMember("Client", opt => opt.Ignore());
-            Mapper.CreateMap<Address, AddressDTO>();
-            Mapper.CreateMap<AddressDTO, Address>();
+            Mapper.CreateMap<Model.Address, DB.Address>();
+            Mapper.CreateMap<DB.Address, Model.Address>();
             Mapper.CreateMap<LentBook, LentBookDTO>();
             Mapper.CreateMap<LentBookDTO, LentBook>();
             Mapper.CreateMap<Person, PersonDTO>();

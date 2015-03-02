@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common
+namespace Model
 {
     public partial class PersonDTO
     {
         public PersonDTO()
         {
-            Address = new AddressDTO();
+            Address = new Address();
         }
 
         public string FullName
