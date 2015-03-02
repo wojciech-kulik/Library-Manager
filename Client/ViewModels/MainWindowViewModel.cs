@@ -134,7 +134,6 @@ namespace ClientApplication.ViewModels
                     if (SelectedClient == null)
                         return;
                     SelectedClient.Lendings = dbService.GetLendingsOf(SelectedClient.Id);
-                    NotifyOfPropertyChange("SelectedClient");
                 }
             });
         }

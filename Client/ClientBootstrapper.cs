@@ -14,17 +14,17 @@ using System.Windows;
 
 namespace ClientApplication
 {
-    public class ClientBootstrapper : Bootstrapper
+    public class ClientBootstrapper: BootstrapperBase
     {
         private SimpleContainer container;
 
-        protected override void Configure()
+        public ClientBootstrapper()
         {
-            System.Net.ServicePointManager.ServerCertificateValidationCallback += (se, cert, chain, sslerror) =>
-            {
-                return true;
-            };
-      
+            Initialize();
+        }
+
+        protected override void Configure()
+        {      
             container = new SimpleContainer();
             container.Instance<SimpleContainer>(container);
 

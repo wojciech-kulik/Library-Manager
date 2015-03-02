@@ -54,7 +54,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Title}" SortMemberPath="Title" Header="{DynamicResource Title}" Width="*" />
                         <DataGridTextColumn Binding="{Binding AuthorsString, Converter={StaticResource NullToNotAvailableConverter}}" SortMemberPath="AuthorsString" Header="{DynamicResource Author}" Width="*" />
-                        <DataGridTextColumn Binding="{Binding PublisherString}" Header="{DynamicResource Publisher}" SortMemberPath="PublisherString" ElementStyle="{StaticResource CenterColumn}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding Publisher, Converter={StaticResource NullToNotAvailableConverter}}" Header="{DynamicResource Publisher}" SortMemberPath="Publisher" ElementStyle="{StaticResource CenterColumn}" Width="*" />
                         <DataGridTextColumn Binding="{Binding PublishDate, Converter={StaticResource DateTimeConverter}}" Header="{DynamicResource PublishDate}" SortMemberPath="PublishDate" ElementStyle="{StaticResource CenterColumn}" Width="Auto" />
                         <DataGridTextColumn Binding="{Binding ISBN, Converter={StaticResource NullToNotAvailableConverter}}" Header="ISBN" SortMemberPath="{DynamicResource ISBN}" ElementStyle="{StaticResource CenterColumn}" Width="Auto" />
                         <DataGridTextColumn Binding="{Binding HardCover, Converter={StaticResource BoolToStringConverter}}" Header="{DynamicResource HardCover}" SortMemberPath="Cover" ElementStyle="{StaticResource CenterColumn}" Width="60" />

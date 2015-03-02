@@ -8,5 +8,9 @@ namespace Common
 {
     public class PublisherDTO : DictionaryDTO
     {
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
