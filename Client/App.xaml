@@ -24,6 +24,7 @@
                     <conv:BoolToOppositeConverter x:Key="BoolToOppositeConverter" />
                     <conv:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter" />
                     <conv:NullToNotAvailableConverter x:Key="NullToNotAvailableConverter" />
+                    <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
                 </ResourceDictionary>
 
                 <ResourceDictionary Source="/Styles/DataGrid.xaml" />     

@@ -51,6 +51,8 @@
     <system:String x:Key="RememberPassword">Remember password</system:String>
     <system:String x:Key="WindowsAuthentication">Windows Authentication</system:String>
     <system:String x:Key="Database">Database</system:String>
+    <system:String x:Key="Connecting">Connecting, please wait...</system:String>
+    <system:String x:Key="CouldntLogIn">Error occurred, please verify your credentials and database settings and try again.</system:String>
     <system:String x:Key="FirstLogIn" xml:space="preserve">This is the first log in, filled credentials will be used to create an administrator account.        
 
 Make sure, that your password and username are correct! 

@@ -4,6 +4,7 @@ using ClientApplication.Views;
 using Common;
 using System;
 using System.Configuration;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ClientApplication.ViewModels
@@ -213,6 +214,27 @@ namespace ClientApplication.ViewModels
         }
         #endregion
 
+        #region IsConnecting
+
+        private bool _isConnecting;
+
+        public bool IsConnecting
+        {
+            get
+            {
+                return _isConnecting;
+            }
+            set
+            {
+                if (_isConnecting != value)
+                {
+                    _isConnecting = value;
+                    NotifyOfPropertyChange(() => IsConnecting);
+                }
+            }
+        }
+        #endregion
+
         #endregion
 
         #region Lifecycle
@@ -304,9 +326,9 @@ namespace ClientApplication.ViewModels
             return TestConnection();
         }
 
-        private bool AuthenticateUser()
+        private async Task<bool> AuthenticateUser()
         {
-            if (_dbServiceManager.GetService().Authenticate(Username, Password))
+            if (await Task.Run(() => _dbServiceManager.GetService().Authenticate(Username, Password)))
             {
                 return true;
             }
@@ -318,7 +340,7 @@ namespace ClientApplication.ViewModels
             return false;
         }
 
-        private bool ValidateCredentials()
+        private async Task<bool> ValidateCredentials()
         {
             if (String.IsNullOrWhiteSpace(Username) || String.IsNullOrWhiteSpace(Password))
             {
@@ -326,7 +348,7 @@ namespace ClientApplication.ViewModels
                 return false;
             }
 
-            if (_dbServiceManager.GetService().IsFirstLogIn())
+            if (await Task.Run(() => _dbServiceManager.GetService().IsFirstLogIn()))
             {
                 return MessageBox.Show(App.GetString("FirstLogIn"), App.GetString("FirstLogInCaption"), MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) == MessageBoxResult.Yes;
             }
@@ -339,21 +361,34 @@ namespace ClientApplication.ViewModels
             MessageBox.Show(App.GetString("NeedAccountDialog"), App.GetString("Account"), MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public void Login()
+        public async void Login()
         {
-            if (!ValidateDatabaseSettings())
-                return;
-
-            _settingsService.Username = Username;   
-            AddConnectionString();
-            SaveDBSettings();
-
-            if (!ValidateCredentials())
-                return;    
-                 
-            if (AuthenticateUser())
+            try
             {
-                TryClose(true);
+                IsConnecting = true;
+
+                if (!ValidateDatabaseSettings())
+                    return;
+
+                _settingsService.Username = Username;
+                AddConnectionString();
+                SaveDBSettings();
+
+                if (!(await ValidateCredentials()))
+                    return;
+
+                if (await AuthenticateUser())
+                {
+                    TryClose(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(App.GetString("CouldntLogIn") + "\r\n\r\n" + ex.Message, App.GetString("Error"), MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            finally
+            {
+                IsConnecting = false;
             }
         }
 

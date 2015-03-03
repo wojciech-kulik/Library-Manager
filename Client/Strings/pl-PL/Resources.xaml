@@ -53,6 +53,8 @@
     <system:String x:Key="Database">Baza danych</system:String>
     <system:String x:Key="NeedAccount">Potrzebujesz konta?</system:String>
     <system:String x:Key="Account">Konto</system:String>
+    <system:String x:Key="Connecting">Trwa łączenie, proszę czekać...</system:String>
+    <system:String x:Key="CouldntLogIn">Wystąpił błąd, zweryfikuj swoje dane logowania oraz ustawienia bazy danych i spróbuj ponownie.</system:String>
     <system:String x:Key="NeedAccountDialog" xml:space="preserve">W przypadku nowej bazy danych podane hasło i login zostaną wykorzystane do utworzenia pierwszego konta. 
         
 Jeżeli w bazie danych są już użytkownicy, poproś administratora o utworzenie konta dla Ciebie.</system:String>
