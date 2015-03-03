@@ -3,7 +3,7 @@
 It is an application to manage library (public or at home).
 
 ## Screenshots
-![Screenshot1](_Screenshots/main_screen.jpg)  
+![Screenshot1](_Screenshots/main_screen.png)  
 
 ## Requirements
 You need to install [MS SQL Server](http://www.microsoft.com/en-us/download/details.aspx?id=29062) to launch this application.  

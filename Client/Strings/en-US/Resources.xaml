@@ -60,10 +60,10 @@ Do you really want to continue?</system:String>
     <system:String x:Key="FirstLogInCaption">First log in</system:String>
     <system:String x:Key="NeedAccount">Need an account?</system:String>
     <system:String x:Key="Account">Account</system:String>
-    <system:String x:Key="NeedAccountDialog" xml:space="preserve">In case of new database filled credentials will be used to create the first account. 
+    <system:String x:Key="NeedAccountDialog" xml:space="preserve">In case of a new database, filled credentials will be used to create an account. 
         
-If there are already users in database, ask an administrator to create an account for you.</system:String>
-    <system:String x:Key="FillDatabaseSettings" xml:space="preserve">Fill required database settings (i.e. server address and database name. 
+If there are already users in database, ask your administrator to create an account for you.</system:String>
+    <system:String x:Key="FillDatabaseSettings" xml:space="preserve">Fill required database settings (i.e. server address and database name). 
 
 If you don't check "Windows Authentication", you have to enter username and password.</system:String>
 
