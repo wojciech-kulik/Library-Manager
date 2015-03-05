@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Lending : ModelBase
+    public class Lending : ModelBase, IIdRecord
     {
         public int Id { get; set; }
 

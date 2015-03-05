@@ -49,6 +49,8 @@
     <Compile Include="BookCategory.cs" />
     <Compile Include="Book.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="Utils\IdRecordComparator.cs" />
+    <Compile Include="Interfaces\IIdRecord.cs" />
     <Compile Include="ListEntry.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Lending.cs" />

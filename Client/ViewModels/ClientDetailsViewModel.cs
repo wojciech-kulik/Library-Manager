@@ -53,7 +53,7 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                dbService.EditClient(Client);
+                dbService.Clients.EditClient(Client);
             }
             TryClose(true);
         }
@@ -62,7 +62,7 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                dbService.AddClient(Client);
+                dbService.Clients.AddClient(Client);
             }
             TryClose(true);
         }
@@ -83,7 +83,7 @@ namespace ClientApplication.ViewModels
                 return;
             }
 
-            //to be sure, that we won't sent unnecessary data
+            //to be sure, that we won't send unnecessary data
             Client.Lendings = null;
 
             if (IsEditing)

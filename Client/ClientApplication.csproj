@@ -152,14 +152,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Strings\en-US\Resources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Strings\pl-PL\Resources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Styles\DataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -353,6 +345,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{e9018dff-0f7a-4dc6-a330-5edcb75acbfa}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Localization\Localization.csproj">
+      <Project>{6e5bcfce-395e-4f95-b39c-370e64614de7}</Project>
+      <Name>Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{ac770801-24d7-499f-86fa-e0dfcb350c76}</Project>

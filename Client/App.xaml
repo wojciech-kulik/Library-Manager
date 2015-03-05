@@ -35,8 +35,8 @@
                     </Style>
                 </ResourceDictionary>
 
-                <ResourceDictionary Source="Strings\pl-PL\Resources.xaml" />
-                <ResourceDictionary Source="Strings\en-US\Resources.xaml" />
+                <ResourceDictionary Source="/Localization;component/Strings/pl-PL/Resources.xaml" />
+                <ResourceDictionary Source="/Localization;component/Strings/en-US/Resources.xaml" />
             </ResourceDictionary.MergedDictionaries>            
         </ResourceDictionary>
     </Application.Resources>

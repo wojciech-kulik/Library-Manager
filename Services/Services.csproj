@@ -51,7 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clients.cs" />
     <Compile Include="DatabaseService.cs" />
+    <Compile Include="DBTable.cs" />
+    <Compile Include="EmployeeAwareTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsService.cs" />
   </ItemGroup>
@@ -67,6 +70,10 @@
     <ProjectReference Include="..\Helpers\Helpers.csproj">
       <Project>{06886343-c6e0-4e92-a3fb-f744658ecacd}</Project>
       <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Localization\Localization.csproj">
+      <Project>{6e5bcfce-395e-4f95-b39c-370e64614de7}</Project>
+      <Name>Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{366ec1fa-55c5-49b2-a121-41c3353de72e}</Project>

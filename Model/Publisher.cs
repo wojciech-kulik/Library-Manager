@@ -8,9 +8,5 @@ namespace Model
 {
     public class Publisher : ListEntry
     {
-        public override string ToString()
-        {
-            return Name;
-        }
     }
 }

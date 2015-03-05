@@ -9,6 +9,8 @@ using Common;
 using System.Collections.ObjectModel;
 using Model;
 using Helpers;
+using System.Collections.Generic;
+using Model.Utils;
 
 namespace ClientApplication.ViewModels
 {
@@ -119,88 +121,110 @@ namespace ClientApplication.ViewModels
 
         #region operations
 
+        //TODO: add locks, handle exceptions
         #region Client operations
 
         private async Task LoadLendings()
         {
+            var selectedClient = SelectedClient;
+
             await Task.Run(() =>
             {
+                if (SelectedClient == null || selectedClient != SelectedClient)
+                    return;
+
                 using (var dbService = _dbServiceManager.GetService())
                 {
-                    if (SelectedClient == null)
-                        return;
                     SelectedClient.Lendings = dbService.GetLendingsOf(SelectedClient.Id);
                 }
             });
         }
 
+        private void ReplaceClient(IList<Client> clients, int clientId, Client newClient)
+        {
+            for (int i = 0; i < clients.Count; i++)
+            {
+                if (clients[i].Id == clientId)
+                {
+                    clients[i] = newClient;
+                    break;
+                }
+            }
+        }
+
         public async void RefreshSelectedClient()
         {
-            int id = SelectedClient != null ? SelectedClient.Id : -1;
-            int lendingId = SelectedLending != null ? SelectedLending.Id : -1;
-            SelectedClient = null;
+            var selectedClient = SelectedClient;
 
-            using (var dbService = _dbServiceManager.GetService())
+            await Task.Run(async () =>
             {
-                Client newClient = dbService.GetClient(id);            
+                if (SelectedClient == null || selectedClient != SelectedClient)
+                    return;
 
-                for(int i = 0; i < AllClients.Count; i++)
-                    if (AllClients[i].Id == id)
-                    {
-                        AllClients[i] = newClient;
-                        break;
-                    }
+                int id = SelectedClient.Id;
+                int lendingId = SelectedLending != null ? SelectedLending.Id : -1;
+                SelectedClient = null;
 
-                for (int i = 0; i < Clients.Count; i++)
-                    if (Clients[i].Id == id)
-                    {
-                        Clients[i] = newClient;
-                        SelectedClient = Clients[i];
-                        break;
-                    }
+                using (var dbService = _dbServiceManager.GetService())
+                {
+                    Client newClient = dbService.Clients.GetClient(id);
+                    ReplaceClient(AllClients, id, newClient);
+                    ReplaceClient(Clients, id, newClient);
 
-                await LoadLendings();
-                SelectedLending = SelectedClient.Lendings.FirstOrDefault(l => l.Id == lendingId);
-            }
+                    _selectedClient = newClient;
+                    NotifyOfPropertyChange(() => SelectedClient);
+                    await LoadLendings();
+
+                    SelectedLending = SelectedClient.Lendings.FirstOrDefault(l => l.Id == lendingId);
+                }
+            });
         }
 
         public void RefreshClients()
         {
-            Task.Factory.StartNew(() =>
+            Task.Run(() =>
+            {
+                int id = SelectedClient != null ? SelectedClient.Id : -1;
+                SelectedClient = null;
+                SelectedLending = null;
+                AllClients = Clients = null;
+
+                using (var dbService = _dbServiceManager.GetService())
                 {
-                    int id = SelectedClient != null ? SelectedClient.Id : -1;
-                    SelectedClient = null;
-                    SelectedLending = null;
-                    AllClients = Clients = null;
+                    if (Role == null)
+                        Role = (Role)dbService.GetEmployeeRole(_settingsService.Username);
 
-                    using (var dbService = _dbServiceManager.GetService())
-                    {
-                        if (Role == null)
-                            Role = (Role)dbService.GetEmployeeRole(_settingsService.Username);
-
-                        AllClients = new BindableCollection<Client>(dbService.GetAllClients());
-                        Clients = new BindableCollection<Client>(AllClients);
-                        SelectedClient = Clients.FirstOrDefault(c => c.Id == id);
-                    }
-                });
+                    AllClients = new BindableCollection<Client>(dbService.Clients.GetAllClients());
+                    Clients = new BindableCollection<Client>(AllClients);
+                    SelectedClient = Clients.FirstOrDefault(c => c.Id == id);
+                }
+            });
         }
 
+        private string _currentSearchClientPhrase;
         public void SearchClient(ActionExecutionContext context, string phrase)
         {
             var keyArgs = context.EventArgs as KeyEventArgs;
 
             if (keyArgs != null && keyArgs.Key == Key.Enter)
             {
-                if (String.IsNullOrEmpty(phrase))
+                _currentSearchClientPhrase = phrase;
+                Task.Run(() =>
                 {
-                    int id = SelectedClient != null ? SelectedClient.Id : -1;
-                    Clients = new BindableCollection<Client>(AllClients);
-                    SelectedClient = Clients.FirstOrDefault(c => c.Id == id);
-                }
-                else
-                {
-                    Clients = new BindableCollection<Client>(AllClients.Where(c => c.FullName.ContainsAny(phrase)));
-                }
+                    if (phrase != _currentSearchClientPhrase)
+                        return;
+
+                    if (String.IsNullOrEmpty(phrase))
+                    {
+                        int id = SelectedClient != null ? SelectedClient.Id : -1;
+                        Clients = new BindableCollection<Client>(AllClients);
+                        SelectedClient = Clients.FirstOrDefault(c => c.Id == id);
+                    }
+                    else
+                    {
+                        Clients = new BindableCollection<Client>(AllClients.Where(c => c.FullName.ContainsAny(phrase)));
+                    }
+                });
             }
         }
 
@@ -210,37 +234,19 @@ namespace ClientApplication.ViewModels
 
             if (result)
             {
-                //Adding a new clients to list
-                Client newClient = null;
-                using (var dbService = _dbServiceManager.GetService())
-                {                    
-                    var clients = dbService.GetAllClients();
-
-                    foreach (var c in clients.OrderByDescending(cli => cli.Id))
+                Task.Run(() =>
+                {
+                    using (var dbService = _dbServiceManager.GetService())
                     {
-                        if (AllClients.Any(cl => cl.Id == c.Id))
-                            break;
-                        else
-                        {
-                            if (newClient == null)
-                                newClient = c;
-                            AllClients.Add(c);
-                        }
+                        var clients = dbService.Clients.GetAllClients();
+                        var newClients = clients.Except(AllClients, new IdRecordComparator<Client>()).ToList();
+
+                        AllClients.AddRange(newClients);
+                        Clients = new BindableCollection<Client>(AllClients);
+                        SelectedClient = newClients.FirstOrDefault();
                     }
-                }
-
-                Clients = new BindableCollection<Client>(AllClients);
-                SelectedClient = newClient;
+                });
             }
-        }
-
-        public void EditClient()
-        {
-            _navigationService.GetWindow<ClientDetailsViewModel>()
-                .WithParam(vm => vm.IsEditing, true)
-                .WithParam(vm => vm.Client, Mapper.Map<Client>(SelectedClient))
-                .DoIfSuccess(() => RefreshSelectedClient())
-                .ShowWindowModal();
         }
 
         public void DeleteClient()
@@ -251,12 +257,28 @@ namespace ClientApplication.ViewModels
                 return;
             }
 
-            using (var dbService = _dbServiceManager.GetService())
+            var toRemove = SelectedClient;
+            Task.Run(() =>
             {
-                dbService.DeleteClient(SelectedClient.Id);
-                AllClients.Remove(SelectedClient);
-                Clients.Remove(SelectedClient);
-            }            
+                if (toRemove == null || SelectedClient != toRemove)
+                    return;
+
+                using (var dbService = _dbServiceManager.GetService())
+                {
+                    dbService.Clients.DeleteClient(toRemove.Id);
+                    AllClients.Remove(toRemove);
+                    Clients.Remove(toRemove);
+                }
+            });
+        }
+
+        public void EditClient()
+        {
+            _navigationService.GetWindow<ClientDetailsViewModel>()
+                .WithParam(vm => vm.IsEditing, true)
+                .WithParam(vm => vm.Client, Mapper.Map<Client>(SelectedClient))
+                .DoIfSuccess(() => RefreshSelectedClient())
+                .ShowWindowModal();
         }
 
         #endregion
@@ -294,7 +316,7 @@ namespace ClientApplication.ViewModels
                 .ShowWindowModal();
         }
 
-        public void DeleteLending()
+        public async void DeleteLending()
         {
             if (MessageBox.Show(App.GetString("AreYouSureRemoveSelectedLending"), App.GetString("Removing"),
                 MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) != MessageBoxResult.Yes)
@@ -305,7 +327,7 @@ namespace ClientApplication.ViewModels
             using (var dbService = _dbServiceManager.GetService())
                 dbService.DeleteLending(SelectedClient.Id, SelectedLending.Id);
 
-            RefreshSelectedClient();
+            await LoadLendings();
         }
 
         public void ReturnBooks()

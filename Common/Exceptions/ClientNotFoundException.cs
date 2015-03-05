@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace Common.Exceptions
 {
-    public class BookCategory : ListEntry
+    public class ClientNotFoundException : Exception
     {
     }
 }

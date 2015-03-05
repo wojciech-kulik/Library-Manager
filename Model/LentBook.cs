@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public partial class LentBook : ModelBase
+    public partial class LentBook : ModelBase, IIdRecord
     {
         public int Id { get; set; }
 

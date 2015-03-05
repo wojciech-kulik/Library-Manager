@@ -30,7 +30,7 @@ namespace ClientApplication.Views
 
         private void Hyperlink_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if ((sender as Hyperlink).NavigateUri == null)
+            if ((sender as Hyperlink).NavigateUri == null || (sender as Hyperlink).NavigateUri.ToString() == App.GetString("NotAvailable"))
                 return;
 
             Process.Start("mailto:" + (sender as Hyperlink).NavigateUri);

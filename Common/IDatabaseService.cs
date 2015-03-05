@@ -10,17 +10,7 @@ namespace Common
 {
     public interface IDatabaseService : IDisposable
     {
-        #region Clients
-        IList<Client> GetAllClients();
-
-        Client GetClient(int clientId);
-
-        void DeleteClient(int clientId);
-
-        void AddClient(Client client);
-
-        void EditClient(Client client);
-        #endregion
+        IClientsService Clients { get; }
 
         #region Employees
 

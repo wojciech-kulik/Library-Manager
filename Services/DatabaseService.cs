@@ -20,7 +20,6 @@ namespace Services
         private string _connectionString;
         private string _username;
         
-
         private LibraryDataContext GetDataContext()
         {
             var dataContext = new LibraryDataContext(_connectionString);
@@ -72,79 +71,11 @@ namespace Services
         {
             _connectionString = connectionString;
             _username = username;
+
+            Clients = new Clients(connectionString);
         }
 
-
-        #region Client
-
-        public IList<Model.Client> GetAllClients()
-        {
-            using (var dataContext = GetDataContext())
-                return Mapper.Map<List<Model.Client>>(dataContext.Persons.OfType<DB.Client>());            
-        }
-
-        public Model.Client GetClient(int clientId)
-        {
-            using (var dataContext = GetDataContext())
-            {
-                var client = dataContext.Persons.OfType<DB.Client>().FirstOrDefault(c => c.Id == clientId);
-
-                if (client == null)
-                    throw new ArgumentOutOfRangeException("Nie znaleziono klienta o podanym ID.", (Exception)null);
-                else
-                    return Mapper.Map<Model.Client>(client);
-            }
-        }
-
-        public void DeleteClient(int clientId)
-        {
-            using (var dataContext = GetDataContext())
-            {
-                DB.Client client = dataContext.Persons.OfType<DB.Client>().FirstOrDefault(p => p.Id == clientId);
-                if (client == null)
-                    throw new InvalidOperationException("Podany klient nie został znaleziony w bazie danych. Możliwe, że inny użytkownik właśnie go usunął.");
-
-                foreach (var lending in client.Lendings.ToList())
-                {
-                    foreach (var lentBook in lending.Books.ToList())
-                        dataContext.LentBooks.Remove(lentBook);
-
-                    dataContext.Lendings.Remove(lending);
-                }
-                dataContext.Persons.Remove(client);
-                dataContext.SaveChanges();
-            }
-        }
-
-        public void AddClient(Model.Client client)
-        {
-            if (client == null)
-                throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o kliencie.", (Exception)null);
-
-            using (var dataContext = GetDataContext())
-            {
-                dataContext.Persons.Add(Mapper.Map<DB.Client>(client));
-                dataContext.SaveChanges();
-            }
-        }
-
-        public void EditClient(Model.Client client)
-        {
-            if (client == null)
-                throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o kliencie.", (Exception)null);
-
-            using (var dataContext = GetDataContext())
-            {
-                DB.Client c = dataContext.Persons.OfType<DB.Client>().FirstOrDefault(cl => cl.Id == client.Id);
-                if (c == null)
-                    throw new InvalidOperationException("Podany klient nie został znaleziony w bazie danych. Możliwe, że inny użytkownik właśnie go usunął.");
-
-                Mapper.Map<Model.Client, DB.Client>(client, c);
-                dataContext.SaveChanges();
-            }
-        }
-
-        #endregion
+        public IClientsService Clients { get; private set; }
 
         #region Employee
 
