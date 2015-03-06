@@ -71,7 +71,7 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                Users = new BindableCollection<Employee>(dbService.GetAllEmployees());
+                Users = new BindableCollection<Employee>(dbService.Employees.GetAll());
             }
         }
 
@@ -82,7 +82,7 @@ namespace ClientApplication.ViewModels
 
             using (var dbService = _dbServiceManager.GetService())
             {
-                Employee newUser = dbService.GetEmployee(id);
+                Employee newUser = dbService.Employees.Get(id);
 
                 for (int i = 0; i < Users.Count; i++)
                     if (Users[i].Id == id)
@@ -104,7 +104,7 @@ namespace ClientApplication.ViewModels
                 Employee newUser = null;
                 using (var dbService = _dbServiceManager.GetService())
                 {
-                    var users = dbService.GetAllEmployees();
+                    var users = dbService.Employees.GetAll();
 
                     foreach (var u in users.OrderByDescending(cli => cli.Id))
                     {
@@ -147,7 +147,7 @@ namespace ClientApplication.ViewModels
 
             using (var dbService = _dbServiceManager.GetService())
             {
-                dbService.DeleteEmployee(SelectedUser.Id);
+                dbService.Employees.Delete(SelectedUser.Id);
                 Users.Remove(SelectedUser);
             }
         }

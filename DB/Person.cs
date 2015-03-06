@@ -11,8 +11,8 @@ namespace DB
 {
     using System;
     using System.Collections.Generic;
-    
-    public abstract partial class Person
+
+    public abstract partial class Person : IIdRecord
     {
         public Person()
         {

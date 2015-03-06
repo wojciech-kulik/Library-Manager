@@ -55,19 +55,19 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                if (dbService.GetAllEmployees().Any(emp => !emp.Removed && emp.Id != User.Id && emp.Username == User.Username.ToLower()))
+                if (dbService.Employees.GetAll().Any(emp => !emp.Removed && emp.Id != User.Id && emp.Username == User.Username.ToLower()))
                 {
                     MessageBox.Show(App.GetString("UsernameIsTaken"), App.GetString("UsernameIsTakenCaption"), MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                var oldUser = dbService.GetEmployee(User.Id);
+                var oldUser = dbService.Employees.Get(User.Id);
                 if (_settingsService.Username == oldUser.Username && (Role)User.Role != Role.Admin)
                 {
                     MessageBox.Show(App.GetString("CantRemoveAdminYourself"), App.GetString("Error"), MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                dbService.EditEmployee(User);
+                dbService.Employees.Update(User);
                 if (_settingsService.Username == oldUser.Username)
                 {
                     _settingsService.Username = User.Username;
@@ -80,12 +80,12 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                if (dbService.GetAllEmployees().Any(emp => !emp.Removed && emp.Username == User.Username.ToLower()))
+                if (dbService.Employees.GetAll().Any(emp => !emp.Removed && emp.Username == User.Username.ToLower()))
                 {
                     MessageBox.Show(App.GetString("UsernameIsTaken"), App.GetString("UsernameIsTakenCaption"), MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                dbService.AddEmployee(User);
+                dbService.Employees.Add(User);
             }
             TryClose(true);
         }

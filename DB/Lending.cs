@@ -11,8 +11,8 @@ namespace DB
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Lending
+
+    public partial class Lending : IIdRecord
     {
         public Lending()
         {

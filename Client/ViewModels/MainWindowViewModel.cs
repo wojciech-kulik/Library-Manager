@@ -167,7 +167,7 @@ namespace ClientApplication.ViewModels
 
                 using (var dbService = _dbServiceManager.GetService())
                 {
-                    Client newClient = dbService.Clients.GetClient(id);
+                    Client newClient = dbService.Clients.Get(id);
                     ReplaceClient(AllClients, id, newClient);
                     ReplaceClient(Clients, id, newClient);
 
@@ -194,7 +194,7 @@ namespace ClientApplication.ViewModels
                     if (Role == null)
                         Role = (Role)dbService.GetEmployeeRole(_settingsService.Username);
 
-                    AllClients = new BindableCollection<Client>(dbService.Clients.GetAllClients());
+                    AllClients = new BindableCollection<Client>(dbService.Clients.GetAll());
                     Clients = new BindableCollection<Client>(AllClients);
                     SelectedClient = Clients.FirstOrDefault(c => c.Id == id);
                 }
@@ -238,7 +238,7 @@ namespace ClientApplication.ViewModels
                 {
                     using (var dbService = _dbServiceManager.GetService())
                     {
-                        var clients = dbService.Clients.GetAllClients();
+                        var clients = dbService.Clients.GetAll();
                         var newClients = clients.Except(AllClients, new IdRecordComparator<Client>()).ToList();
 
                         AllClients.AddRange(newClients);
@@ -265,7 +265,7 @@ namespace ClientApplication.ViewModels
 
                 using (var dbService = _dbServiceManager.GetService())
                 {
-                    dbService.Clients.DeleteClient(toRemove.Id);
+                    dbService.Clients.Delete(toRemove.Id);
                     AllClients.Remove(toRemove);
                     Clients.Remove(toRemove);
                 }

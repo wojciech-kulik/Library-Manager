@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Exceptions
 {
-    public class ClientNotFoundException : Exception
+    public class AccessException : Exception
     {
     }
 }

@@ -12,6 +12,8 @@ using AutoMapper.Mappers;
 using DevOne.Security.Cryptography.BCrypt;
 using Model;
 using Common;
+using Services.Entities;
+using Common.Exceptions;
 
 namespace Services
 {
@@ -72,113 +74,25 @@ namespace Services
             _connectionString = connectionString;
             _username = username;
 
-            Clients = new Clients(connectionString);
+            Clients = new ClientEntity(connectionString);
+            Employees = new EmployeeEntity(connectionString, username);
         }
 
-        public IClientsService Clients { get; private set; }
+        public IEntity<Model.Client> Clients { get; private set; }
 
-        #region Employee
+        public IEntity<Model.Employee> Employees { get; private set; }
 
-        public byte GetEmployeeRole(string username)
+        public Role GetEmployeeRole(string username)
         {
             using (var dataContext = GetDataContext())
             {
                 DB.Employee e = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(emp => emp.Username == username.ToLower());
                 if (e == null)
-                    return (byte)Role.Admin; 
-                    //throw new ArgumentOutOfRangeException("Nie znaleziono pracownika o danej nazwie.");
+                    throw new RecordNotFoundException();
 
-                return e.Role;
+                return (Role)e.Role;
             }
         }
-
-        public IList<Model.Employee> GetAllEmployees()
-        {
-            using (var dataContext = GetDataContext())
-                return Mapper.Map<List<Model.Employee>>(dataContext.Persons.OfType<DB.Employee>().Where(emp => !emp.Removed));
-        }
-
-        public Model.Employee GetEmployee(int employeeId)
-        {
-            using (var dataContext = GetDataContext())
-            {
-                var employee = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(e => e.Id == employeeId);
-
-                if (employee == null)
-                    throw new ArgumentOutOfRangeException("Nie znaleziono pracownika o podanym ID.", (Exception)null);
-                else
-                    return Mapper.Map<Model.Employee>(employee);
-            }
-        }
-
-        public void DeleteEmployee(int employeeId)
-        {
-            using (var dataContext = GetDataContext())
-            {
-                DB.Employee employee = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(e => e.Id == employeeId);
-                if (employee.Username == GetCurrentEmployee(dataContext).Username)
-                    throw new InvalidOperationException("Nie można usunąć samego siebie.");
-                if (employee == null)
-                    throw new InvalidOperationException("Podany pracownik nie został znaleziony w bazie danych. Możliwe, że inny użytkownik właśnie go usunął.");
-
-                if (employee.Lendings.Count() > 0 || employee.Returns.Count() > 0)
-                    employee.Removed = true;
-                else
-                    dataContext.Persons.Remove(employee);
-
-                dataContext.SaveChanges();
-            }
-        }
-
-        public void AddEmployee(Model.Employee employee)
-        {
-            if (employee == null)
-                throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o pracowniku.", (Exception)null);
-
-            using (var dataContext = GetDataContext())
-            {
-                employee.Password = BCryptHelper.HashPassword(employee.Password, BCryptHelper.GenerateSalt(10));
-                employee.Username = employee.Username.ToLower();
-
-                if (dataContext.Persons.OfType<DB.Employee>().Any(emp => !emp.Removed && emp.Username == employee.Username))
-                    throw new InvalidOperationException("Użytkownik o podanej nazwie istnieje już w systemie.");
-
-                dataContext.Persons.Add(Mapper.Map<DB.Employee>(employee));
-                dataContext.SaveChanges();
-            }
-        }
-
-        public void EditEmployee(Model.Employee employee)
-        {
-            if (employee == null)
-                throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o pracowniku.", (Exception)null);
-
-            using (var dataContext = GetDataContext())
-            {
-                DB.Employee toEdit = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(e => e.Id == employee.Id);
-                if (toEdit == null)
-                    throw new InvalidOperationException("Podany pracownik nie został znaleziony w bazie danych. Możliwe, że inny użytkownik właśnie go usunął.");
-
-                string oldPass = toEdit.Password;
-                employee.Username = employee.Username.ToLower();
-
-                if (dataContext.Persons.OfType<DB.Employee>().Any(emp => !emp.Removed && emp.Id != employee.Id && emp.Username == employee.Username))
-                    throw new InvalidOperationException("Użytkownik o podanej nazwie istnieje już w systemie.");
-                if (employee.Username == GetCurrentEmployee(dataContext).Username && (Role)employee.Role != Role.Admin)
-                    throw new InvalidOperationException("Nie możesz sam sobie odebrać administratora.");
-
-                Mapper.Map<Model.Employee, DB.Employee>(employee, toEdit);
-
-                if (!String.IsNullOrWhiteSpace(toEdit.Password))
-                    toEdit.Password = BCryptHelper.HashPassword(toEdit.Password, BCryptHelper.GenerateSalt(10));
-                else
-                    toEdit.Password = oldPass;
-
-                dataContext.SaveChanges();
-            }
-        }
-
-        #endregion
 
         #region Lendings
 
@@ -719,7 +633,7 @@ namespace Services
             {
                 if (IsFirstLogIn())
                 {
-                    AddEmployee(new Model.Employee()
+                    Employees.Add(new Model.Employee()
                     {
                         Username = username,
                         Password = password,

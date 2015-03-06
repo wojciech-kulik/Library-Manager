@@ -41,10 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\ClientNotFoundException.cs" />
-    <Compile Include="IClientsService.cs" />
-    <Compile Include="IDatabaseService.cs" />
-    <Compile Include="IDBServiceManager.cs" />
+    <Compile Include="Exceptions\UsernameTakenException.cs" />
+    <Compile Include="Exceptions\RemoveYourselfException.cs" />
+    <Compile Include="Exceptions\AccessException.cs" />
+    <Compile Include="Exceptions\RecordNotFoundException.cs" />
+    <Compile Include="Database\IDatabaseService.cs" />
+    <Compile Include="Database\IDBServiceManager.cs" />
+    <Compile Include="Database\IEntity.cs" />
     <Compile Include="INavigationService.cs" />
     <Compile Include="ISettingsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,8 +11,8 @@ namespace DB
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Publisher
+
+    public partial class Publisher : IIdRecord
     {
         
     	public int Id { get; set; }

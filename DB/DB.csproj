@@ -68,6 +68,7 @@
     <Compile Include="Employee.cs">
       <DependentUpon>LibraryManager.tt</DependentUpon>
     </Compile>
+    <Compile Include="IIdRecord.cs" />
     <Compile Include="Lending.cs">
       <DependentUpon>LibraryManager.tt</DependentUpon>
     </Compile>

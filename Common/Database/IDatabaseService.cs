@@ -10,23 +10,11 @@ namespace Common
 {
     public interface IDatabaseService : IDisposable
     {
-        IClientsService Clients { get; }
+        IEntity<Client> Clients { get; }
 
-        #region Employees
+        IEntity<Employee> Employees { get; }
 
-        byte GetEmployeeRole(string username);
-
-        IList<Employee> GetAllEmployees();
-
-        Employee GetEmployee(int employeeId);
-
-        void AddEmployee(Employee employee);
-
-        void EditEmployee(Employee employee);
-
-        void DeleteEmployee(int employeeId);
-
-        #endregion
+        Role GetEmployeeRole(string username);
 
         #region Lendings
         IList<Lending> GetLendingsOf(int clientId);

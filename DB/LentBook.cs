@@ -11,8 +11,8 @@ namespace DB
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class LentBook
+
+    public partial class LentBook : IIdRecord
     {
         
     	public int Id { get; set; }

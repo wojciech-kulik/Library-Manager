@@ -11,8 +11,8 @@ namespace DB
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Author
+
+    public partial class Author : IIdRecord
     {
         
     	public int Id { get; set; }

@@ -51,10 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clients.cs" />
+    <Compile Include="Entities\ClientEntity.cs" />
     <Compile Include="DatabaseService.cs" />
+    <Compile Include="Entities\DBEntity.cs" />
     <Compile Include="DBTable.cs" />
-    <Compile Include="EmployeeAwareTable.cs" />
+    <Compile Include="Entities\DBUserAwareEntity.cs" />
+    <Compile Include="Entities\EmployeeEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsService.cs" />
   </ItemGroup>

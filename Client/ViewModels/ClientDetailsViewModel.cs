@@ -53,7 +53,7 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                dbService.Clients.EditClient(Client);
+                dbService.Clients.Update(Client);
             }
             TryClose(true);
         }
@@ -62,7 +62,7 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                dbService.Clients.AddClient(Client);
+                dbService.Clients.Add(Client);
             }
             TryClose(true);
         }

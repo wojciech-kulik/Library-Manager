@@ -11,8 +11,8 @@ namespace DB
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class BookCategory
+
+    public partial class BookCategory : IIdRecord
     {
         
     	public int Id { get; set; }
