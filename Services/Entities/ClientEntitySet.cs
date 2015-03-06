@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Services.Entities
 {
-    public class ClientEntity : DBEntity<Model.Client, DB.Client>
+    public class ClientEntitySet : EntitySet<Model.Client, DB.Client>
     {
-        public ClientEntity(string connectionString)
+        public ClientEntitySet(string connectionString)
             : base(connectionString)
         {
         }

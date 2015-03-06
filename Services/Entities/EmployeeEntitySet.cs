@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Services.Entities
 {
-    public class EmployeeEntity : DBUserAwareEntity<Model.Employee, DB.Employee>
+    public class EmployeeEntitySet : UserAwareEntitySet<Model.Employee, DB.Employee>
     {
-        public EmployeeEntity(string connectionString, string username)
+        public EmployeeEntitySet(string connectionString, string username)
             : base(connectionString, username)
         {
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public interface IEntity<T> 
+    public interface IEntitySet<T> 
         where T : class, IIdRecord
     {
         IList<T> GetAll();

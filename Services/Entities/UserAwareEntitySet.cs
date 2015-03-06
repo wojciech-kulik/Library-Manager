@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Services.Entities
 {
-    public class DBUserAwareEntity<TModel, TDBModel> : DBEntity<TModel, TDBModel>
+    public class UserAwareEntitySet<TModel, TDBModel> : EntitySet<TModel, TDBModel>
         where TModel : class, Model.IIdRecord
         where TDBModel : class, DB.IIdRecord
     {
         protected readonly string _username;
 
-        public DBUserAwareEntity(string connectionString, string username)
+        public UserAwareEntitySet(string connectionString, string username)
             : base(connectionString)
         {
             _username = username;

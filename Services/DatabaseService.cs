@@ -21,29 +21,6 @@ namespace Services
     {
         private string _connectionString;
         private string _username;
-        
-        private LibraryDataContext GetDataContext()
-        {
-            var dataContext = new LibraryDataContext(_connectionString);
-            dataContext.Database.CreateIfNotExists();
-
-            return dataContext;
-        }
-
-        private DB.Employee GetCurrentEmployee(LibraryDataContext dataContext)
-        {
-            DB.Employee emp = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(e => e.Username == _username);
-
-            if (emp == null)
-                throw new Exception(String.Format("Employee '{0}' not found!", _username));
-            else
-                return emp;
-        }
-
-        public void Dispose()
-        {
-            //TODO: for compatibility - will be removed
-        }
 
         static DatabaseService()
         {
@@ -74,13 +51,32 @@ namespace Services
             _connectionString = connectionString;
             _username = username;
 
-            Clients = new ClientEntity(connectionString);
-            Employees = new EmployeeEntity(connectionString, username);
+            Clients = new ClientEntitySet(connectionString);
+            Employees = new EmployeeEntitySet(connectionString, username);
         }
 
-        public IEntity<Model.Client> Clients { get; private set; }
+        public void Dispose()
+        {
+            //TODO: for compatibility - will be removed
+        }
+        
+        private LibraryDataContext GetDataContext()
+        {
+            var dataContext = new LibraryDataContext(_connectionString);
+            dataContext.Database.CreateIfNotExists();
 
-        public IEntity<Model.Employee> Employees { get; private set; }
+            return dataContext;
+        }
+
+        private DB.Employee GetCurrentEmployee(LibraryDataContext dataContext)
+        {
+            DB.Employee emp = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(e => e.Username == _username);
+
+            if (emp == null)
+                throw new AccessException();
+            else
+                return emp;
+        }
 
         public Role GetEmployeeRole(string username)
         {
@@ -93,6 +89,11 @@ namespace Services
                 return (Role)e.Role;
             }
         }
+
+        public IEntitySet<Model.Client> Clients { get; private set; }
+
+        public IEntitySet<Model.Employee> Employees { get; private set; }
+
 
         #region Lendings
 

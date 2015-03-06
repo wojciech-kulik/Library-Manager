@@ -55,7 +55,7 @@
                         <DataGridTextColumn Binding="{Binding FirstName}" SortMemberPath="FirstName" Header="{DynamicResource FirstName}" Width="*" />
                         <DataGridTextColumn Binding="{Binding LastName}" SortMemberPath="LastName" Header="{DynamicResource LastName}" Width="*" />
                         <DataGridTextColumn Binding="{Binding Username}" SortMemberPath="Username" Header="{DynamicResource Username}" Width="*" />
-                        <DataGridTextColumn Binding="{Binding RoleString}" SortMemberPath="RoleString" Header="{DynamicResource Role}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding Role, Converter={StaticResource RoleToStringConverter}}" SortMemberPath="Role" Header="{DynamicResource Role}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

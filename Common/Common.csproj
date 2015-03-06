@@ -47,7 +47,7 @@
     <Compile Include="Exceptions\RecordNotFoundException.cs" />
     <Compile Include="Database\IDatabaseService.cs" />
     <Compile Include="Database\IDBServiceManager.cs" />
-    <Compile Include="Database\IEntity.cs" />
+    <Compile Include="Database\IEntitySet.cs" />
     <Compile Include="INavigationService.cs" />
     <Compile Include="ISettingsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

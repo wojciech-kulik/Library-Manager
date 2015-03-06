@@ -120,6 +120,7 @@
     <Compile Include="Converters\BoolToOppositeConverter.cs" />
     <Compile Include="Converters\NullToNotAvailableConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\RoleToStringConverter.cs" />
     <Compile Include="Converters\RoleToVisibilityConverter.cs" />
     <Compile Include="Converters\FullNameConverter.cs" />
     <Compile Include="Converters\IsNullToBool.cs" />

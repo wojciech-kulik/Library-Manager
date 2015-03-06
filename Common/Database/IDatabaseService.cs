@@ -10,9 +10,9 @@ namespace Common
 {
     public interface IDatabaseService : IDisposable
     {
-        IEntity<Client> Clients { get; }
+        IEntitySet<Client> Clients { get; }
 
-        IEntity<Employee> Employees { get; }
+        IEntitySet<Employee> Employees { get; }
 
         Role GetEmployeeRole(string username);
 

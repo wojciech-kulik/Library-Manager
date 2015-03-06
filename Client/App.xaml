@@ -25,6 +25,7 @@
                     <conv:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter" />
                     <conv:NullToNotAvailableConverter x:Key="NullToNotAvailableConverter" />
                     <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+                    <conv:RoleToStringConverter x:Key="RoleToStringConverter" />
                 </ResourceDictionary>
 
                 <ResourceDictionary Source="/Styles/DataGrid.xaml" />     

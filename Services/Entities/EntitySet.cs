@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Services.Entities
 {
-    public class DBEntity<TModel, TDBModel> : DBTable, IEntity<TModel>
+    public class EntitySet<TModel, TDBModel> : DBTable, IEntitySet<TModel>
         where TModel : class, Model.IIdRecord
         where TDBModel : class, DB.IIdRecord
     {
-        public DBEntity(string connectionString)
+        public EntitySet(string connectionString)
             : base(connectionString)
         {
         }
