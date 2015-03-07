@@ -55,10 +55,12 @@
     <Compile Include="DatabaseService.cs" />
     <Compile Include="Entities\EntitySet.cs" />
     <Compile Include="DBTable.cs" />
+    <Compile Include="Entities\LendingEntitySet.cs" />
     <Compile Include="Entities\UserAwareEntitySet.cs" />
     <Compile Include="Entities\EmployeeEntitySet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsService.cs" />
+    <Compile Include="Utils\MapperHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

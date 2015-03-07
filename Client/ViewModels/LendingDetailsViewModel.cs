@@ -84,14 +84,14 @@ namespace ClientApplication.ViewModels
             {
                 using (var dbService = _dbServiceManager.GetService())
                 {
-                    dbService.EditLending(Lending);
+                    dbService.Lendings.Update(Lending);
                 }                
             }
             else
             {
                 using (var dbService = _dbServiceManager.GetService())
                 {
-                    dbService.AddLending(Lending);
+                    dbService.Lendings.Add(Lending);
                 }   
             }
 

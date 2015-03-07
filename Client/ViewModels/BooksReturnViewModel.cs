@@ -74,7 +74,7 @@ namespace ClientApplication.ViewModels
                     TryClose(false);
                 else
                 {
-                    dbService.ReturnBooks(ids, LentBooks[0].LendingId);
+                    dbService.Lendings.ReturnBooks(ids, LentBooks[0].LendingId);
                     TryClose(true);
                 }
             }

@@ -14,6 +14,7 @@ using Model;
 using Common;
 using Services.Entities;
 using Common.Exceptions;
+using Services.Utils;
 
 namespace Services
 {
@@ -24,26 +25,7 @@ namespace Services
 
         static DatabaseService()
         {
-            Mapper.CreateMap<Model.Client, DB.Client>().ForMember("Lendings", opt => opt.Ignore());
-            Mapper.CreateMap<DB.Client, Model.Client>().ForMember("Lendings", opt => opt.Ignore());
-            Mapper.CreateMap<Model.BookCategory, DB.BookCategory>();
-            Mapper.CreateMap<DB.BookCategory, Model.BookCategory>();
-            Mapper.CreateMap<Model.Book, DB.Book>();
-            Mapper.CreateMap<DB.Book, Model.Book>();
-            Mapper.CreateMap<DB.Employee, Model.Employee>().ForMember("Password", opt => opt.Ignore()).ForMember("Lendings", opt => opt.Ignore()).ForMember("Returns", opt => opt.Ignore());
-            Mapper.CreateMap<Model.Employee, DB.Employee>().ForMember("Lendings", opt => opt.Ignore()).ForMember("Returns", opt => opt.Ignore());
-            Mapper.CreateMap<Model.Lending, DB.Lending>().ForMember("Books", opt => opt.Ignore()).ForMember("Client", opt => opt.Ignore());
-            Mapper.CreateMap<DB.Lending, Model.Lending>().ForMember("Books", opt => opt.Ignore()).ForMember("Client", opt => opt.Ignore());
-            Mapper.CreateMap<Model.Address, DB.Address>();
-            Mapper.CreateMap<DB.Address, Model.Address>();
-            Mapper.CreateMap<Model.LentBook, DB.LentBook>();
-            Mapper.CreateMap<DB.LentBook, Model.LentBook>();
-            Mapper.CreateMap<DB.Person, Model.Person>();
-            Mapper.CreateMap<Model.Person, DB.Person>();
-            Mapper.CreateMap<Model.Author, DB.Author>();
-            Mapper.CreateMap<DB.Author, Model.Author>();
-            Mapper.CreateMap<Model.Publisher, DB.Publisher>();
-            Mapper.CreateMap<DB.Publisher, Model.Publisher>();
+            MapperHelper.InitializeMappings();
         }
 
         public DatabaseService(string connectionString, string username)
@@ -53,6 +35,7 @@ namespace Services
 
             Clients = new ClientEntitySet(connectionString);
             Employees = new EmployeeEntitySet(connectionString, username);
+            Lendings = new LendingEntitySet(connectionString, username);
 
             Authors = new EntitySet<Model.Author, DB.Author>(connectionString);
             Publishers = new EntitySet<Model.Publisher, DB.Publisher>(connectionString);
@@ -64,28 +47,16 @@ namespace Services
         {
             //TODO: for compatibility - will be removed
         }
-        
-        private LibraryDataContext GetDataContext()
-        {
-            var dataContext = new LibraryDataContext(_connectionString);
-            dataContext.Database.CreateIfNotExists();
 
-            return dataContext;
-        }
 
-        private DB.Employee GetCurrentEmployee(LibraryDataContext dataContext)
-        {
-            DB.Employee emp = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(e => e.Username == _username);
 
-            if (emp == null)
-                throw new AccessException();
-            else
-                return emp;
-        }
+
 
         public IEntitySet<Model.Client> Clients { get; private set; }
 
         public IEmployeeEntitySet Employees { get; private set; }
+
+        public ILendingEntitySet Lendings { get; private set; }
 
         public IEntitySet<Model.Author> Authors { get; private set; }
 
@@ -93,253 +64,14 @@ namespace Services
 
         public IEntitySet<Model.BookCategory> BookCategories { get; private set; }
 
-        #region Lendings
 
-        public IList<Model.Lending> GetLendingsOf(int clientId)
+        private LibraryDataContext GetDataContext()
         {
-            using (var dataContext = GetDataContext())
-                return (from l in dataContext.Persons.OfType<DB.Client>().First(c => c.Id == clientId).Lendings
-                        select new Model.Lending()
-                        {
-                            ClientId = l.ClientId,
-                            EndDate = l.EndDate,
-                            Id = l.Id,
-                            LendingDate = l.LendingDate,
-                            LendingEmployeeId = l.LendingEmployeeId,
-                            LendingEmployee = new Model.Employee()
-                                {
-                                    Id = l.LendingEmployeeId,
-                                    FirstName = l.LendingEmployee.FirstName,
-                                    LastName = l.LendingEmployee.LastName
-                                },
-                            ReturnDate = l.ReturnDate                            
-                        }).ToList();
+            var dataContext = new LibraryDataContext(_connectionString);
+            dataContext.Database.CreateIfNotExists();
+
+            return dataContext;
         }
-
-        public IList<Model.LentBook> GetLentBooksOf(int lendingId)
-        {
-            using (var dataContext = GetDataContext())
-                return (from lb in dataContext.Lendings.First(l => l.Id == lendingId).Books
-                        select new Model.LentBook()
-                        {
-                            Id = lb.Id,
-                            LendingId = lb.LendingId,
-                            ReturnEmployee = lb.ReturnEmployee != null ?
-                                                new Model.Employee()
-                                                { 
-                                                    Id = lb.ReturnEmployeeId.Value,
-                                                    FirstName = lb.ReturnEmployee.FirstName,
-                                                    LastName = lb.ReturnEmployee.LastName
-                                                } : null,
-                            ReturnEmployeeId = lb.ReturnEmployeeId,                                                  
-                            EndDate = lb.EndDate,
-                            ReturnDate = lb.ReturnDate,
-                            BookId = lb.BookId,
-                            Book = new Model.Book()
-                            {                                                        
-                                Id = lb.BookId,
-                                Title = lb.Book.Title,
-                                Location = lb.Book.Location,
-                            }
-                        }).ToList();
-        }       
-             
-        public void ReturnAllBooks(int lendingId)
-        {
-            DateTime returnDate = DateTime.Now;
-
-            using (var dataContext = GetDataContext())
-            {
-                DB.Employee currentEmployee = GetCurrentEmployee(dataContext);
-                DB.Lending l = dataContext.Lendings.FirstOrDefault(lending => lending.Id == lendingId);
-                if (l == null)
-                    throw new InvalidOperationException("Nie znaleziono wypożyczenia o podanym ID. Możliwe, że inny użytkownik właśnie je usunął.");
-
-                l.ReturnDate = returnDate;                
-
-                foreach (var bookLent in l.Books)
-                {
-                    if (bookLent.ReturnDate == null)
-                    {
-                        bookLent.ReturnDate = returnDate;
-                        bookLent.ReturnEmployee = currentEmployee;
-                    }
-                }
-
-                dataContext.SaveChanges();
-            }
-        }
-
-        public void ReturnBooks(Dictionary<int, bool> bookIds, int lendingId)
-        {
-            if (bookIds == null)
-                throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o zwracanych książkach.", (Exception)null);
-
-            DateTime returnDate = DateTime.Now;            
-
-            using (var dataContext = GetDataContext())
-            {
-                DB.Employee currentEmployee = GetCurrentEmployee(dataContext);
-
-                //set ReturnDate and ReturnEmployee according to argument
-                dataContext.LentBooks
-                    .Where(l => bookIds.Keys.Contains(l.Id))
-                    .ForEach(lent => 
-                    {
-                        if (bookIds[lent.Id])
-                        {
-                            lent.ReturnDate = returnDate;
-                            lent.ReturnEmployee = currentEmployee;
-                        }
-                        else
-                        {
-                            lent.ReturnDate = null;
-                            lent.ReturnEmployee = null;
-                        }
-                    });
-
-                //if all books returned, set ReturnDate of whole Lending
-                var lending = dataContext.Lendings.FirstOrDefault(l => l.Id == lendingId);
-                if (lending == null)
-                    throw new InvalidOperationException("Nie znaleziono wypożyczenia o podanym ID. Możliwe, że inny użytkownik właśnie je usunął.");
-
-                if (lending.Books.All(len => len.ReturnDate != null))
-                    lending.ReturnDate = returnDate;
-                else
-                    lending.ReturnDate = null;
-
-                dataContext.SaveChanges();
-            }
-        }
-
-        public void AddLending(Model.Lending lending)
-        {
-            if (lending == null)
-                throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o wypożyczeniu.", (Exception)null);
-            if (lending.ClientId == 0)
-                throw new ArgumentNullException("Serwis bazodanowy nie otrzymał informacji do którego klienta ma zostać dodane wypożyczenie.", (Exception)null);
-            if (lending.Books == null || lending.Books.Count() == 0)
-                throw new ArgumentNullException("Serwis bazodanowy nie otrzymał informacji o wypożyczanych książkach.", (Exception)null);
-
-
-            using (var dataContext = GetDataContext())
-            {
-                DB.Lending newLending = new DB.Lending()
-                {
-                    ClientId = lending.ClientId,
-                    Books = new List<DB.LentBook>(),
-                    EndDate = lending.EndDate,
-                    Id = lending.Id,
-                    ReturnDate = lending.ReturnDate,
-                    LendingDate = lending.LendingDate,
-                    LendingEmployeeId = GetCurrentEmployee(dataContext).Id
-                };
-
-                foreach (var lentBook in lending.Books)
-                {
-                    DB.LentBook lb = new DB.LentBook()
-                    {        
-                        Lending = newLending,
-                        BookId = lentBook.BookId,
-                        EndDate = lentBook.EndDate,                        
-                        ReturnDate = lentBook.ReturnDate,    
-                        ReturnEmployeeId = (lentBook.ReturnDate != null) ? new int?(newLending.LendingEmployeeId) : null
-                    };
-                    newLending.Books.Add(lb);
-                }
-
-                dataContext.Lendings.Add(newLending);
-                dataContext.SaveChanges();
-            }
-        }
-
-        public void EditLending(Model.Lending lending)
-        {
-            if (lending == null)
-                throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o wypożyczeniu.", (Exception)null);
-
-            using (var dataContext = GetDataContext())
-            {
-                var current = dataContext.Lendings.FirstOrDefault(l => l.Id == lending.Id);
-                if (current == null)
-                    throw new InvalidOperationException("Nie znaleziono danego wypożyczenia w bazie. Możliwe, że inny użytkownik właśnie je usunął.");
-
-                DB.Employee currentEmployee = GetCurrentEmployee(dataContext);
-
-                //update Lending object
-                current.LendingDate = lending.LendingDate;
-                current.ReturnDate = lending.ReturnDate;
-                current.EndDate = lending.EndDate;
-
-                //update LentBooks in Lending object
-                var listOfNewBooks = lending.Books.ToList();
-                foreach (DB.LentBook book in current.Books.ToList())
-                {
-                    listOfNewBooks.RemoveFirst(lb => lb.Id == book.Id); //to see which books have been added
-
-                    Model.LentBook newBook = lending.Books.FirstOrDefault(b => b.Id == book.Id);
-
-                    if (newBook == null) //lentBook removed
-                    {
-                        current.Books.Remove(book);
-                        dataContext.LentBooks.Remove(book);
-                    }
-                    else //lentBook modified
-                    {
-                        book.EndDate = newBook.EndDate;
-                        book.ReturnDate = newBook.ReturnDate;
-                        if (newBook.ReturnDate != null)
-                        {
-                            if (newBook.ReturnEmployeeId != null)
-                                book.ReturnEmployeeId = newBook.ReturnEmployeeId;
-                            else
-                                book.ReturnEmployee = currentEmployee;
-                        }
-                        else
-                            book.ReturnEmployee = null;
-                    }                 
-                }
-
-
-                //add new LentBooks to Lending object
-                foreach (Model.LentBook book in listOfNewBooks)
-                {
-                    DB.LentBook toAdd = new DB.LentBook()
-                    {
-                        Lending = current,
-                        BookId = book.BookId,                        
-                        ReturnEmployee = (book.ReturnDate != null) ? currentEmployee : null,
-                        EndDate = book.EndDate,                        
-                        ReturnDate = book.ReturnDate                        
-                    };
-                    current.Books.Add(toAdd);
-                }
-
-                dataContext.SaveChanges();
-            }
-        }
-
-        public void DeleteLending(int clientId, int lendingId)
-        {
-            using (var dataContext = GetDataContext())
-            {
-                DB.Client client = dataContext.Persons.OfType<DB.Client>().FirstOrDefault(p => p.Id == clientId);
-                DB.Lending lending = dataContext.Lendings.FirstOrDefault(l => l.Id == lendingId);
-                if (client == null)
-                    throw new InvalidOperationException("Nie znaleziono klienta o podanym ID. Możliwe, że inny użytkownik właśnie go usunął");
-                if (lending == null)
-                    throw new InvalidOperationException("Nie znaleziono wypożyczenia o podanym ID. Możliwe, że inny użytkownik właśnie je usunął");
-
-                foreach (var lentBook in lending.Books.ToList())
-                    dataContext.LentBooks.Remove(lentBook);
-
-                dataContext.Lendings.Remove(lending);
-                client.Lendings.Remove(lending);
-                dataContext.SaveChanges();
-            }
-        }
-
-        #endregion
 
         #region Books
 

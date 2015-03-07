@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\IEmployeeEntitySet.cs" />
+    <Compile Include="Database\ILendingEntitySet.cs" />
     <Compile Include="Exceptions\UsernameTakenException.cs" />
     <Compile Include="Exceptions\RemoveYourselfException.cs" />
     <Compile Include="Exceptions\AccessException.cs" />

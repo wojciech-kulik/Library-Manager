@@ -11,13 +11,43 @@ namespace Model
     {
         public int Id { get; set; }
 
-        public Nullable<DateTime> ReturnDate { get; set; }
+        private Nullable<DateTime> _returnDate;
+        public Nullable<DateTime> ReturnDate
+        {
+            get
+            {
+                return _returnDate;
+            }
+            set
+            {
+                if (value != _returnDate)
+                {
+                    _returnDate = value;
+                    NotifyOfPropertyChange();
+                }
+            }
+        }
 
         public Employee ReturnEmployee { get; set; }
 
         public Nullable<int> ReturnEmployeeId { get; set; }
 
-        public DateTime EndDate { get; set; }
+        private DateTime _endDate;
+        public DateTime EndDate
+        {
+            get
+            {
+                return _endDate;
+            }
+            set
+            {
+                if (value != _endDate)
+                {
+                    _endDate = value;
+                    NotifyOfPropertyChange();
+                }
+            }
+        }
 
         public int BookId { get; set; }
 

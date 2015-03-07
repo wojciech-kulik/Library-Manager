@@ -20,21 +20,7 @@ namespace Common
 
         IEntitySet<BookCategory> BookCategories { get; }
 
-        #region Lendings
-        IList<Lending> GetLendingsOf(int clientId);
-
-        IList<LentBook> GetLentBooksOf(int lendingId);
-
-        void ReturnAllBooks(int lendingId);
-
-        void ReturnBooks(Dictionary<int, bool> bookIds, int lendingId);
-
-        void AddLending(Lending lending);
-
-        void EditLending(Lending lending);
-
-        void DeleteLending(int clientId, int lendingId);
-        #endregion
+        ILendingEntitySet Lendings { get; }
 
         #region Books
 

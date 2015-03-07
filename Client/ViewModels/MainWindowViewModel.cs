@@ -135,7 +135,7 @@ namespace ClientApplication.ViewModels
 
                 using (var dbService = _dbServiceManager.GetService())
                 {
-                    SelectedClient.Lendings = dbService.GetLendingsOf(SelectedClient.Id);
+                    SelectedClient.Lendings = dbService.Lendings.GetLendingsOf(SelectedClient.Id);
                 }
             });
         }
@@ -307,7 +307,7 @@ namespace ClientApplication.ViewModels
         {
             Lending lending = Mapper.Map<Lending>(SelectedLending);
             using (var dbSerivce = _dbServiceManager.GetService())
-                lending.Books = new BindableCollection<LentBook>(dbSerivce.GetLentBooksOf(SelectedLending.Id));             
+                lending.Books = new BindableCollection<LentBook>(dbSerivce.Lendings.GetLentBooksOf(SelectedLending.Id));             
 
             _navigationService.GetWindow<LendingDetailsViewModel>()
                 .WithParam(vm => vm.Lending, lending)
@@ -325,7 +325,7 @@ namespace ClientApplication.ViewModels
             }
 
             using (var dbService = _dbServiceManager.GetService())
-                dbService.DeleteLending(SelectedClient.Id, SelectedLending.Id);
+                dbService.Lendings.Delete(SelectedLending.Id);
 
             await LoadLendings();
         }
@@ -334,7 +334,7 @@ namespace ClientApplication.ViewModels
         {
             BindableCollection<LentBook> lentBooks;
             using(var dbSerivce = _dbServiceManager.GetService())
-                lentBooks = new BindableCollection<LentBook>(dbSerivce.GetLentBooksOf(SelectedLending.Id));
+                lentBooks = new BindableCollection<LentBook>(dbSerivce.Lendings.GetLentBooksOf(SelectedLending.Id));
 
             _navigationService.GetWindow<BooksReturnViewModel>()
                 .WithParam(w => w.LentBooks, lentBooks)
