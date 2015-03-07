@@ -40,15 +40,17 @@ namespace Services.Entities
             }
         }
 
-        public virtual void Add(TModel entity)
+        public virtual int Add(TModel entity)
         {
             if (entity == null)
                 throw new ArgumentNullException("entity");
 
             using (var dataContext = GetDataContext())
             {
-                dataContext.Set<TDBModel>().Add(Mapper.Map<TDBModel>(entity));
+                var newRecord = dataContext.Set<TDBModel>().Add(Mapper.Map<TDBModel>(entity));
                 dataContext.SaveChanges();
+
+                return newRecord.Id;
             }
         }
 

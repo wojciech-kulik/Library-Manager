@@ -12,7 +12,7 @@ namespace Common
     {
         IList<T> GetAll();
         T Get(int id);
-        void Add(T entity);
+        int Add(T entity);
         void Update(T entity);
         void Delete(int id);
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common;
 using Common.Exceptions;
 using DevOne.Security.Cryptography.BCrypt;
 using Model;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Services.Entities
 {
-    public class EmployeeEntitySet : UserAwareEntitySet<Model.Employee, DB.Employee>
+    public class EmployeeEntitySet : UserAwareEntitySet<Model.Employee, DB.Employee>, IEmployeeEntitySet
     {
         public EmployeeEntitySet(string connectionString, string username)
             : base(connectionString, username)
@@ -42,7 +43,7 @@ namespace Services.Entities
             }
         }
 
-        public override void Add(Model.Employee entity)
+        public override int Add(Model.Employee entity)
         {
             if (entity == null)
                 throw new ArgumentNullException("entity");
@@ -55,8 +56,10 @@ namespace Services.Entities
                 if (dataContext.Persons.OfType<DB.Employee>().Any(emp => !emp.Removed && emp.Username == entity.Username))
                     throw new UsernameTakenException();
 
-                dataContext.Persons.Add(Mapper.Map<DB.Employee>(entity));
+                var newRecord = dataContext.Persons.Add(Mapper.Map<DB.Employee>(entity));
                 dataContext.SaveChanges();
+
+                return newRecord.Id;
             }
         }
 
@@ -87,6 +90,18 @@ namespace Services.Entities
                     toEdit.Password = oldPass;
 
                 dataContext.SaveChanges();
+            }
+        }
+
+        public Role GetEmployeeRole(string username)
+        {
+            using (var dataContext = GetDataContext())
+            {
+                DB.Employee e = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(emp => emp.Username == username.ToLower());
+                if (e == null)
+                    throw new RecordNotFoundException();
+
+                return (Role)e.Role;
             }
         }
     }

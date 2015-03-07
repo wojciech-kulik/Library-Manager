@@ -240,9 +240,9 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                BookCategories = new BindableCollection<BookCategory>(dbService.GetAllBookCategories());
-                Authors = new BindableCollection<Author>(dbService.GetAllAuthors());
-                Publishers = new BindableCollection<Publisher>(dbService.GetAllPublishers());
+                BookCategories = new BindableCollection<BookCategory>(dbService.BookCategories.GetAll());
+                Authors = new BindableCollection<Author>(dbService.Authors.GetAll());
+                Publishers = new BindableCollection<Publisher>(dbService.Publishers.GetAll());
             }
         }
 
@@ -285,7 +285,7 @@ namespace ClientApplication.ViewModels
                 using (var dbService = _dbServiceManager.GetService())
                 {
                     Publisher newPub = new Publisher() { Name = publisherName };
-                    newPub.Id = dbService.AddPublisher(newPub);
+                    newPub.Id = dbService.Publishers.Add(newPub);
 
                     Publishers.Add(newPub);
                     SelectedPublisher = newPub;
@@ -323,7 +323,7 @@ namespace ClientApplication.ViewModels
                     using (var dbService = _dbServiceManager.GetService())
                     {
                         Author newAuthor = new Author() { Name = authorName };
-                        newAuthor.Id = dbService.AddAuthor(newAuthor);
+                        newAuthor.Id = dbService.Authors.Add(newAuthor);
 
                         Authors.Add(newAuthor);
                         SelectedAuthor = newAuthor;
@@ -353,7 +353,7 @@ namespace ClientApplication.ViewModels
                     using (var dbService = _dbServiceManager.GetService())
                     {
                         BookCategory newBookCat = new BookCategory() { Name = bookCategoryName };
-                        newBookCat.Id = dbService.AddBookCategory(newBookCat);
+                        newBookCat.Id = dbService.BookCategories.Add(newBookCat);
 
                         BookCategories.Add(newBookCat);
                         SelectedBookCategory = newBookCat;

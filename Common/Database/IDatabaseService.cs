@@ -12,9 +12,13 @@ namespace Common
     {
         IEntitySet<Client> Clients { get; }
 
-        IEntitySet<Employee> Employees { get; }
+        IEmployeeEntitySet Employees { get; }
 
-        Role GetEmployeeRole(string username);
+        IEntitySet<Author> Authors { get; }
+
+        IEntitySet<Publisher> Publishers { get; }
+
+        IEntitySet<BookCategory> BookCategories { get; }
 
         #region Lendings
         IList<Lending> GetLendingsOf(int clientId);
@@ -43,30 +47,6 @@ namespace Common
         void EditBook(Book book);
 
         void DeleteBook(int bookId);
-
-        IList<BookCategory> GetAllBookCategories();
-
-        IList<Author> GetAllAuthors();
-
-        IList<Publisher> GetAllPublishers();
-
-        #endregion
-
-        #region Publisher
-
-        int AddPublisher(Publisher publisher);
-
-        #endregion
-
-        #region Authors
-
-        int AddAuthor(Author author);
-
-        #endregion
-
-        #region BookCategories
-
-        int AddBookCategory(BookCategory bookCategory);
 
         #endregion
 

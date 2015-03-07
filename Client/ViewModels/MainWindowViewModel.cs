@@ -192,7 +192,7 @@ namespace ClientApplication.ViewModels
                 using (var dbService = _dbServiceManager.GetService())
                 {
                     if (Role == null)
-                        Role = (Role)dbService.GetEmployeeRole(_settingsService.Username);
+                        Role = (Role)dbService.Employees.GetEmployeeRole(_settingsService.Username);
 
                     AllClients = new BindableCollection<Client>(dbService.Clients.GetAll());
                     Clients = new BindableCollection<Client>(AllClients);

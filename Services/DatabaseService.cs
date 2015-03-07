@@ -53,6 +53,11 @@ namespace Services
 
             Clients = new ClientEntitySet(connectionString);
             Employees = new EmployeeEntitySet(connectionString, username);
+
+            Authors = new EntitySet<Model.Author, DB.Author>(connectionString);
+            Publishers = new EntitySet<Model.Publisher, DB.Publisher>(connectionString);
+            BookCategories = new EntitySet<Model.BookCategory, DB.BookCategory>(connectionString);
+
         }
 
         public void Dispose()
@@ -78,22 +83,15 @@ namespace Services
                 return emp;
         }
 
-        public Role GetEmployeeRole(string username)
-        {
-            using (var dataContext = GetDataContext())
-            {
-                DB.Employee e = dataContext.Persons.OfType<DB.Employee>().FirstOrDefault(emp => emp.Username == username.ToLower());
-                if (e == null)
-                    throw new RecordNotFoundException();
-
-                return (Role)e.Role;
-            }
-        }
-
         public IEntitySet<Model.Client> Clients { get; private set; }
 
-        public IEntitySet<Model.Employee> Employees { get; private set; }
+        public IEmployeeEntitySet Employees { get; private set; }
 
+        public IEntitySet<Model.Author> Authors { get; private set; }
+
+        public IEntitySet<Model.Publisher> Publishers { get; private set; }
+
+        public IEntitySet<Model.BookCategory> BookCategories { get; private set; }
 
         #region Lendings
 
@@ -540,87 +538,6 @@ namespace Services
                 }
 
                 dataContext.SaveChanges();
-            }
-        }
-
-        #endregion
-
-        #region Publisher
-
-        public IList<Model.Publisher> GetAllPublishers()
-        {
-            using (var dataContext = GetDataContext())
-            {
-                return Mapper.Map<List<Model.Publisher>>(dataContext.Publishers);
-            }
-        }
-
-        public int AddPublisher(Model.Publisher publisher)
-        {
-            if (publisher == null)
-                throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o wydawcy.", (Exception)null);
-
-            using (var dataContext = GetDataContext())
-            {
-                DB.Publisher newPub = new DB.Publisher() { Name = publisher.Name };
-                dataContext.Publishers.Add(newPub);
-                dataContext.SaveChanges();
-
-                return newPub.Id;
-            }
-        }
-
-        #endregion
-
-        #region BookCategories
-
-        public IList<Model.BookCategory> GetAllBookCategories()
-        {
-            using (var dataContext = GetDataContext())
-            {
-                return Mapper.Map<List<Model.BookCategory>>(dataContext.BookCategories);
-            }
-        }
-
-        public int AddBookCategory(Model.BookCategory bookCategory)
-        {
-            if (bookCategory == null)
-                throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o kategorii.", (Exception)null);
-
-            using (var dataContext = GetDataContext())
-            {
-                DB.BookCategory newBookCat = new DB.BookCategory() { Name = bookCategory.Name };
-                dataContext.BookCategories.Add(newBookCat);
-                dataContext.SaveChanges();
-
-                return newBookCat.Id;
-            }
-        }
-
-        #endregion
-
-        #region Authors
-
-        public IList<Model.Author> GetAllAuthors()
-        {
-            using (var dataContext = GetDataContext())
-            {
-                return Mapper.Map<List<Model.Author>>(dataContext.Authors);
-            }
-        }
-
-        public int AddAuthor(Model.Author author)
-        {
-            if (author == null)
-                throw new ArgumentNullException("Serwis bazodanowy otrzymał pustą informacje o autorze.", (Exception)null);
-
-            using (var dataContext = GetDataContext())
-            {
-                DB.Author newAuthor = new DB.Author() { Name = author.Name };
-                dataContext.Authors.Add(newAuthor);
-                dataContext.SaveChanges();
-
-                return newAuthor.Id;
             }
         }
 
