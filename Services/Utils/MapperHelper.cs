@@ -15,7 +15,7 @@ namespace Services.Utils
             Mapper.CreateMap<DB.Client, Model.Client>().ForMember("Lendings", opt => opt.Ignore());
             Mapper.CreateMap<Model.BookCategory, DB.BookCategory>();
             Mapper.CreateMap<DB.BookCategory, Model.BookCategory>();
-            Mapper.CreateMap<Model.Book, DB.Book>();
+            Mapper.CreateMap<Model.Book, DB.Book>().ForMember("Authors", opt => opt.Ignore()).ForMember("Publisher", opt => opt.Ignore()).ForMember("BookCategories", opt => opt.Ignore());
             Mapper.CreateMap<DB.Book, Model.Book>();
             Mapper.CreateMap<DB.Employee, Model.Employee>().ForMember("Password", opt => opt.Ignore()).ForMember("Lendings", opt => opt.Ignore()).ForMember("Returns", opt => opt.Ignore());
             Mapper.CreateMap<Model.Employee, DB.Employee>().ForMember("Lendings", opt => opt.Ignore()).ForMember("Returns", opt => opt.Ignore());

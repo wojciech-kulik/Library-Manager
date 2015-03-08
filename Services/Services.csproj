@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BookEntitySet.cs" />
     <Compile Include="Entities\ClientEntitySet.cs" />
     <Compile Include="DatabaseService.cs" />
     <Compile Include="Entities\EntitySet.cs" />

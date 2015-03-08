@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -23,13 +24,13 @@ namespace Model
 
         public string Location { get; set; }
 
-        public ICollection<BookCategory> BookCategories { get; set; }
+        public ObservableCollection<BookCategory> BookCategories { get; set; }
 
         public Publisher Publisher { get; set; }
 
         public Nullable<int> PublisherId { get; set; }
 
-        public ICollection<Author> Authors { get; set; }
+        public ObservableCollection<Author> Authors { get; set; }
 
         public string AdditionalInfo { get; set; }
 

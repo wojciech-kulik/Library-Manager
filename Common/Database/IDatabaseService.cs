@@ -22,19 +22,7 @@ namespace Common
 
         ILendingEntitySet Lendings { get; }
 
-        #region Books
-
-        IList<Book> GetAllBooks();
-
-        Book GetBook(int bookId);
-
-        void AddBook(Book book);
-
-        void EditBook(Book book);
-
-        void DeleteBook(int bookId);
-
-        #endregion
+        IEntitySet<Book> Books { get; }
 
         #region Authentication
 

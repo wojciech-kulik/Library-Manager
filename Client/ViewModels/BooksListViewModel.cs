@@ -135,7 +135,7 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                AllBooks = new BindableCollection<Book>(dbService.GetAllBooks());
+                AllBooks = new BindableCollection<Book>(dbService.Books.GetAll());
                 Books = new BindableCollection<Book>(AllBooks);
             }
         }
@@ -147,7 +147,7 @@ namespace ClientApplication.ViewModels
 
             using (var dbService = _dbServiceManager.GetService())
             {
-                Book newBook = dbService.GetBook(id);
+                Book newBook = dbService.Books.Get(id);
 
                 for (int i = 0; i < AllBooks.Count; i++)
                     if (AllBooks[i].Id == id)
@@ -191,7 +191,7 @@ namespace ClientApplication.ViewModels
                 Book newBook = null;
                 using (var dbService = _dbServiceManager.GetService())
                 {
-                    var books = dbService.GetAllBooks();
+                    var books = dbService.Books.GetAll();
 
                     foreach (var b in books.OrderByDescending(cli => cli.Id))
                     {
@@ -230,7 +230,7 @@ namespace ClientApplication.ViewModels
 
             using (var dbService = _dbServiceManager.GetService())
             {
-                dbService.DeleteBook(SelectedBook.Id);
+                dbService.Books.Delete(SelectedBook.Id);
                 AllBooks.Remove(SelectedBook);
                 Books.Remove(SelectedBook);                
             }

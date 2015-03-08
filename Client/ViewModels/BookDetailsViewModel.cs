@@ -372,7 +372,7 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                dbService.EditBook(Book);
+                dbService.Books.Update(Book);
             }
             TryClose(true);
         }
@@ -381,7 +381,7 @@ namespace ClientApplication.ViewModels
         {
             using (var dbService = _dbServiceManager.GetService())
             {
-                dbService.AddBook(Book);
+                dbService.Books.Add(Book);
             }
             TryClose(true);
         }
@@ -393,8 +393,6 @@ namespace ClientApplication.ViewModels
                 MessageBox.Show(App.GetString("TitleIsRequired"), App.GetString("FillRequiredFields"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            Book.Publisher = null;
 
             if (IsEditing)
                 UpdateBook();
