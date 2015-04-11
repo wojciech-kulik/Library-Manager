@@ -1,4 +1,5 @@
-# Library Manager
+# Library Manager  
+[![Build status](https://ci.appveyor.com/api/projects/status/3k3gk4nwhwos44fy?svg=true)](https://ci.appveyor.com/project/Maxikq/library-manager) [![License](https://img.shields.io/badge/license-GNUv2-blue.svg)]()
 
 It is an application to manage library (public or at home).
 
