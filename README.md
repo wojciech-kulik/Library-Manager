@@ -28,3 +28,6 @@ If you try to log in for the first time using a new database, then your entered 
 - Delays list
 - Settings
 - Statistics
+
+## License:
+You can use this code for learning purpose. If you want to use it for commercial, please contact with me: info ..at.. wojciechkulik.pl
