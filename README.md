@@ -1,4 +1,4 @@
-<a href="https://www.buymeacoffee.com/WojciechKulik" target="_blank"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+[![BuyMeACoffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg)](https://www.buymeacoffee.com/WojciechKulik)
 
 # Library Manager  
 [![Build status](https://ci.appveyor.com/api/projects/status/3k3gk4nwhwos44fy?svg=true)](https://ci.appveyor.com/project/Maxikq/library-manager) [![License](https://img.shields.io/badge/license-GNUv2-blue.svg)]()
